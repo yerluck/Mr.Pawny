@@ -1298,7 +1298,7 @@ MonoBehaviour:
   k_CeilingRadius: 0.2
   m_FallMultiplyer: 7.05
   m_LowJumpMultiplyer: 9
-  m_GravityScale: 2.5
+  m_GravityScale: 1.74
 --- !u!1 &1660406230
 GameObject:
   m_ObjectHideFlags: 0
