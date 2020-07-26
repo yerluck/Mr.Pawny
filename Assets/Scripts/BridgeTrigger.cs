@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BridgeTrigger : MonoBehaviour
 {
-    //TODO: add actual action
+    //TODO: add actual action - kill frog from upwards
     private void OnTriggerEnter2D(Collider2D other) {
         GameEvents.Instance.BridgeTriggerEnter();    
     }

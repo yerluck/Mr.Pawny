@@ -6,28 +6,25 @@ public class BridgeController : MonoBehaviour
 {
     private HingeJoint2D joint;
     private float targetAngle;
+    private const float treshold = 2f; //how much roughly equal
 
     void Start()
     {
         GameEvents.Instance.onBridgeTriggerEnter += OnBridgeOpen;
         joint = GetComponent<HingeJoint2D>();
         targetAngle = joint.limits.min;
-        Debug.Log(targetAngle);
     }
 
     private void FixedUpdate() {
         if(RoughlyEqual(joint.jointAngle, targetAngle))
         {
-            Debug.Log("done");
-            targetAngle = targetAngle == joint.limits.min ? joint.limits.max : joint.limits.min;
-            // joint.connectedBody.bodyType = RigidbodyType2D.Static;
-            GameEvents.Instance.onBridgeTriggerEnter -= OnBridgeOpen;
+            // targetAngle = targetAngle == joint.limits.min ? joint.limits.max : joint.limits.min; // uncomment if need multiple controls <- need additions
+            // joint.connectedBody.bodyType = RigidbodyType2D.Static; // uncomment to make bridge unmovable
             this.enabled = false;
         }
     }
 
     static bool RoughlyEqual(float a, float b) {
-        float treshold = 2f; //how much roughly
         return (Mathf.Abs(a-b) <= treshold);
     }
 
@@ -37,6 +34,7 @@ public class BridgeController : MonoBehaviour
         JointMotor2D m = joint.motor;
         m.motorSpeed *= -1;
         joint.motor= m;
+        GameEvents.Instance.onBridgeTriggerEnter -= OnBridgeOpen;
     }
 
     // private void OnDestroy() {

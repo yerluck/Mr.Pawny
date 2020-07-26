@@ -7,6 +7,8 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private CharacterController2D movementController;
     private float runSpeed;
     private float airSpeed;
+    private float jumpBufferTime;
+    public float jumpBufferCounter;
     private float horizontalMove = 0f;
     private bool crouch = false;
     private bool facingRight = true;
@@ -17,6 +19,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         #region Initialization
+        jumpBufferTime = PlayerManager.Instance.jumpBufferTime;
         runSpeed = PlayerManager.Instance.runSpeed;
         airSpeed = PlayerManager.Instance.airSpeed;
         #endregion
@@ -34,9 +37,18 @@ public class PlayerInput : MonoBehaviour
             Flip();
         }
 
+        //handle jump buffer
         if (Input.GetButtonDown("Jump")){
-            movementController.Jump();
+            jumpBufferCounter = jumpBufferTime;
+        } else {
+            jumpBufferCounter -= Time.deltaTime; 
         };
+
+        //hundle jump
+        if (jumpBufferCounter >= 0) {
+            movementController.Jump();
+        }
+
         if (Input.GetButtonDown("Crouch")){
             crouch = true;
         } else if (Input.GetButtonUp("Crouch")){
