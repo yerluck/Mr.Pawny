@@ -382,6 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementController: {fileID: 121065416}
+  jumpBufferCounter: 0
 --- !u!114 &121065416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1987,7 +1988,7 @@ MonoBehaviour:
   m_MovementSmoothing: 0.05
   m_AirControl: 1
   m_AllowMove: 1
-  m_AirJump: 1
+  m_AirJump: 0
   m_HitPoints: 100
   k_GroundedRadius: 0.05
   k_CeilingRadius: 0.2
@@ -1995,6 +1996,7 @@ MonoBehaviour:
   m_LowJumpMultiplyer: 7.23
   m_GravityScale: 1.74
   m_HangTime: 0.2
+  m_JumpBufferTime: 0.144
 --- !u!1 &1660406230
 GameObject:
   m_ObjectHideFlags: 0

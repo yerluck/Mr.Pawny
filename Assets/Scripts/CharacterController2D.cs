@@ -29,10 +29,12 @@ public class CharacterController2D : MonoBehaviour, IDamageable
 	private float m_HangTime; // Koyote time
 	private float hangCounter;
 	public float HP { get { return m_HitPoints; } set { m_HitPoints = value; }}
+	PlayerInput playerInput;
 
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
+		playerInput = GetComponent<PlayerInput>();
 
 		m_HangTime = PlayerManager.Instance.hangTime;
 		m_GravityScale = PlayerManager.Instance.gravityScale;
@@ -152,10 +154,12 @@ public class CharacterController2D : MonoBehaviour, IDamageable
 			// Add a vertical force to the player.
 			// m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			playerInput.jumpBufferCounter = 0;
 		} else if (m_AirJump && !m_AirJumped) {
 			m_Rigidbody2D.velocity = Vector2.zero;
 			m_AirJumped = true;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_AirJumpForce));
+			playerInput.jumpBufferCounter = 0;
 		}
 	}
 
