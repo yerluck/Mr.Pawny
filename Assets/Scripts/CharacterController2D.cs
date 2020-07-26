@@ -26,12 +26,15 @@ public class CharacterController2D : MonoBehaviour, IDamageable
 	private Vector2 m_Velocity = Vector2.zero;
 	private bool m_AirJumped;
 	private Collider2D[] colliders = new Collider2D[1];
+	private float m_HangTime; // Koyote time
+	private float hangCounter;
 	public float HP { get { return m_HitPoints; } set { m_HitPoints = value; }}
 
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 
+		m_HangTime = PlayerManager.Instance.hangTime;
 		m_GravityScale = PlayerManager.Instance.gravityScale;
 		m_FallMultiplyer = PlayerManager.Instance.fallMultiplyer;
 		m_LowJumpMultiplyer = PlayerManager.Instance.lowJumpMultiplyer;
@@ -64,7 +67,15 @@ public class CharacterController2D : MonoBehaviour, IDamageable
 			}
 		}
 
-		#region Controversial
+		if (m_Grounded) 
+		{
+			hangCounter = m_HangTime;
+		} else
+		{
+			hangCounter -= Time.deltaTime;
+		}
+
+		#region Controversial // Better Jump Effect
 		if (m_Rigidbody2D.velocity.y < 0) {
 			m_Rigidbody2D.gravityScale = m_FallMultiplyer;
 		} else if (m_Rigidbody2D.velocity.y > 0 && !Input.GetButton("Jump")) {
@@ -135,11 +146,11 @@ public class CharacterController2D : MonoBehaviour, IDamageable
 
 	public void Jump(){
 		// If the player should jump...
-		if (m_Grounded)
+		if (hangCounter > 0f)
 		{
 			m_Rigidbody2D.velocity = Vector2.zero;
 			// Add a vertical force to the player.
-			m_Grounded = false;
+			// m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		} else if (m_AirJump && !m_AirJumped) {
 			m_Rigidbody2D.velocity = Vector2.zero;

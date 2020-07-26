@@ -361,7 +361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121065410}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.92, y: 7.04, z: 0}
+  m_LocalPosition: {x: -22.71, y: 14.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1733759347}
@@ -518,7 +518,7 @@ GameObject:
   m_Component:
   - component: {fileID: 268993387}
   - component: {fileID: 268993386}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 1x1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -978,7 +978,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520233714}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.14, y: 11.27, z: 0}
+  m_LocalPosition: {x: -22.14, y: 6.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 519728307}
@@ -1024,7 +1024,7 @@ GameObject:
   - component: {fileID: 810761789}
   - component: {fileID: 810761788}
   - component: {fileID: 810761790}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 1x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1500,7 +1500,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1195871808}
   - component: {fileID: 1195871807}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 2x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1559,7 +1559,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1298079370}
   - component: {fileID: 1298079369}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: 1x1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1981,9 +1981,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RunSpeed: 40
   m_AirSpeed: 40
-  m_JumpForce: 600
-  m_AirJumpForce: 400
-  m_CrouchSpeed: 0.077
+  m_JumpForce: 501
+  m_AirJumpForce: 502
+  m_CrouchSpeed: 0.407
   m_MovementSmoothing: 0.05
   m_AirControl: 1
   m_AllowMove: 1
@@ -1991,9 +1991,10 @@ MonoBehaviour:
   m_HitPoints: 100
   k_GroundedRadius: 0.05
   k_CeilingRadius: 0.2
-  m_FallMultiplyer: 7.05
-  m_LowJumpMultiplyer: 9
+  m_FallMultiplyer: 4.33
+  m_LowJumpMultiplyer: 7.23
   m_GravityScale: 1.74
+  m_HangTime: 0.2
 --- !u!1 &1660406230
 GameObject:
   m_ObjectHideFlags: 0
