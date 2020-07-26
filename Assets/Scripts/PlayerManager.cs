@@ -20,6 +20,7 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField][Range(1f,20f)] private float m_FallMultiplyer = 2.5f;
     [SerializeField][Range(1f,20f)] private float m_LowJumpMultiplyer = 2f;
     [SerializeField][Range(1f,10f)] private float m_GravityScale = 2.5f;
+    [SerializeField][Range(0.01f, 1f)] private float m_HangTime = 0.2f;
 
     #endregion
 
@@ -28,6 +29,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public float fallMultiplyer { get {return m_FallMultiplyer;} }
     public float lowJumpMultiplyer { get {return m_LowJumpMultiplyer;} }    
     public int hitPoints { get {return m_HitPoints;} set {m_HitPoints = value;} }
+    public float hangTime { get => m_HangTime; }
     public float groundedRadius { get {return k_GroundedRadius;} set {k_GroundedRadius = value;} }
     public float ceilingRadius { get {return k_CeilingRadius;} }
     public float jumpForce { get {return m_JumpForce;} }
