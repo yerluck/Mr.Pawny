@@ -28,7 +28,7 @@ public class CharacterController2D : MonoBehaviour, IDamageable
 	private Collider2D[] colliders = new Collider2D[1];
 	private float m_HangTime; // Koyote time
 	private float hangCounter;
-	private Animator anim;
+	// private Animator anim;
 	public float HP { get { return m_HitPoints; } set { m_HitPoints = value; }}
 	PlayerInput playerInput;
 
@@ -36,7 +36,7 @@ public class CharacterController2D : MonoBehaviour, IDamageable
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		playerInput = GetComponent<PlayerInput>();
-		anim = GetComponent<Animator>();
+		// anim = GetComponent<Animator>();
 
 		m_HangTime = PlayerManager.Instance.hangTime;
 		m_GravityScale = PlayerManager.Instance.gravityScale;
@@ -74,11 +74,11 @@ public class CharacterController2D : MonoBehaviour, IDamageable
 		if (m_Grounded) 
 		{
 			hangCounter = m_HangTime;
-			anim.SetBool("isGrounded", true);
+			// anim.SetBool("isGrounded", true);
 		} else
 		{
 			hangCounter -= Time.deltaTime;
-			anim.SetBool("isGrounded", false);
+			// anim.SetBool("isGrounded", false);
 		}
 
 		#region Controversial // Better Jump Effect
@@ -90,7 +90,7 @@ public class CharacterController2D : MonoBehaviour, IDamageable
 			m_Rigidbody2D.gravityScale = m_GravityScale;
 		}
 		#endregion
-		anim.SetFloat("xVelocity", m_Rigidbody2D.velocity.x);
+		// anim.SetFloat("xVelocity", m_Rigidbody2D.velocity.x);
 	}
 
 	public void takeDamage(float dmg){
