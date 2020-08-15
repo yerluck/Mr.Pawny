@@ -12,11 +12,13 @@ public class PlayerInput : MonoBehaviour
     private float horizontalMove = 0f;
     private bool crouch = false;
     private bool facingRight = true;
+    private Animator anim;
 
     private void Awake() {
         if (movementController == null){
             movementController = GetComponent<CharacterController2D>();
         }
+        anim = GetComponent<Animator>();
 
         #region Initialization
         jumpBufferTime = PlayerManager.Instance.jumpBufferTime;
@@ -30,6 +32,13 @@ public class PlayerInput : MonoBehaviour
     {
         var speed = movementController.m_Grounded ? runSpeed : airSpeed;
         horizontalMove = Input.GetAxisRaw("Horizontal") * speed;
+
+        if(horizontalMove != 0) {
+            anim.SetBool("isMoveInput", true);
+        } else {
+            anim.SetBool("isMoveInput", false);
+        };
+
         if(horizontalMove > 0 && !facingRight){
             Flip();
         }
