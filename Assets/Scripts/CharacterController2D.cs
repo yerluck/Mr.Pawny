@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class CharacterController2D : MonoBehaviour, IDamageable
+public class CharacterController2D : MonoBehaviour
 {
 	private float m_FallMultiplyer;
 	private float m_LowJumpMultiplyer;
@@ -12,32 +12,31 @@ public class CharacterController2D : MonoBehaviour, IDamageable
 	private bool m_AirControl;							// Whether or not a player can steer while jumping;
 	internal bool m_AllowMove;
 	private bool m_AirJump;
-	private float m_HitPoints;
+	protected float m_LandingDistance;
 	private float m_GravityScale; // gravity multiplyer on Rb2D
 	private float k_GroundedRadius = .07f; // Radius of the overlap circle to determine if grounded
 	private float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
-	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
+	[SerializeField] protected LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
 	[SerializeField] private ContactFilter2D m_WhatIsPlatform;
 	[SerializeField] internal Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] internal Transform m_CeilingCheck;							// A position marking where to check for ceilings
 	private bool m_wasCrouching = false;
 	public bool m_Grounded;            // Whether or not the player is grounded.
-	private Rigidbody2D m_Rigidbody2D;
+	protected Rigidbody2D m_Rigidbody2D;
 	private Vector2 m_Velocity = Vector2.zero;
 	private bool m_AirJumped;
 	private Collider2D[] colliders = new Collider2D[1];
 	private float m_HangTime; // Koyote time
 	private float hangCounter;
-	private Animator anim;
-	public float HP { get { return m_HitPoints; } set { m_HitPoints = value; }}
-	PlayerInput playerInput;
+	private PlayerInput playerInput;
 
-	private void Awake()
+
+	protected virtual void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		playerInput = GetComponent<PlayerInput>();
-		anim = GetComponent<Animator>();
 
+		m_LandingDistance = PlayerManager.Instance.landingDistance;
 		m_HangTime = PlayerManager.Instance.hangTime;
 		m_GravityScale = PlayerManager.Instance.gravityScale;
 		m_FallMultiplyer = PlayerManager.Instance.fallMultiplyer;
@@ -49,12 +48,11 @@ public class CharacterController2D : MonoBehaviour, IDamageable
 		m_AirControl = PlayerManager.Instance.airControl;
 		m_AllowMove = PlayerManager.Instance.allowMove;
 		m_AirJump = PlayerManager.Instance.airJump;
-		m_HitPoints = PlayerManager.Instance.hitPoints;
 		k_GroundedRadius = PlayerManager.Instance.groundedRadius;
 		k_CeilingRadius = PlayerManager.Instance.ceilingRadius;
 	}
 
-	private void FixedUpdate()
+	protected virtual void FixedUpdate()
 	{
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
@@ -74,11 +72,9 @@ public class CharacterController2D : MonoBehaviour, IDamageable
 		if (m_Grounded) 
 		{
 			hangCounter = m_HangTime;
-			anim.SetBool("isGrounded", true);
 		} else
 		{
 			hangCounter -= Time.deltaTime;
-			anim.SetBool("isGrounded", false);
 		}
 
 		#region Controversial // Better Jump Effect
@@ -90,16 +86,6 @@ public class CharacterController2D : MonoBehaviour, IDamageable
 			m_Rigidbody2D.gravityScale = m_GravityScale;
 		}
 		#endregion
-		Debug.Log(m_Rigidbody2D.velocity.x);
-		anim.SetFloat("xVelocity", Mathf.Abs(m_Rigidbody2D.velocity.x));
-	}
-
-	public void takeDamage(float dmg){
-		HP -= dmg;
-
-		if(HP <= 0) {
-			Debug.Log("DEAD!"); //TODO: add actual death action
-		}
 	}
 
 	public void Move(float move, bool crouch)

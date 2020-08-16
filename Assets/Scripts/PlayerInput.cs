@@ -13,12 +13,15 @@ public class PlayerInput : MonoBehaviour
     private bool crouch = false;
     private bool facingRight = true;
     private Animator anim;
+    [SerializeField] private ParticleSystem stepParticles;
+    private ParticleSystem.ShapeModule shape;
 
     private void Awake() {
         if (movementController == null){
             movementController = GetComponent<CharacterController2D>();
         }
         anim = GetComponent<Animator>();
+        shape = stepParticles.shape;
 
         #region Initialization
         jumpBufferTime = PlayerManager.Instance.jumpBufferTime;
@@ -49,6 +52,7 @@ public class PlayerInput : MonoBehaviour
         //handle jump buffer
         if (Input.GetButtonDown("Jump")){
             jumpBufferCounter = jumpBufferTime;
+            anim.SetTrigger("jumpPressed");
         } else {
             jumpBufferCounter -= Time.deltaTime; 
         };
@@ -77,6 +81,8 @@ public class PlayerInput : MonoBehaviour
 	{
 		// Switch the way the player is labelled as facing.
 		facingRight = !facingRight;
+        shape.rotation *= -1;
+
 
 		// Multiply the player's x local scale by -1.
 		Vector2 theScale = transform.localScale;
