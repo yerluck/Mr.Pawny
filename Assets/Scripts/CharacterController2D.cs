@@ -24,7 +24,7 @@ public class CharacterController2D : MonoBehaviour
 	public bool m_Grounded;            // Whether or not the player is grounded.
 	protected Rigidbody2D m_Rigidbody2D;
 	private Vector2 m_Velocity = Vector2.zero;
-	private bool m_AirJumped;
+		private bool m_AirJumped;
 	private Collider2D[] colliders = new Collider2D[1];
 	private float m_HangTime; // Koyote time
 	private float hangCounter;
@@ -69,6 +69,7 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
 
+		//Koyote time setting
 		if (m_Grounded) 
 		{
 			hangCounter = m_HangTime;
@@ -138,9 +139,10 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
-	public void Jump(){
-		// If the player should jump...
-		if (hangCounter > 0f)
+	public void Jump()
+	{
+		//Jump according koyote time
+		if (hangCounter >= 0)
 		{
 			m_Rigidbody2D.velocity = Vector2.zero;
 			// Add a vertical force to the player.
@@ -155,7 +157,8 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
-	private void OnDrawGizmosSelected() {
+	private void OnDrawGizmosSelected()
+	{
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(m_GroundCheck.position, k_GroundedRadius);
 		Gizmos.DrawWireSphere(m_CeilingCheck.position, k_CeilingRadius);

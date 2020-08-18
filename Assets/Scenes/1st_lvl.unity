@@ -181,7 +181,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35462998}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.65, y: 2.92, z: -10}
+  m_LocalPosition: {x: -27.65, y: 3.363, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1517297377}
@@ -1098,7 +1098,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945142312}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.65, y: 2.92, z: -10}
+  m_LocalPosition: {x: -27.65, y: 3.363, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6844,7 +6844,7 @@ MonoBehaviour:
   m_JumpForce: 501
   m_AirJumpForce: 502
   m_CrouchSpeed: 0.407
-  m_MovementSmoothing: 0.05
+  m_MovementSmoothing: 0.0607
   m_AirControl: 1
   m_AllowMove: 1
   m_AirJump: 0
@@ -6854,9 +6854,9 @@ MonoBehaviour:
   m_FallMultiplyer: 4.33
   m_LowJumpMultiplyer: 7.23
   m_GravityScale: 1.74
-  m_HangTime: 0.2
-  m_JumpBufferTime: 0.144
-  m_LandingDistance: 0.5
+  m_HangTime: 0.075
+  m_JumpBufferTime: 0.14
+  m_LandingDistance: 0.735
 --- !u!1 &1660406230
 GameObject:
   m_ObjectHideFlags: 0
@@ -7822,7 +7822,6 @@ GameObject:
   - component: {fileID: 1924390245456192555}
   - component: {fileID: 1385831337}
   - component: {fileID: 1924390245456192556}
-  - component: {fileID: 1924390245456192557}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -7895,15 +7894,6 @@ MonoBehaviour:
   m_CeilingCheck: {fileID: 8990302383224524222}
   m_Grounded: 0
   stepParticles: {fileID: 1404070364}
---- !u!45 &1924390245456192557
-Skybox:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1924390245456192554}
-  m_Enabled: 1
-  m_CustomSkybox: {fileID: 0}
 --- !u!50 &1924390245456192558
 Rigidbody2D:
   serializedVersion: 4
@@ -8706,7 +8696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924390245456192554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.65, y: 2.92, z: 0}
+  m_LocalPosition: {x: -27.65, y: 3.363, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1344725704354380853}
