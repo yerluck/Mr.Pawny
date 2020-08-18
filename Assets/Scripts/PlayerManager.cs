@@ -22,6 +22,7 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField][Range(1f,10f)] private float m_GravityScale = 2.5f;
     [SerializeField][Range(0f, 1f)] private float m_HangTime = 0.2f;
     [SerializeField][Range(0f, 1f)] private float m_JumpBufferTime = 0.1f;
+    [SerializeField][Range(0, 2f)] private float m_LandingDistance = 0.5f;
 
     #endregion
 
@@ -43,6 +44,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public bool allowMove { get {return m_AllowMove;} set {m_AllowMove = value;} }
     public float runSpeed { get {return m_RunSpeed;} set {m_RunSpeed = value;} }
     public float airSpeed { get {return m_AirSpeed;} set {m_AirSpeed = value;} }
+    public float landingDistance { get => m_LandingDistance; }
     #endregion
 
    // (Optional) Prevent non-singleton constructor use.

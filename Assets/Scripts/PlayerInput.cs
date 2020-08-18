@@ -12,17 +12,27 @@ public class PlayerInput : MonoBehaviour
     private float horizontalMove = 0f;
     private bool crouch = false;
     private bool facingRight = true;
+    private Animator anim;
+    [SerializeField] private ParticleSystem stepParticles;
+    private ParticleSystem.ShapeModule shape;
+    private float jumpCooldownTime;
+    private float jumpCooldown;
 
     private void Awake() {
         if (movementController == null){
             movementController = GetComponent<CharacterController2D>();
         }
+        anim = GetComponent<Animator>();
+        shape = stepParticles.shape;
 
         #region Initialization
+        jumpCooldownTime = PlayerManager.Instance.hangTime + 0.05f;
         jumpBufferTime = PlayerManager.Instance.jumpBufferTime;
         runSpeed = PlayerManager.Instance.runSpeed;
         airSpeed = PlayerManager.Instance.airSpeed;
         #endregion
+
+        jumpCooldown = jumpCooldownTime;
     }
 
     // Update is called once per frame
@@ -30,6 +40,13 @@ public class PlayerInput : MonoBehaviour
     {
         var speed = movementController.m_Grounded ? runSpeed : airSpeed;
         horizontalMove = Input.GetAxisRaw("Horizontal") * speed;
+
+        if(horizontalMove != 0) {
+            anim.SetBool("isMoveInput", true);
+        } else {
+            anim.SetBool("isMoveInput", false);
+        };
+
         if(horizontalMove > 0 && !facingRight){
             Flip();
         }
@@ -38,16 +55,23 @@ public class PlayerInput : MonoBehaviour
         }
 
         //handle jump buffer
-        if (Input.GetButtonDown("Jump")){
+        if (Input.GetButtonDown("Jump") && jumpBufferCounter < 0 && jumpCooldown <= 0){
+            jumpCooldown = jumpCooldownTime;
             jumpBufferCounter = jumpBufferTime;
+            anim.SetTrigger("jumpPressed");
         } else {
             jumpBufferCounter -= Time.deltaTime; 
         };
 
-        //hundle jump
-        if (jumpBufferCounter >= 0) {
+        // handle jump
+        if (jumpBufferCounter > 0) {
             movementController.Jump();
         }
+
+        // if (Input.GetButtonDown("Jump") && jumpCooldown <= 0) {
+        //     movementController.Jump();
+        //     jumpCooldown = jumpCooldownTime;
+        // }
 
         if (Input.GetButtonDown("Crouch")){
             crouch = true;
@@ -61,13 +85,15 @@ public class PlayerInput : MonoBehaviour
     {
 
         movementController.Move(horizontalMove * Time.fixedDeltaTime, crouch);
-
+        jumpCooldown -= Time.fixedDeltaTime;
     }
 
     private void Flip()
 	{
 		// Switch the way the player is labelled as facing.
 		facingRight = !facingRight;
+        shape.rotation *= -1;
+
 
 		// Multiply the player's x local scale by -1.
 		Vector2 theScale = transform.localScale;
