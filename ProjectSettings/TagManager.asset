@@ -45,9 +45,12 @@ TagManager:
   - name: Platforms
     uniqueID: 3839428867
     locked: 0
-  - name: EnvironmentPlayer
+  - name: PlayerBack
     uniqueID: 601739997
     locked: 0
   - name: Player
     uniqueID: 970190993
+    locked: 0
+  - name: PlayerFront
+    uniqueID: 3677596263
     locked: 0
