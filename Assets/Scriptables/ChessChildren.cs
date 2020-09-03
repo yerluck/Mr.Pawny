@@ -7,8 +7,7 @@ public class ChessChildren : ScriptableObject {
     public Sprite[] figures = {};
     public Vector2[] positions = {};
     public Quaternion[] rotations = {};
-    public Vector2[] scale = {};
+    public Vector2[] scales = {};
     public bool[] xFlips = {};
-    public int[] layerOrder = {};
-    public AnimationClip animationClip;
+    public int[] layerOrders = {};
 }
