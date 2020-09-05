@@ -30,3 +30,10 @@ MonoBehaviour:
   - {x: 0.82101, y: 0.82101}
   xFlips: 010000
   layerOrders: 0a0000000b0000000a000000
+  names:
+  - Left
+  - Middle
+  - Right
+  idleNum: 1
+  interruptionNum: 1
+  animationClip: {fileID: 7400000, guid: 95b12bc905b21da5f9aca476cd7951fd, type: 2}

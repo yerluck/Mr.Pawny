@@ -6,17 +6,14 @@ public class ChessChildrenHandler : MonoBehaviour
 {
     [SerializeField] private ChessChildren children;
     [SerializeField] private string sortingLayer;
-    // private SimpleAnimation m_CustomAnimationPlayable;
-    private AnimationClip clip;
+    private Animation animation;
 
 
-    // private Transform[] children;
-    
     //initialization of children
     private void Awake() {
         for (int i = 0; i < children.figures.Length; i++)
         {
-            GameObject child = new GameObject();
+            GameObject child = new GameObject(children.names[i]);
             child.transform.SetParent(gameObject.transform);
             child.transform.localPosition = children.positions[i];
             child.transform.localRotation = children.rotations[i];
@@ -27,13 +24,14 @@ public class ChessChildrenHandler : MonoBehaviour
             figure.flipX = children.xFlips[i];
             figure.sortingLayerName = sortingLayer;
             figure.sortingOrder = children.layerOrders[i];
+
+            animation = GetComponent<Animation>();
+            animation.AddClip(children.animationClip, "interruption");
         }
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void OnTriggerEnter2D(Collider2D other) {
+        animation.Play("interruption");
     }
 }

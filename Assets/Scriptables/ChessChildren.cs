@@ -10,4 +10,6 @@ public class ChessChildren : ScriptableObject {
     public Vector2[] scales = {};
     public bool[] xFlips = {};
     public int[] layerOrders = {};
+    public string[] names = {};
+    public AnimationClip animationClip = null;
 }
