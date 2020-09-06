@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aca368414d7a04daa9a8250f206f8ca, type: 3}
+  m_Name: ChessChildren_3
+  m_EditorClassIdentifier: 
+  figures:
+  - {fileID: 5350099504300243961, guid: ea250debaeb48b645bdfbfd84f4dcc6c, type: 3}
+  - {fileID: -8825208844712358141, guid: ea250debaeb48b645bdfbfd84f4dcc6c, type: 3}
+  destroyedFigures:
+  - {fileID: 3106583554268737173, guid: ea250debaeb48b645bdfbfd84f4dcc6c, type: 3}
+  - {fileID: -3635149572028787976, guid: ea250debaeb48b645bdfbfd84f4dcc6c, type: 3}
+  positions:
+  - {x: 0.107, y: 0.156}
+  - {x: 0.042, y: -0.008}
+  rotations:
+  - {x: 0, y: 0, z: 0.74834824, w: 0.66330606}
+  - {x: 0, y: 0, z: -0.021029668, w: 0.99977887}
+  scales:
+  - {x: 0.78343, y: 0.78343}
+  - {x: 1.3228, y: 1.3228}
+  colliderSize: {x: 0.56, y: 0.71}
+  colliderOffset: {x: 0, y: 0.35}
+  xFlips: 0000
+  layerOrders: 0b0000000a000000
+  names:
+  - Left
+  - Right
+  animationClip: {fileID: 7400000, guid: 5de6bd68ec254660a9f89ffabbb571c2, type: 2}

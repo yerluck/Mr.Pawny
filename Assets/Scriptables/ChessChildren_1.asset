@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7aca368414d7a04daa9a8250f206f8ca, type: 3}
-  m_Name: First
+  m_Name: ChessChildren_1
   m_EditorClassIdentifier: 
   figures:
   - {fileID: -6762037842174920027, guid: ea250debaeb48b645bdfbfd84f4dcc6c, type: 3}
   - {fileID: -7472330983766089997, guid: ea250debaeb48b645bdfbfd84f4dcc6c, type: 3}
   - {fileID: -8825208844712358141, guid: ea250debaeb48b645bdfbfd84f4dcc6c, type: 3}
+  destroyedFigures:
+  - {fileID: -9140860604923970475, guid: ea250debaeb48b645bdfbfd84f4dcc6c, type: 3}
+  - {fileID: 2747678124014461462, guid: ea250debaeb48b645bdfbfd84f4dcc6c, type: 3}
+  - {fileID: -3635149572028787976, guid: ea250debaeb48b645bdfbfd84f4dcc6c, type: 3}
   positions:
   - {x: -0.173, y: -0.012}
   - {x: 0, y: -0.032}
@@ -28,12 +32,12 @@ MonoBehaviour:
   - {x: 1, y: 1}
   - {x: 1.0883, y: 1.0883}
   - {x: 0.82101, y: 0.82101}
+  colliderSize: {x: 0.7, y: 0.6}
+  colliderOffset: {x: 0, y: 0.3}
   xFlips: 010000
   layerOrders: 0a0000000b0000000a000000
   names:
   - Left
   - Middle
   - Right
-  idleNum: 1
-  interruptionNum: 1
   animationClip: {fileID: 7400000, guid: 95b12bc905b21da5f9aca476cd7951fd, type: 2}

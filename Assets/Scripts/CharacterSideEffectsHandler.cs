@@ -48,7 +48,7 @@ public class CharacterSideEffectsHandler : CharacterController2D, IDamageable
         stepParticles.Play();
     }
 
-    public void takeDamage(float dmg){
+    public void TakeDamage(float dmg){
         HP -= dmg;
 
         if(HP <= 0) {
