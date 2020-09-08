@@ -5,10 +5,12 @@ using UnityEngine;
 public class CharacterSideEffectsHandler : CharacterController2D, IDamageable
 {
     private float m_HitPoints;
+    private Transform m_attacker;
     private Animator anim;
     private RaycastHit2D hit;
     [SerializeField] private ParticleSystem stepParticles;
     public float HP { get { return m_HitPoints; } set { m_HitPoints = value; }}
+    public Transform attacker { get { return m_attacker; } set { m_attacker = value; } }
     private bool isLanded;
 
     protected override void Awake() {
