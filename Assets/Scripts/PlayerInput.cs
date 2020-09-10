@@ -18,6 +18,9 @@ public class PlayerInput : MonoBehaviour
     private float jumpCooldownTime;
     private float jumpCooldown;
 
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private LayerMask whatToAttack;
+
     private void Awake() {
         if (movementController == null){
             movementController = GetComponent<CharacterController2D>();
@@ -79,11 +82,25 @@ public class PlayerInput : MonoBehaviour
             crouch = false;
         }
 
+        //TODO: Find Better Way for attacks
+        if (Input.GetMouseButtonDown(0)) 
+        {
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPoint.position, 0.5f, whatToAttack);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                IDamageable script = colliders[i].gameObject.GetComponent<IDamageable>();
+                if (script != null)
+                {
+                    script.attacker = gameObject.transform;
+                    script.TakeDamage(1);
+                }
+            }
+        }
+
     }
 
     void FixedUpdate() 
     {
-
         movementController.Move(horizontalMove * Time.fixedDeltaTime, crouch);
         jumpCooldown -= Time.fixedDeltaTime;
     }

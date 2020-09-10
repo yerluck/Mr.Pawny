@@ -178,7 +178,7 @@ ScriptedImporter:
   platformSettings:
   - name: Default
     overridden: 1
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
@@ -191,8 +191,8 @@ ScriptedImporter:
   documentPivot: {x: 0, y: 0}
   documentAlignment: 7
   importHiddenLayers: 0
-  importedTextureWidth: 512
-  importedTextureHeight: 1024
+  importedTextureWidth: 1024
+  importedTextureHeight: 2048
   documentSize: {x: 1080, y: 2040}
   paperDollMode: 0
   keepDupilcateSpriteName: 0

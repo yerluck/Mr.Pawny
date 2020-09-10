@@ -1,5 +1,9 @@
+using UnityEngine;
+
 public interface IDamageable {
     float HP { get; set; }
 
-    void takeDamage(float damage);
+    Transform attacker { get; set; }
+
+    void TakeDamage(float damage);
 }
