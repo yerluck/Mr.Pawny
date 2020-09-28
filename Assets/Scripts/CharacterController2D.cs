@@ -24,11 +24,16 @@ public class CharacterController2D : MonoBehaviour
 	public bool m_Grounded;            // Whether or not the player is grounded.
 	protected Rigidbody2D m_Rigidbody2D;
 	private Vector2 m_Velocity = Vector2.zero;
-		private bool m_AirJumped;
+	private bool m_AirJumped;
 	private Collider2D[] colliders = new Collider2D[1];
 	private float m_HangTime; // Koyote time
 	private float hangCounter;
 	private PlayerInput playerInput;
+
+	[SerializeField] private Transform attackPoint;
+    [SerializeField] private LayerMask whatToAttack;
+	[SerializeField] GameObject[] attackEffectPrefabs = {};
+	private float attackRadius = 0.5f;
 
 
 	protected virtual void Awake()
@@ -139,6 +144,22 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
+	// TODO: Think about multi-weapon attack => dealing damage and so on
+	public void Attack()
+	{
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, whatToAttack);
+		Instantiate(attackEffectPrefabs[0], attackPoint);
+		for (int i = 0; i < colliders.Length; i++)
+		{
+			IDamageable script = colliders[i].gameObject.GetComponent<IDamageable>();
+			if (script != null)
+			{
+				script.attacker = gameObject.transform;
+				script.TakeDamage(1);
+			}
+		}
+	}
+
 	public void Jump()
 	{
 		//Jump according koyote time
@@ -162,5 +183,6 @@ public class CharacterController2D : MonoBehaviour
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(m_GroundCheck.position, k_GroundedRadius);
 		Gizmos.DrawWireSphere(m_CeilingCheck.position, k_CeilingRadius);
+		Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
 	}
 }
