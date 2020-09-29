@@ -2,24 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordBasicAttackEffect : WeaponAttackEffect
+public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
 {
-    private void Awake() {
-        // initialization of baze class
-        Init();
+    private ParticleSystem particles;
+    private bool facingRight;
+    private enum effectEnum
+    {
+        Forward,
+        Up,
+        Down
+    }
+    private Vector3 localScale;
+    private Quaternion rotation;
+    private float startRotationY;
+    private float flipRotation;
 
+
+    public float dmgAmount {get; set;}
+
+    public void InitAttack(object[] props)
+    {
+        particles = GetComponent<ParticleSystem>();
+
+        if (props.Length <= 0)
+        {
+            return;
+        }
+
+        effectEnum attackNum = (effectEnum)props[0];
         var main = particles.main;
-        var theScale = transform.localScale;
-        theScale.x = facingRight ? 1.7f : -1.7f;
-        var transformRotX = facingRight ? 90 : -90;
+        facingRight = transform.root.localScale.x >= 0 ? true : false;
 
+        // attack effect depending on state from controller
+        // TODO: add other cases
+        switch (attackNum)
+        {
+            case effectEnum.Forward:
+            {
+                transform.localScale = new Vector3(facingRight ? 1.7f : -1.7f, 1, 0.5f);
+                transform.rotation = Quaternion.Euler(facingRight ? 90 : -90, 0, 0);
+                main.startRotationY = facingRight ? 10 * Mathf.Deg2Rad : -50 * Mathf.Deg2Rad;
+                main.flipRotation = facingRight ? 1 : 0;
+                break;
+            };
+        }
+    }
 
-        //initialization of particles
-        transform.localScale = theScale;
-        transform.rotation = Quaternion.Euler(transformRotX, 0, 0);
-        main.startRotationY = facingRight ? 10 * Mathf.Deg2Rad : -50 * Mathf.Deg2Rad;
-        main.flipRotation = facingRight ? 1 : 0;
-
+    public void PerformAttack()
+    {
         particles.Play();
     }
 }

@@ -147,8 +147,14 @@ public class CharacterController2D : MonoBehaviour
 	// TODO: Think about multi-weapon attack => dealing damage and so on
 	public void Attack()
 	{
+		GameObject go = Instantiate(attackEffectPrefabs[0], attackPoint) as GameObject;
+		IAttacker attackScript = go.GetComponent<IAttacker>();
+		if (attackScript != null) {
+			attackScript.InitAttack(new object[] {0});
+			attackScript.PerformAttack();
+		}
+
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, whatToAttack);
-		Instantiate(attackEffectPrefabs[0], attackPoint);
 		for (int i = 0; i < colliders.Length; i++)
 		{
 			IDamageable script = colliders[i].gameObject.GetComponent<IDamageable>();
@@ -178,7 +184,7 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
-	private void OnDrawGizmosSelected()
+	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(m_GroundCheck.position, k_GroundedRadius);
