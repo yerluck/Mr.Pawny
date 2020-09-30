@@ -45,6 +45,15 @@ public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
                 main.flipRotation = facingRight ? 1 : 0;
                 break;
             };
+            case effectEnum.Down:
+            {
+                // transform.position = new Vector3(-0.62f, -0.07f, 1);
+                transform.localScale = new Vector3(1.7f, 1, 1.2f);
+                transform.rotation = Quaternion.Euler(180, 90, 90);
+                main.startRotationY = -1 * Mathf.Deg2Rad;
+                main.flipRotation = 1;
+                break;
+            };
         }
     }
 

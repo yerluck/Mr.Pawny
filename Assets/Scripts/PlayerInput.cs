@@ -18,6 +18,14 @@ public class PlayerInput : MonoBehaviour
     private float jumpCooldownTime;
     private float jumpCooldown;
 
+    // TODO: add new attacks accordingly
+    private enum Attacks
+    {
+        SwordForward,
+        SwordUp,
+        SwordDown
+    }
+
 
     private void Awake() {
         if (movementController == null){
@@ -79,7 +87,12 @@ public class PlayerInput : MonoBehaviour
         //TODO: Find Better Way for attacks
         if (Input.GetMouseButtonDown(0)) 
         {
-            movementController.Attack();
+            if (Input.GetAxisRaw("Vertical") < 0 && !movementController.m_Grounded)
+            {
+                movementController.Attack((int)Attacks.SwordDown);
+                return;
+            }
+            movementController.Attack((int)Attacks.SwordForward);
         }
 
     }
