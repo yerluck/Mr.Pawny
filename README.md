@@ -1,2 +1,3 @@
-# Rainwater
-Game project by team pickle
+# Mr.Pawny
+
+Solo developing game project. (2 puzzle platformer)
