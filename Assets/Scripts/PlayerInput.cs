@@ -11,15 +11,21 @@ public class PlayerInput : MonoBehaviour
     public float jumpBufferCounter;
     private float horizontalMove = 0f;
     private bool crouch = false;
-    private bool facingRight = true;
+    public bool facingRight;
     private Animator anim;
     [SerializeField] private ParticleSystem stepParticles;
     private ParticleSystem.ShapeModule shape;
     private float jumpCooldownTime;
     private float jumpCooldown;
 
-    [SerializeField] private Transform attackPoint;
-    [SerializeField] private LayerMask whatToAttack;
+    // TODO: add new attacks accordingly
+    private enum Attacks
+    {
+        SwordForward,
+        SwordUp,
+        SwordDown
+    }
+
 
     private void Awake() {
         if (movementController == null){
@@ -27,9 +33,10 @@ public class PlayerInput : MonoBehaviour
         }
         anim = GetComponent<Animator>();
         shape = stepParticles.shape;
+        facingRight = transform.localScale.x >= 0 ? true : false;
 
         #region Initialization
-        jumpCooldownTime = PlayerManager.Instance.hangTime + 0.05f;
+        jumpCooldownTime = PlayerManager.Instance.hangTime + 0.05f; // TODO: test this out, mb just chanhge at ManagerInstance
         jumpBufferTime = PlayerManager.Instance.jumpBufferTime;
         runSpeed = PlayerManager.Instance.runSpeed;
         airSpeed = PlayerManager.Instance.airSpeed;
@@ -38,7 +45,6 @@ public class PlayerInput : MonoBehaviour
         jumpCooldown = jumpCooldownTime;
     }
 
-    // Update is called once per frame
     void Update()
     {
         var speed = movementController.m_Grounded ? runSpeed : airSpeed;
@@ -71,11 +77,6 @@ public class PlayerInput : MonoBehaviour
             movementController.Jump();
         }
 
-        // if (Input.GetButtonDown("Jump") && jumpCooldown <= 0) {
-        //     movementController.Jump();
-        //     jumpCooldown = jumpCooldownTime;
-        // }
-
         if (Input.GetButtonDown("Crouch")){
             crouch = true;
         } else if (Input.GetButtonUp("Crouch")){
@@ -85,16 +86,19 @@ public class PlayerInput : MonoBehaviour
         //TODO: Find Better Way for attacks
         if (Input.GetMouseButtonDown(0)) 
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPoint.position, 0.5f, whatToAttack);
-            for (int i = 0; i < colliders.Length; i++)
+            if (Input.GetAxisRaw("Vertical") < 0 && !movementController.m_Grounded)
             {
-                IDamageable script = colliders[i].gameObject.GetComponent<IDamageable>();
-                if (script != null)
-                {
-                    script.attacker = gameObject.transform;
-                    script.TakeDamage(1);
-                }
+                movementController.Attack((int)Attacks.SwordDown);
+                return;
             }
+
+            if (Input.GetAxisRaw("Vertical") > 0)
+            {
+                movementController.Attack((int)Attacks.SwordUp);
+                return;
+            }
+
+            movementController.Attack((int)Attacks.SwordForward);
         }
 
     }
@@ -110,7 +114,6 @@ public class PlayerInput : MonoBehaviour
 		// Switch the way the player is labelled as facing.
 		facingRight = !facingRight;
         shape.rotation *= -1;
-
 
 		// Multiply the player's x local scale by -1.
 		Vector2 theScale = transform.localScale;

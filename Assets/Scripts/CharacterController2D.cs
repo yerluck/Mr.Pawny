@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class CharacterController2D : MonoBehaviour
 {
@@ -13,22 +14,31 @@ public class CharacterController2D : MonoBehaviour
 	internal bool m_AllowMove;
 	private bool m_AirJump;
 	protected float m_LandingDistance;
-	private float m_GravityScale; // gravity multiplyer on Rb2D
-	private float k_GroundedRadius = .07f; // Radius of the overlap circle to determine if grounded
-	private float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
-	[SerializeField] protected LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
+	private float m_GravityScale; 												// gravity multiplyer on Rb2D
+	private float k_GroundedRadius = .07f; 										// Radius of the overlap circle to determine if grounded
+	private float k_CeilingRadius = .2f; 										// Radius of the overlap circle to determine if the player can stand up
+	[SerializeField] protected LayerMask m_WhatIsGround;						// A mask determining what is ground to the character
 	[SerializeField] private ContactFilter2D m_WhatIsPlatform;
 	[SerializeField] internal Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] internal Transform m_CeilingCheck;							// A position marking where to check for ceilings
+	[SerializeField] GameObject[] attackEffectPrefabs = {};
 	private bool m_wasCrouching = false;
-	public bool m_Grounded;            // Whether or not the player is grounded.
+	public bool m_Grounded;            											// Whether or not the player is grounded.
 	protected Rigidbody2D m_Rigidbody2D;
 	private Vector2 m_Velocity = Vector2.zero;
-		private bool m_AirJumped;
+	private bool m_AirJumped;
 	private Collider2D[] colliders = new Collider2D[1];
-	private float m_HangTime; // Koyote time
+	private float m_HangTime; 													// Koyote time
 	private float hangCounter;
 	private PlayerInput playerInput;
+
+	private Dictionary<int, Vector3> attackPoints = new Dictionary<int, Vector3>()
+	{
+		{0, new Vector3(0.3f, -0.04f, 0)},			// SwordForward
+		{1, new Vector3(0.25f, 1, 0)},				// SwordUp
+		{2, new Vector3(-0.07f, -0.5f, 0)}			// SwordDown
+	};
+
 
 
 	protected virtual void Awake()
@@ -125,7 +135,6 @@ public class CharacterController2D : MonoBehaviour
 			{
 				// Enable the collider when not crouching
 				//TODO: add crouching effect = reduce collider height
-
 				if (m_wasCrouching)
 				{
 					m_wasCrouching = false;
@@ -136,6 +145,18 @@ public class CharacterController2D : MonoBehaviour
 			Vector2 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
 			m_Rigidbody2D.velocity = Vector2.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+		}
+	}
+
+	// TODO: Think about multi-weapon attack => dealing damage and so on
+	public void Attack(int attackNum)
+	{
+		GameObject go = Instantiate(attackEffectPrefabs[0], transform.TransformPoint(attackPoints[attackNum]), Quaternion.identity) as GameObject;
+		// GameObject go = Instantiate(attackEffectPrefabs[0], attackPoint) as GameObject;
+		IAttacker attackScript = go.GetComponent<IAttacker>();
+		if (attackScript != null) {
+			attackScript.InitAttack(new object[] {attackNum, playerInput.facingRight});
+			attackScript.PerformAttack();
 		}
 	}
 
@@ -157,7 +178,7 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
-	private void OnDrawGizmosSelected()
+	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(m_GroundCheck.position, k_GroundedRadius);
