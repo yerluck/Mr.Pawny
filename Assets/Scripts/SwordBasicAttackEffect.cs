@@ -55,6 +55,7 @@ public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
 
             case effectEnum.Up:
             {
+                colliderHolder.transform.rotation = Quaternion.Euler(facingRight? 90 : -90, 0, 0);
                 transform.localScale = new Vector3(1.7f, 1, 0.9f);
                 transform.rotation = Quaternion.Euler(0, 90, 90);
                 main.startRotationY = facingRight ? -60 * Mathf.Deg2Rad : -10 * Mathf.Deg2Rad;

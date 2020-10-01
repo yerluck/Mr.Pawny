@@ -5,11 +5,11 @@ public class AttackEffectCollision : MonoBehaviour
     public float dmg {get; set;}
 
     private void OnTriggerEnter2D(Collider2D other) {
-        IDamageable script = other.GetComponent<IDamageable>();
-        if (script != null)
+        IDamageable damagedObject = other.GetComponent<IDamageable>();
+        if (damagedObject != null)
         {
-            script.attacker = transform;
-            script.TakeDamage(dmg);
+            damagedObject.attacker = transform;
+            damagedObject.TakeDamage(dmg);
         }
     }
 }

@@ -151,7 +151,6 @@ public class CharacterController2D : MonoBehaviour
 	// TODO: Think about multi-weapon attack => dealing damage and so on
 	public void Attack(int attackNum)
 	{
-		// Vector3 instPoint = transform.TransformPoint(attackPoints[attackNum]);
 		GameObject go = Instantiate(attackEffectPrefabs[0], transform.TransformPoint(attackPoints[attackNum]), Quaternion.identity) as GameObject;
 		// GameObject go = Instantiate(attackEffectPrefabs[0], attackPoint) as GameObject;
 		IAttacker attackScript = go.GetComponent<IAttacker>();
