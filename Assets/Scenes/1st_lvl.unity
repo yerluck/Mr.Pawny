@@ -479,7 +479,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152188290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.564, y: -0.326, z: 0}
+  m_LocalPosition: {x: 0.3, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9153271320296306178}
@@ -2276,17 +2276,17 @@ PrefabInstance:
     - target: {fileID: 5415629898638917794, guid: 10d2346e175e5c69d924e33f95c8bcb3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30.54
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5415629898638917794, guid: 10d2346e175e5c69d924e33f95c8bcb3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.95
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5415629898638917794, guid: 10d2346e175e5c69d924e33f95c8bcb3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.90283203
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5415629898638917794, guid: 10d2346e175e5c69d924e33f95c8bcb3,
         type: 3}
@@ -11544,6 +11544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementController: {fileID: 1924390245456192555}
   jumpBufferCounter: 0
+  facingRight: 0
   stepParticles: {fileID: 1404070364}
 --- !u!70 &1924390245456192553
 CapsuleCollider2D:
@@ -11614,13 +11615,9 @@ MonoBehaviour:
     maxNormalAngle: 0
   m_GroundCheck: {fileID: 8990302383302631025}
   m_CeilingCheck: {fileID: 8990302383224524222}
-  m_Grounded: 0
-  attackPoint: {fileID: 152188291}
-  whatToAttack:
-    serializedVersion: 2
-    m_Bits: 2048
   attackEffectPrefabs:
   - {fileID: 1430194129013734665, guid: 438efd19262ff7e2ca9c7352fdcd50e4, type: 3}
+  m_Grounded: 0
 --- !u!114 &1924390245456192556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11652,12 +11649,8 @@ MonoBehaviour:
     maxNormalAngle: 0
   m_GroundCheck: {fileID: 8990302383302631025}
   m_CeilingCheck: {fileID: 8990302383224524222}
-  m_Grounded: 0
-  attackPoint: {fileID: 152188291}
-  whatToAttack:
-    serializedVersion: 2
-    m_Bits: 2048
   attackEffectPrefabs: []
+  m_Grounded: 0
   stepParticles: {fileID: 1404070364}
 --- !u!50 &1924390245456192558
 Rigidbody2D:

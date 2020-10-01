@@ -11,7 +11,7 @@ public class PlayerInput : MonoBehaviour
     public float jumpBufferCounter;
     private float horizontalMove = 0f;
     private bool crouch = false;
-    private bool facingRight;
+    public bool facingRight;
     private Animator anim;
     [SerializeField] private ParticleSystem stepParticles;
     private ParticleSystem.ShapeModule shape;
@@ -36,7 +36,7 @@ public class PlayerInput : MonoBehaviour
         facingRight = transform.localScale.x >= 0 ? true : false;
 
         #region Initialization
-        jumpCooldownTime = PlayerManager.Instance.hangTime + 0.05f;
+        jumpCooldownTime = PlayerManager.Instance.hangTime + 0.05f; // TODO: test this out, mb just chanhge at ManagerInstance
         jumpBufferTime = PlayerManager.Instance.jumpBufferTime;
         runSpeed = PlayerManager.Instance.runSpeed;
         airSpeed = PlayerManager.Instance.airSpeed;
@@ -45,7 +45,6 @@ public class PlayerInput : MonoBehaviour
         jumpCooldown = jumpCooldownTime;
     }
 
-    // Update is called once per frame
     void Update()
     {
         var speed = movementController.m_Grounded ? runSpeed : airSpeed;
@@ -92,6 +91,13 @@ public class PlayerInput : MonoBehaviour
                 movementController.Attack((int)Attacks.SwordDown);
                 return;
             }
+
+            if (Input.GetAxisRaw("Vertical") > 0)
+            {
+                movementController.Attack((int)Attacks.SwordUp);
+                return;
+            }
+
             movementController.Attack((int)Attacks.SwordForward);
         }
 

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class CharacterController2D : MonoBehaviour
 {
@@ -13,27 +14,31 @@ public class CharacterController2D : MonoBehaviour
 	internal bool m_AllowMove;
 	private bool m_AirJump;
 	protected float m_LandingDistance;
-	private float m_GravityScale; // gravity multiplyer on Rb2D
-	private float k_GroundedRadius = .07f; // Radius of the overlap circle to determine if grounded
-	private float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
-	[SerializeField] protected LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
+	private float m_GravityScale; 												// gravity multiplyer on Rb2D
+	private float k_GroundedRadius = .07f; 										// Radius of the overlap circle to determine if grounded
+	private float k_CeilingRadius = .2f; 										// Radius of the overlap circle to determine if the player can stand up
+	[SerializeField] protected LayerMask m_WhatIsGround;						// A mask determining what is ground to the character
 	[SerializeField] private ContactFilter2D m_WhatIsPlatform;
 	[SerializeField] internal Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] internal Transform m_CeilingCheck;							// A position marking where to check for ceilings
+	[SerializeField] GameObject[] attackEffectPrefabs = {};
 	private bool m_wasCrouching = false;
-	public bool m_Grounded;            // Whether or not the player is grounded.
+	public bool m_Grounded;            											// Whether or not the player is grounded.
 	protected Rigidbody2D m_Rigidbody2D;
 	private Vector2 m_Velocity = Vector2.zero;
 	private bool m_AirJumped;
 	private Collider2D[] colliders = new Collider2D[1];
-	private float m_HangTime; // Koyote time
+	private float m_HangTime; 													// Koyote time
 	private float hangCounter;
 	private PlayerInput playerInput;
 
-	[SerializeField] private Transform attackPoint;
-    [SerializeField] private LayerMask whatToAttack;
-	[SerializeField] GameObject[] attackEffectPrefabs = {};
-	private float attackRadius = 0.5f;
+	private Dictionary<int, Vector3> attackPoints = new Dictionary<int, Vector3>()
+	{
+		{0, new Vector3(0.3f, -0.04f, 0)},			// SwordForward
+		{1, new Vector3(0.25f, 1, 0)},				// SwordUp
+		{2, new Vector3(-0.07f, -0.5f, 0)}			// SwordDown
+	};
+
 
 
 	protected virtual void Awake()
@@ -130,7 +135,6 @@ public class CharacterController2D : MonoBehaviour
 			{
 				// Enable the collider when not crouching
 				//TODO: add crouching effect = reduce collider height
-
 				if (m_wasCrouching)
 				{
 					m_wasCrouching = false;
@@ -147,23 +151,13 @@ public class CharacterController2D : MonoBehaviour
 	// TODO: Think about multi-weapon attack => dealing damage and so on
 	public void Attack(int attackNum)
 	{
-		// GameObject go = Instantiate(attackEffectPrefabs[0], attackPoint.position, Quaternion.identity) as GameObject;
-		GameObject go = Instantiate(attackEffectPrefabs[0], attackPoint) as GameObject;
+		// Vector3 instPoint = transform.TransformPoint(attackPoints[attackNum]);
+		GameObject go = Instantiate(attackEffectPrefabs[0], transform.TransformPoint(attackPoints[attackNum]), Quaternion.identity) as GameObject;
+		// GameObject go = Instantiate(attackEffectPrefabs[0], attackPoint) as GameObject;
 		IAttacker attackScript = go.GetComponent<IAttacker>();
 		if (attackScript != null) {
-			attackScript.InitAttack(new object[] {attackNum});
+			attackScript.InitAttack(new object[] {attackNum, playerInput.facingRight});
 			attackScript.PerformAttack();
-		}
-
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPoint.position, attackRadius, whatToAttack);
-		for (int i = 0; i < colliders.Length; i++)
-		{
-			IDamageable script = colliders[i].gameObject.GetComponent<IDamageable>();
-			if (script != null)
-			{
-				script.attacker = gameObject.transform;
-				script.TakeDamage(1);
-			}
 		}
 	}
 
@@ -190,6 +184,5 @@ public class CharacterController2D : MonoBehaviour
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(m_GroundCheck.position, k_GroundedRadius);
 		Gizmos.DrawWireSphere(m_CeilingCheck.position, k_CeilingRadius);
-		Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
 	}
 }
