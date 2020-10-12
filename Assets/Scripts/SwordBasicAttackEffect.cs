@@ -12,12 +12,10 @@ public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
         Up,
         Down
     }
-    private Vector3 localScale;
-    private Quaternion rotation;
-    private float startRotationY;
-    private float flipRotation;
     private GameObject colliderHolder;
-    [SerializeField] private GameObject[] colliderHolders = {}; 
+    [SerializeField] private GameObject[] colliderHolders = {};
+    private effectEnum attackNum;
+    private ParticleSystem.MainModule main;
 
 
     public float dmgAmount {get; set;}
@@ -31,8 +29,8 @@ public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
             return;
         }
 
-        effectEnum attackNum = (effectEnum)props[0];
-        var main = particles.main;
+        attackNum = (effectEnum)props[0];
+        main = particles.main;
         facingRight = (bool)props[1];
         dmgAmount = 10f;
         colliderHolder = colliderHolders[(int)attackNum];
@@ -46,6 +44,7 @@ public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
             case effectEnum.Forward:
             {
                 colliderHolder.transform.rotation = Quaternion.Euler(facingRight ? 90 : -90, 0, 0);
+                colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
                 transform.localScale = new Vector3(facingRight ? 1.7f : -1.7f, 1, 0.5f);
                 transform.rotation = Quaternion.Euler(facingRight ? 90 : -90, 0, 0);
                 main.startRotationY = facingRight ? 10 * Mathf.Deg2Rad : -50 * Mathf.Deg2Rad;
@@ -56,6 +55,7 @@ public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
             case effectEnum.Up:
             {
                 colliderHolder.transform.rotation = Quaternion.Euler(facingRight? 90 : -90, 0, 0);
+                colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
                 transform.localScale = new Vector3(1.7f, 1, 0.9f);
                 transform.rotation = Quaternion.Euler(0, 90, 90);
                 main.startRotationY = facingRight ? -60 * Mathf.Deg2Rad : -10 * Mathf.Deg2Rad;
@@ -65,24 +65,73 @@ public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
 
             case effectEnum.Down:
             {
+                colliderHolder.transform.rotation = Quaternion.Euler(facingRight? 90 : -90, 0, 0);
+                colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
                 transform.localScale = new Vector3(1.5f, 1, 1.2f);
                 transform.rotation = Quaternion.Euler(180, 90, 90);
-                main.startRotationY = -1 * Mathf.Deg2Rad;
-                main.flipRotation = 1;
+                main.startRotationY = facingRight ? -1 * Mathf.Deg2Rad : -45 * Mathf.Deg2Rad;
+                main.flipRotation = facingRight ? 1 : 0;
                 break;
             };
-
         }
+
+        GameEvents.Instance.onPlayerFlip += FlipAttack;
     }
 
     public void PerformAttack()
     {
+        PlayerManager.Instance.paralized = true;
         colliderHolder.SetActive(true);
         particles.Play();
     }
 
-    private void OnParticleSystemStopped() {
+    private void OnParticleSystemStopped()
+    {
+        Debug.Log("Particles die");
         colliderHolder.SetActive(false);
+        PlayerManager.Instance.paralized = false;
+        GameEvents.Instance.onPlayerFlip -= FlipAttack;
         Destroy(gameObject);
+    }
+
+
+    // Method called when playerFlip event triggered
+    private void FlipAttack()
+    {
+        switch (attackNum)
+        {
+            case effectEnum.Forward:
+            {
+                colliderHolder.transform.rotation = Quaternion.Euler(facingRight ? 90 : -90, 0, 0);
+                colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
+                transform.localScale = new Vector3(facingRight ? 1.7f : -1.7f, 1, 0.5f);
+                transform.rotation = Quaternion.Euler(facingRight ? 90 : -90, 0, 0);
+                // main.startRotationY = facingRight ? 10 * Mathf.Deg2Rad : -50 * Mathf.Deg2Rad;
+                // main.flipRotation = facingRight ? 1 : 0;
+                break;
+            };
+
+            case effectEnum.Up:
+            {
+                colliderHolder.transform.rotation = Quaternion.Euler(facingRight? 90 : -90, 0, 0);
+                colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
+                transform.localScale = new Vector3(1.7f, 1, 0.9f);
+                transform.rotation = Quaternion.Euler(0, 90, 90);
+                // main.startRotationY = facingRight ? -60 * Mathf.Deg2Rad : -10 * Mathf.Deg2Rad;
+                // main.flipRotation = facingRight? 0 : 1;
+                break;
+            }
+
+            case effectEnum.Down:
+            {
+                colliderHolder.transform.rotation = Quaternion.Euler(facingRight? 90 : -90, 0, 0);
+                colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
+                transform.localScale = new Vector3(1.5f, 1, 1.2f);
+                transform.rotation = Quaternion.Euler(180, 90, 90);
+                main.startRotationY = facingRight ? -1 * Mathf.Deg2Rad : -45 * Mathf.Deg2Rad;
+                main.flipRotation = facingRight ? 1 : 0;
+                break;
+            };
+        }
     }
 }

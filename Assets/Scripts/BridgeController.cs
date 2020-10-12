@@ -11,7 +11,7 @@ public class BridgeController : MonoBehaviour
 
     void Start()
     {
-        GameEvents.Instance.onBridgeTriggerEnter += OnBridgeOpen;
+        GameEvents.Instance.onBridgeTriggerEnter += OnBridgeOpen;               // Subscribe on event
         joint = GetComponent<HingeJoint2D>();
         targetAngle = joint.limits.min;
     }
@@ -49,7 +49,7 @@ public class BridgeController : MonoBehaviour
         JointMotor2D m = joint.motor;
         m.motorSpeed *= -1;
         joint.motor= m;
-        GameEvents.Instance.onBridgeTriggerEnter -= OnBridgeOpen;
+        GameEvents.Instance.onBridgeTriggerEnter -= OnBridgeOpen;               // Unsubscribe from event
     }
 
     // private void OnDestroy() {

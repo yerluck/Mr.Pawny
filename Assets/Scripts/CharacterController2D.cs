@@ -31,6 +31,7 @@ public class CharacterController2D : MonoBehaviour
 	private float m_HangTime; 													// Koyote time
 	private float hangCounter;
 	private PlayerInput playerInput;
+	private Animator m_anim;
 
 	private Dictionary<int, Vector3> attackPoints = new Dictionary<int, Vector3>()
 	{
@@ -45,6 +46,7 @@ public class CharacterController2D : MonoBehaviour
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		playerInput = GetComponent<PlayerInput>();
+		m_anim = GetComponent<Animator>();
 
 		m_LandingDistance = PlayerManager.Instance.landingDistance;
 		m_HangTime = PlayerManager.Instance.hangTime;
@@ -115,7 +117,7 @@ public class CharacterController2D : MonoBehaviour
 		}
 
 		//only control the player if grounded or airControl is turned on
-		if ((m_Grounded || m_AirControl) && m_AllowMove)
+		if ((m_Grounded || m_AirControl) && PlayerManager.Instance.allowMove)
 		{
 
 			// If crouching
@@ -151,11 +153,14 @@ public class CharacterController2D : MonoBehaviour
 	// TODO: Think about multi-weapon attack => dealing damage and so on
 	public void Attack(int attackNum)
 	{
-		GameObject go = Instantiate(attackEffectPrefabs[0], transform.TransformPoint(attackPoints[attackNum]), Quaternion.identity) as GameObject;
+		GameObject go = Instantiate(attackEffectPrefabs[0], transform.TransformPoint(attackPoints[attackNum]), transform.rotation, transform) as GameObject;
 		// GameObject go = Instantiate(attackEffectPrefabs[0], attackPoint) as GameObject;
 		IAttacker attackScript = go.GetComponent<IAttacker>();
 		if (attackScript != null) {
 			attackScript.InitAttack(new object[] {attackNum, playerInput.facingRight});
+			m_anim.ResetTrigger("attacked");
+			m_anim.SetTrigger("attacked");
+			m_anim.SetInteger("attackNum", attackNum);
 			attackScript.PerformAttack();
 		}
 	}

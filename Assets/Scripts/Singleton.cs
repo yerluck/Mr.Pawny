@@ -32,7 +32,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                     // Search for existing instance.
                     m_Instance = (T)FindObjectOfType(typeof(T));
  
-                    // Create new instance if one doesn't already exist.
+                    // Create new instance if one doesn't already exist. 
                     if (m_Instance == null)
                     {
                         // Need to create a new GameObject to attach the singleton to.

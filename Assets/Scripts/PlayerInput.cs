@@ -47,6 +47,12 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
+        // if (PlayerManager.Instance.paralized == true)
+        // {
+        //     horizontalMove = 0f;
+        //     return;
+        // }
+
         var speed = movementController.m_Grounded ? runSpeed : airSpeed;
         horizontalMove = Input.GetAxisRaw("Horizontal") * speed;
 
@@ -119,5 +125,7 @@ public class PlayerInput : MonoBehaviour
 		Vector2 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+
+        GameEvents.Instance.PlayerFlip();
 	}
 }
