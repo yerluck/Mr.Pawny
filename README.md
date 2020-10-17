@@ -1,2 +1,3 @@
-# Rainwater
-Game project by team pickle
+# Mr. Pawny
+
+2D puzzle platformer. By DuneOver.
