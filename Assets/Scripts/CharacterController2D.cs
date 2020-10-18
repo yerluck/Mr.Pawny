@@ -35,9 +35,9 @@ public class CharacterController2D : MonoBehaviour
 
 	private Dictionary<int, Vector3> attackPoints = new Dictionary<int, Vector3>()
 	{
-		{0, new Vector3(0.3f, -0.04f, 0)},			// SwordForward
+		{0, new Vector3(0.6f, 0, 0)},				// SwordForward
 		{1, new Vector3(0.25f, 1, 0)},				// SwordUp
-		{2, new Vector3(-0.07f, -0.5f, 0)}			// SwordDown
+		{2, new Vector3(-0.07f, -0.6f, 0)}			// SwordDown
 	};
 
 
@@ -153,7 +153,7 @@ public class CharacterController2D : MonoBehaviour
 	// TODO: Think about multi-weapon attack => dealing damage and so on
 	public void Attack(int attackNum)
 	{
-		GameObject go = Instantiate(attackEffectPrefabs[0], transform.TransformPoint(attackPoints[attackNum]), transform.rotation, transform) as GameObject;
+		GameObject go = Instantiate(attackEffectPrefabs[0], transform.TransformPoint(attackPoints[attackNum]), gameObject.transform.rotation, gameObject.transform) as GameObject;
 		// GameObject go = Instantiate(attackEffectPrefabs[0], attackPoint) as GameObject;
 		IAttacker attackScript = go.GetComponent<IAttacker>();
 		if (attackScript != null) {

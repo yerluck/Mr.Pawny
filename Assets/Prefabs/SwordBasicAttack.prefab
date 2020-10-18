@@ -108,16 +108,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430194129013734665}
-  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalRotation: {x: 0.53729963, y: 0, z: 0, w: 0.8433915}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1, z: 1.2}
+  m_LocalScale: {x: 2, y: 1, z: 0.7}
   m_Children:
   - {fileID: 3732439597730632065}
   - {fileID: 1989254759796474599}
   - {fileID: 6398306572028260975}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 90, z: 90}
+  m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
 --- !u!198 &1430194129013734676
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -126,7 +126,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430194129013734665}
   serializedVersion: 6
-  lengthInSec: 0.3
+  lengthInSec: 0.15
   simulationSpeed: 1
   stopAction: 3
   cullingMode: 0
@@ -141,7 +141,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0.15
+    scalar: 0
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -1334,7 +1334,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 17.453293
+      scalar: 20.94395
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1447,9 +1447,9 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 0}
-        key2: {r: 0, g: 0, b: 0, a: 0}
+        key0: {r: 1, g: 1, b: 1, a: 0}
+        key1: {r: 1, g: 1, b: 1, a: 1}
+        key2: {r: 0, g: 0, b: 0, a: 1}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -1463,17 +1463,17 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 193
-        atime1: 65535
-        atime2: 0
-        atime3: 0
+        atime0: 0
+        atime1: 16384
+        atime2: 26407
+        atime3: 65535
         atime4: 0
         atime5: 0
         atime6: 0
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 2
+        m_NumAlphaKeys: 4
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4999,7 +4999,7 @@ PolygonCollider2D:
       - {x: 0.738914, y: 0.7104917}
       - {x: 0.4448703, y: 0.8992527}
       - {x: 0.1733725, y: 1.0404886}
-      - {x: -0.06613861, y: 1.0386453}
+      - {x: -0.5490334, y: 0.83422565}
       - {x: 0.068330705, y: 0.31279764}
       - {x: 0.3688191, y: 0.0009720251}
       - {x: 0.15475519, y: -0.40424874}
