@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
+public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
 {
     private ParticleSystem particles;
     private bool facingRight;
@@ -90,7 +90,7 @@ public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
         colliderHolder.SetActive(false);
         PlayerManager.Instance.paralized = false;
         GameEvents.Instance.onPlayerFlip -= FlipAttack;
-        Destroy(gameObject);
+        base.OnParticleSystemStopped(); 
     }
 
 

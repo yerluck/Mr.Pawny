@@ -11,10 +11,8 @@ public class PlayerInput : MonoBehaviour
     public float jumpBufferCounter;
     private float horizontalMove = 0f;
     private bool crouch = false;
-    public bool facingRight;
+    // public bool PlayerManager.Instance.facingRight;
     private Animator anim;
-    [SerializeField] private ParticleSystem stepParticles;
-    private ParticleSystem.ShapeModule shape;
     private float jumpCooldownTime;
     private float jumpCooldown;
 
@@ -32,10 +30,9 @@ public class PlayerInput : MonoBehaviour
             movementController = GetComponent<CharacterController2D>();
         }
         anim = GetComponent<Animator>();
-        shape = stepParticles.shape;
-        facingRight = transform.localScale.x >= 0 ? true : false;
 
         #region Initialization
+        PlayerManager.Instance.facingRight = transform.localScale.x >= 0 ? true : false;
         jumpCooldownTime = PlayerManager.Instance.hangTime + 0.05f; // TODO: test this out, mb just chanhge at ManagerInstance
         jumpBufferTime = PlayerManager.Instance.jumpBufferTime;
         runSpeed = PlayerManager.Instance.runSpeed;
@@ -62,10 +59,10 @@ public class PlayerInput : MonoBehaviour
             anim.SetBool("isMoveInput", false);
         };
 
-        if(horizontalMove > 0 && !facingRight){
+        if(horizontalMove > 0 && !PlayerManager.Instance.facingRight){
             Flip();
         }
-        if(horizontalMove < 0 && facingRight){
+        if(horizontalMove < 0 && PlayerManager.Instance.facingRight){
             Flip();
         }
 
@@ -118,8 +115,7 @@ public class PlayerInput : MonoBehaviour
     private void Flip()
 	{
 		// Switch the way the player is labelled as facing.
-		facingRight = !facingRight;
-        shape.rotation *= -1;
+		PlayerManager.Instance.facingRight = !PlayerManager.Instance.facingRight;
 
 		// Multiply the player's x local scale by -1.
 		Vector2 theScale = transform.localScale;

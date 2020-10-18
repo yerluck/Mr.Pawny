@@ -10,9 +10,6 @@ public class GameEvents : Singleton<GameEvents>
     public event Action onBridgeTriggerEnter;
     public event Action onPlayerFlip;
 
-
-
-
     public void BridgeTriggerEnter()
     {
         if (onBridgeTriggerEnter != null)

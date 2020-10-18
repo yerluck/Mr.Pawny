@@ -47,6 +47,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public float airSpeed { get {return m_AirSpeed;} set {m_AirSpeed = value;} }
     public float landingDistance { get => m_LandingDistance; }
     public bool paralized { get => m_paralized; set => m_paralized = value; }
+    public bool facingRight { get; set; }
     #endregion
 
    // (Optional) Prevent non-singleton constructor use.

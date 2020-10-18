@@ -2,6 +2,7 @@
 
 public class AttackEffectCollision : MonoBehaviour
 {
+    [SerializeField] private GameObject hitEffect;
     public float dmg {get; set;}
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -10,6 +11,12 @@ public class AttackEffectCollision : MonoBehaviour
         {
             damagedObject.attacker = transform;
             damagedObject.TakeDamage(dmg);
+
+            if (hitEffect != null)
+            {
+                Vector2 point = GetComponent<Collider2D>().ClosestPoint(other.transform.position);
+                Instantiate(hitEffect, point, Quaternion.identity);
+            }
         }
     }
 }

@@ -157,7 +157,7 @@ public class CharacterController2D : MonoBehaviour
 		// GameObject go = Instantiate(attackEffectPrefabs[0], attackPoint) as GameObject;
 		IAttacker attackScript = go.GetComponent<IAttacker>();
 		if (attackScript != null) {
-			attackScript.InitAttack(new object[] {attackNum, playerInput.facingRight});
+			attackScript.InitAttack(new object[] {attackNum, PlayerManager.Instance.facingRight});
 			m_anim.ResetTrigger("attacked");
 			m_anim.SetTrigger("attacked");
 			m_anim.SetInteger("attackNum", attackNum);
