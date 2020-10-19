@@ -10,11 +10,13 @@ public class CharacterSideEffectsHandler : CharacterController2D, IDamageable
     private Animator anim;
     private RaycastHit2D hit;
     [SerializeField] private ParticleSystem stepParticles;
+    [SerializeField] private GameObject jumpDustPrefab;
     private ParticleSystem.ShapeModule shape;
-    public float HP { get { return m_HitPoints; } set { m_HitPoints = value; }}
-    public Transform attacker { get { return m_attacker; } set { m_attacker = value; } }
+    public float HP { get => m_HitPoints; set => m_HitPoints = value; }
+    public Transform attacker { get => m_attacker; set => m_attacker = value; }
     private bool isLanded;
     private Vector3 SHAPE_ROTATION = new Vector3(0, 270, 0);
+    
 
     protected override void Awake() {
         base.Awake();
@@ -23,6 +25,11 @@ public class CharacterSideEffectsHandler : CharacterController2D, IDamageable
         isLanded = !m_Grounded;
 
         GameEvents.Instance.onPlayerFlip += CharacterFlipAction;
+        if (jumpDustPrefab != null)
+        {
+            GameEvents.Instance.onPlayerJump += EmitJumpDust;
+        }
+
         if (stepParticles != null) 
         {
             shape = stepParticles.shape;
@@ -61,7 +68,9 @@ public class CharacterSideEffectsHandler : CharacterController2D, IDamageable
         stepParticles.Play();
     }
 
-    private void OnParticleSystemStopped() {
+    private void EmitJumpDust()
+    {
+        Instantiate(jumpDustPrefab, m_GroundCheck.position , Quaternion.Euler(PlayerManager.Instance.JUMP_DUST_ROTATION));
     }
 
     public void TakeDamage(float dmg){
@@ -82,6 +91,9 @@ public class CharacterSideEffectsHandler : CharacterController2D, IDamageable
 
     private void OnDestroy() {
         if(GameEvents.Instance != null)
+        {
             GameEvents.Instance.onPlayerFlip -= CharacterFlipAction;        
+            GameEvents.Instance.onPlayerJump -= EmitJumpDust;
+        }
     }
 }

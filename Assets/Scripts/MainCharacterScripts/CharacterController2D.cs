@@ -175,6 +175,7 @@ public class CharacterController2D : MonoBehaviour
 			// m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 			playerInput.jumpBufferCounter = 0;
+			GameEvents.Instance.PlayerJump();
 		} else if (m_AirJump && !m_AirJumped) {
 			m_Rigidbody2D.velocity = Vector2.zero;
 			m_AirJumped = true;
