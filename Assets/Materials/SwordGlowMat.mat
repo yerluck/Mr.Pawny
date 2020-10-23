@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SlashMat
-  m_Shader: {fileID: -6465566751694194690, guid: 46e153d63cafc7b128f851fedb439ddf,
+  m_Name: SwordGlowMat
+  m_Shader: {fileID: -6465566751694194690, guid: 57819d60c08b4a26985b02ceed51dfc1,
     type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -20,16 +20,18 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_C1818533:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _AlphaTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emission:
+        m_Texture: {fileID: -2778664322187454201, guid: aa4322d196182b3a984278bf8298ec6c,
+          type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 6574496788852964399, guid: ea01051f47a801d929cbe5ca4bd697fa,
+          type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -40,16 +42,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_D52CD7D5_Texture_1:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_1440BD54: 0.127
+    - Vector1_E38E02EC: 0.173
     - _EnableExternalAlpha: 0
     m_Colors:
-    - Vector2_3073174D: {r: 0, g: -0.4, b: 0, a: 0}
-    - Vector2_EFF68EF6: {r: 1, g: 0.8, b: 0, a: 0}
+    - Color_224E7DE0: {r: 2.118547, g: 0.77647984, b: 0.25511298, a: 0}
+    - Color_B551457D: {r: 3.4415908, g: 1.6757483, b: 0.7027332, a: 0}
+    - Vector2_B24B8491: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_E278AE0: {r: 1, g: 1, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

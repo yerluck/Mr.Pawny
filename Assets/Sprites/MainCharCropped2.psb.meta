@@ -445,4 +445,7 @@ ScriptedImporter:
   textureAssetName: MainCharCropped2 Texture
   prefabAssetName: MainCharCropped2 Prefab
   spriteLibAssetName: MainCharCropped2 Sprite Lib
-  secondarySpriteTextures: []
+  secondarySpriteTextures:
+  - name: _Emission
+    texture: {fileID: -2778664322187454201, guid: aa4322d196182b3a984278bf8298ec6c,
+      type: 3}

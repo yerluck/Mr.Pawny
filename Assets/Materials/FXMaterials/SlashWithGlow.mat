@@ -11,7 +11,7 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 434e78146b1704a26b532284a3c657c1,
     type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 2
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
@@ -20,16 +20,21 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Emission:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_1440BD54: 0.126
-    - Vector1_E38E02EC: 0.126
+    - Vector1_1440BD54: 0.19
+    - Vector1_E38E02EC: 0.123
     m_Colors:
-    - Color_224E7DE0: {r: 8.133951, g: 8.083008, b: 8.399988, a: 1}
-    - Color_24962758: {r: 0.0017069622, g: 0.0034139245, b: 0.05462279, a: 0}
+    - Color_1F43F93B: {r: 0.2358491, g: 0.7447973, b: 0.9433962, a: 0}
+    - Color_224E7DE0: {r: 20.865906, g: 14.420417, b: 9.39512, a: 1}
+    - Color_24962758: {r: 0.3603759, g: 0.50452626, b: 1.3694285, a: 0}
     - Color_2CBFFD0F: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 0}
     - Vector2_27E1A29E: {r: 0, g: 0.5, b: 0, a: 0}
     - Vector2_3073174D: {r: 0, g: -0.4, b: 0, a: 0}
