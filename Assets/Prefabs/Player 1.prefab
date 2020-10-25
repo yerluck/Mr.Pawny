@@ -257,9 +257,9 @@ GameObject:
   - component: {fileID: 8959726508593294338}
   - component: {fileID: 1866014957040451118}
   - component: {fileID: 1866014957040451113}
+  - component: {fileID: 239152629572731305}
   - component: {fileID: 1866014957040451112}
   - component: {fileID: 1866014957040451115}
-  - component: {fileID: 239152629572731305}
   - component: {fileID: 1866014957040451116}
   m_Layer: 8
   m_Name: Player 1
@@ -323,6 +323,25 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.29}
   m_Size: {x: 0.32, y: 1.9}
   m_Direction: 0
+--- !u!95 &239152629572731305
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866014957040451114}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cae45e4b001121b9f8045b2503b3a831, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1866014957040451112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a639c8dfe2497008bbba33b9cba6d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementController: {fileID: 1866014957040451115}
+  movementController: {fileID: 1866014957040451116}
   jumpBufferCounter: 0
 --- !u!114 &1866014957040451115
 MonoBehaviour:
@@ -344,7 +363,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866014957040451114}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f898e2013ffce6b53ac62648b1e13dbc, type: 3}
   m_Name: 
@@ -371,25 +390,6 @@ MonoBehaviour:
   attackEffectPrefabs:
   - {fileID: 1430194129013734665, guid: 438efd19262ff7e2ca9c7352fdcd50e4, type: 3}
   m_Grounded: 0
---- !u!95 &239152629572731305
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1866014957040451114}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cae45e4b001121b9f8045b2503b3a831, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1866014957040451116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,9 +421,11 @@ MonoBehaviour:
     maxNormalAngle: 0
   m_GroundCheck: {fileID: 9192511418850296945}
   m_CeilingCheck: {fileID: 9192511418964940734}
-  attackEffectPrefabs: []
+  attackEffectPrefabs:
+  - {fileID: 1430194129013734665, guid: 438efd19262ff7e2ca9c7352fdcd50e4, type: 3}
   m_Grounded: 0
   stepParticles: {fileID: 0}
+  jumpDustPrefab: {fileID: 0}
 --- !u!1 &2045143162426729639
 GameObject:
   m_ObjectHideFlags: 0

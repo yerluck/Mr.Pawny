@@ -11,9 +11,9 @@ public class ChessChildrenHandler : MonoBehaviour, IDamageable
     private Transform m_attacker;
     public float HP { get; set; }
     public Transform attacker { get { return m_attacker; } set { m_attacker = value; } }
-    private Animation animation;
+    private Animation anim;
     private SpriteRenderer[] figuresRenderers;
-    private BoxCollider2D collider;
+    private new BoxCollider2D collider;
 
 
     //initialization of children
@@ -40,8 +40,8 @@ public class ChessChildrenHandler : MonoBehaviour, IDamageable
             figure.sortingOrder = children.layerOrders[i];
 
 
-            animation = GetComponent<Animation>();
-            animation.AddClip(children.animationClip, "interruption");
+            anim = GetComponent<Animation>();
+            anim.AddClip(children.animationClip, "interruption");
         }
 
         collider = gameObject.AddComponent<BoxCollider2D>();
@@ -67,6 +67,6 @@ public class ChessChildrenHandler : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        animation.Play("interruption");
+        anim.Play("interruption");
     }
 }
