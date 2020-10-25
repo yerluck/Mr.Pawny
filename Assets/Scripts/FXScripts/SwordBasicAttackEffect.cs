@@ -85,7 +85,7 @@ public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
         particles.Play();
     }
 
-    private void OnParticleSystemStopped()
+    private new void OnParticleSystemStopped()
     {
         colliderHolder.SetActive(false);
         PlayerManager.Instance.paralized = false;
