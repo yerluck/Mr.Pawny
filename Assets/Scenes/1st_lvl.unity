@@ -516,7 +516,7 @@ MonoBehaviour:
   - {x: 1.92, y: 0}
   - {x: 7.53, y: 0}
   - {x: 3.96, y: 3.35}
-  speed: 4.2
+  speed: 5.3
 --- !u!61 &122064833
 BoxCollider2D:
   m_ObjectHideFlags: 0
