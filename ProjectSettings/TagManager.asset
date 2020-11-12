@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Passform
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Environment
   - Platform
   - AwakingEnvironment
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -47,6 +48,9 @@ TagManager:
     locked: 0
   - name: PlayerBack
     uniqueID: 601739997
+    locked: 0
+  - name: Enemy
+    uniqueID: 508613451
     locked: 0
   - name: Player
     uniqueID: 970190993

@@ -1,0 +1,347 @@
+fileFormatVersion: 2
+guid: 3c30c82b779ee2d6c855992747ba3125
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1798894867704035407
+    second: HelmetFront
+  - first:
+      213: -7235020567070034774
+    second: Body
+  - first:
+      213: 106302707779754121
+    second: HandFront
+  - first:
+      213: -135858518883689788
+    second: ShoulderBack
+  - first:
+      213: -4534314490969036253
+    second: Face
+  - first:
+      213: -5529181106412241856
+    second: HelmetBack
+  - first:
+      213: -7882319503570773778
+    second: ShoulderFront
+  - first:
+      213: -390929108662815856
+    second: Bottom
+  - first:
+      213: -5899588754732101130
+    second: HandBack
+  - first:
+      213: 767172379478254328
+    second: PawnEnemyDone_9
+  - first:
+      213: 7027345705703283468
+    second: Eyes
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 1
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 1
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 700
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HelmetFront
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1336
+        width: 612
+        height: 664
+      alignment: 9
+      pivot: {x: 0.5045533, y: 0.05933095}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f48b5c9e955f6f810800000000000000
+      internalID: 1798894867704035407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Body
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 849
+        width: 383
+        height: 480
+      alignment: 9
+      pivot: {x: 0.5158098, y: 0.03325259}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa43525802b089b90800000000000000
+      internalID: -7235020567070034774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HandFront
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 931
+        width: 224
+        height: 158
+      alignment: 9
+      pivot: {x: 0.9409733, y: 0.48511437}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 988dfdfdfb9a97100800000000000000
+      internalID: 106302707779754121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShoulderBack
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 1099
+        width: 170
+        height: 230
+      alignment: 9
+      pivot: {x: 0.5046114, y: 0.94651145}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ca1a3a95655d1ef0800000000000000
+      internalID: -135858518883689788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Face
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 303
+        width: 418
+        height: 513
+      alignment: 9
+      pivot: {x: 0.5434578, y: 0.16360545}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32a62e98ef0e211c0800000000000000
+      internalID: -4534314490969036253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HelmetBack
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 551
+        width: 316
+        height: 377
+      alignment: 9
+      pivot: {x: 0.52645606, y: 0.026925085}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04c3f7d14176443b0800000000000000
+      internalID: -5529181106412241856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ShoulderFront
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 276
+        width: 192
+        height: 265
+      alignment: 9
+      pivot: {x: 0.5326646, y: 0.95557976}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee8d78f7c206c9290800000000000000
+      internalID: -7882319503570773778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bottom
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 2
+        width: 476
+        height: 262
+      alignment: 9
+      pivot: {x: 0.4872794, y: 0.8119991}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 093fac10c04239af0800000000000000
+      internalID: -390929108662815856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HandBack
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 108
+        width: 198
+        height: 149
+      alignment: 9
+      pivot: {x: 0.96436226, y: 0.4771459}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f1dd41f843702ea0800000000000000
+      internalID: -5899588754732101130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Eyes
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 16
+        width: 165
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0b9f46dfa5268160800000000000000
+      internalID: 7027345705703283468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
