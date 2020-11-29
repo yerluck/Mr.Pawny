@@ -2,20 +2,20 @@
 using UnityEngine.Events;
 using System.Collections.Generic;
 
-public class CharacterController2D : MonoBehaviour
+internal class Protagonist : CharacterController<PlayerInput>
 {
 	protected float m_FallMultiplyer;
 	protected float m_LowJumpMultiplyer;
-	protected float m_JumpForce;							// Amount of force added when the player jumps.
+	protected float m_JumpForce;												// Amount of force added when the player jumps.
 	protected float m_AirJumpForce;
-	protected float m_CrouchSpeed;			// Amount of maxSpeed applied to crouching movement. 1 = 100%
-	protected float m_MovementSmoothing;	// How much to smooth out the movement
-	protected bool m_AirControl;							// Whether or not a player can steer while jumping;
+	protected float m_CrouchSpeed;												// Amount of maxSpeed applied to crouching movement. 1 = 100%
+	protected float m_MovementSmoothing;										// How much to smooth out the movement
+	protected bool m_AirControl;												// Whether or not a player can steer while jumping;
 	internal bool m_AllowMove;
 	protected bool m_AirJump;
-	protected float m_LandingDistance;
-	protected float m_GravityScale; 												// gravity multiplyer on Rb2D
-	protected float k_GroundedRadius = .07f; 										// Radius of the overlap circle to determine if grounded
+	protected float m_LandingDistance;											// Distance when to play landing animation
+	protected float m_GravityScale; 											// gravity multiplyer on Rb2D
+	protected float k_GroundedRadius = .07f; 									// Radius of the overlap circle to determine if grounded
 	protected float k_CeilingRadius = .2f; 										// Radius of the overlap circle to determine if the player can stand up
 	[SerializeField] protected LayerMask m_WhatIsGround;						// A mask determining what is ground to the character
 	[SerializeField] protected ContactFilter2D m_WhatIsPlatform;
@@ -24,14 +24,11 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] GameObject[] attackEffectPrefabs = {};
 	protected bool m_wasCrouching = false;
 	public bool m_Grounded;            											// Whether or not the player is grounded.
-	protected Rigidbody2D m_Rigidbody2D;
 	protected Vector2 m_Velocity = Vector2.zero;
 	protected bool m_AirJumped;
 	protected Collider2D[] colliders = new Collider2D[1];
 	protected float m_HangTime; 													// Koyote time
 	protected float hangCounter;
-	protected PlayerInput playerInput;
-	protected Animator m_anim;
 
 	protected Dictionary<int, Vector3> attackPoints = new Dictionary<int, Vector3>()
 	{
@@ -42,11 +39,9 @@ public class CharacterController2D : MonoBehaviour
 
 
 
-	protected virtual void Awake()
+	protected override void Awake()
 	{
-		m_Rigidbody2D = GetComponent<Rigidbody2D>();
-		playerInput = GetComponent<PlayerInput>();
-		m_anim = GetComponent<Animator>();
+		base.Awake();
 
 		m_LandingDistance = PlayerManager.Instance.landingDistance;
 		m_HangTime = PlayerManager.Instance.hangTime;
@@ -101,7 +96,7 @@ public class CharacterController2D : MonoBehaviour
 		#endregion
 	}
 
-	public void Move(float move, bool crouch)
+	public override void Move(float move, bool crouch)
 	{
 		// If crouching, check to see if the character can stand up
 		if (!crouch && m_Grounded)
@@ -151,7 +146,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 	// TODO: Think about multi-weapon attack => dealing damage and so on
-	public void Attack(int attackNum)
+	public override void Attack(int attackNum)
 	{
 		GameObject go = Instantiate(attackEffectPrefabs[0], transform.TransformPoint(attackPoints[attackNum]), gameObject.transform.rotation, gameObject.transform) as GameObject;
 		// GameObject go = Instantiate(attackEffectPrefabs[0], attackPoint) as GameObject;
@@ -174,13 +169,13 @@ public class CharacterController2D : MonoBehaviour
 			// Add a vertical force to the player.
 			// m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
-			playerInput.jumpBufferCounter = 0;
+			inputSource.jumpBufferCounter = 0;
 			GameEvents.Instance.PlayerJump();
 		} else if (m_AirJump && !m_AirJumped) {
 			m_Rigidbody2D.velocity = Vector2.zero;
 			m_AirJumped = true;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_AirJumpForce));
-			playerInput.jumpBufferCounter = 0;
+			inputSource.jumpBufferCounter = 0;
 		}
 	}
 

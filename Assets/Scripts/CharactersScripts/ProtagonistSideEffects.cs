@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ParticleSystem))]
-public class CharacterSideEffectsHandler : CharacterController2D, IDamageable
+internal class ProtagonistSideEffects : Protagonist, IDamageable
 {
     private float m_HitPoints;
     private Transform m_attacker;

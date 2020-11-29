@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] private CharacterController2D movementController;
+    [SerializeField] private Protagonist movementController;
     private float runSpeed;
     private float airSpeed;
     private float jumpBufferTime;
@@ -27,7 +27,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Awake() {
         if (movementController == null){
-            movementController = GetComponent<CharacterController2D>();
+            movementController = GetComponent<Protagonist>();
         }
         anim = GetComponent<Animator>();
 
