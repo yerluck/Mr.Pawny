@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 970190993
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -7
   m_Sprite: {fileID: 575357218781724476, guid: ea01051f47a801d929cbe5ca4bd697fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -150,7 +150,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 970190993
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -9
   m_Sprite: {fileID: -8491053873639066263, guid: ea01051f47a801d929cbe5ca4bd697fa,
     type: 3}
@@ -232,7 +232,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 970190993
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -4
   m_Sprite: {fileID: -2501171574511119203, guid: ea01051f47a801d929cbe5ca4bd697fa,
     type: 3}
@@ -259,10 +259,9 @@ GameObject:
   - component: {fileID: 1866014957040451113}
   - component: {fileID: 239152629572731305}
   - component: {fileID: 1866014957040451112}
-  - component: {fileID: 1866014957040451115}
-  - component: {fileID: 1866014957040451116}
+  - component: {fileID: 2221494085113439140}
   m_Layer: 8
-  m_Name: Player 1
+  m_Name: Player_v2.0
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,43 +353,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a639c8dfe2497008bbba33b9cba6d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementController: {fileID: 1866014957040451116}
+  movementController: {fileID: 2221494085113439140}
   jumpBufferCounter: 0
---- !u!114 &1866014957040451115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1866014957040451114}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f898e2013ffce6b53ac62648b1e13dbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_WhatIsGround:
-    serializedVersion: 2
-    m_Bits: 1024
-  m_WhatIsPlatform:
-    useTriggers: 0
-    useLayerMask: 1
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 1024
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
-  m_GroundCheck: {fileID: 9192511418850296945}
-  m_CeilingCheck: {fileID: 9192511418964940734}
-  attackEffectPrefabs:
-  - {fileID: 1430194129013734665, guid: 438efd19262ff7e2ca9c7352fdcd50e4, type: 3}
-  m_Grounded: 0
---- !u!114 &1866014957040451116
+--- !u!114 &2221494085113439140
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -399,9 +364,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1866014957040451114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa9673d21244332bbbb5c2b0e8b1cb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 663a682f9b6d499b4b0c8cea6f0f8bd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputSource: {fileID: 1866014957040451112}
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 1024
@@ -424,8 +390,9 @@ MonoBehaviour:
   attackEffectPrefabs:
   - {fileID: 1430194129013734665, guid: 438efd19262ff7e2ca9c7352fdcd50e4, type: 3}
   m_Grounded: 0
-  stepParticles: {fileID: 0}
-  jumpDustPrefab: {fileID: 0}
+  stepParticles: {fileID: 3015918401628715963}
+  jumpDustPrefab: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845,
+    type: 3}
 --- !u!1 &2045143162426729639
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +461,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 970190993
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -3
   m_Sprite: {fileID: 5141760670510271424, guid: 46e2fa7994bea252ea608bb75c8be9fb,
     type: 3}
@@ -576,7 +543,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 970190993
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7216068072561963668, guid: ea01051f47a801d929cbe5ca4bd697fa,
     type: 3}
@@ -659,7 +626,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 970190993
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -2
   m_Sprite: {fileID: 478272319139594712, guid: ea01051f47a801d929cbe5ca4bd697fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -793,7 +760,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 970190993
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -6
   m_Sprite: {fileID: -706238022991063091, guid: ea01051f47a801d929cbe5ca4bd697fa,
     type: 3}
@@ -876,7 +843,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 970190993
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -10
   m_Sprite: {fileID: -3557889076368805632, guid: ea01051f47a801d929cbe5ca4bd697fa,
     type: 3}
@@ -962,7 +929,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 970190993
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -5
   m_Sprite: {fileID: 4338533195682202031, guid: ea01051f47a801d929cbe5ca4bd697fa,
     type: 3}
@@ -1094,7 +1061,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 970190993
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -8
   m_Sprite: {fileID: 4058698790768120401, guid: ea01051f47a801d929cbe5ca4bd697fa,
     type: 3}
@@ -1177,7 +1144,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 970190993
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -1
   m_Sprite: {fileID: -1538192674296984788, guid: ea01051f47a801d929cbe5ca4bd697fa,
     type: 3}
@@ -5798,7 +5765,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 970190993
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -10
   m_RenderMode: 0
   m_SortMode: 0
