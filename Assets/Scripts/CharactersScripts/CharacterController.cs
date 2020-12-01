@@ -1,10 +1,10 @@
 using UnityEngine;
 
-internal abstract class CharacterController<T> : MonoBehaviour
+public abstract class CharacterController<T> : MonoBehaviour
 {
 	[SerializeField] protected T inputSource;
-	protected Rigidbody2D m_Rigidbody2D;
-	protected Animator m_anim;
+	protected Rigidbody2D rigidbody2D;
+	protected Animator animator;
 	// protected float m_LandingDistance;						// Distance when to play landing animation
 	// protected float m_GravityScale; 						// gravity multiplyer on Rb2D
 	// protected float m_FallMultiplyer;						// How fast object should fall
@@ -18,13 +18,13 @@ internal abstract class CharacterController<T> : MonoBehaviour
 
     protected virtual void Awake()
 	{
-		m_Rigidbody2D = GetComponent<Rigidbody2D>();
-		m_anim = GetComponent<Animator>();
+		rigidbody2D = GetComponent<Rigidbody2D>();
+		animator = GetComponent<Animator>();
 		if(inputSource == null) inputSource = GetComponent<T>();
 	}
 
-
     public abstract void Move(float move, bool crouch);
+
 
 	public abstract void Attack(int attackNum);
 }

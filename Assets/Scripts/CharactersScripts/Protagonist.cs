@@ -61,7 +61,6 @@ internal class Protagonist : CharacterController<PlayerInput>
 
 	protected virtual void FixedUpdate()
 	{
-		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
@@ -86,12 +85,12 @@ internal class Protagonist : CharacterController<PlayerInput>
 		}
 
 		#region Controversial // Better Jump Effect
-		if (m_Rigidbody2D.velocity.y < 0) {
-			m_Rigidbody2D.gravityScale = m_FallMultiplyer;
-		} else if (m_Rigidbody2D.velocity.y > 0 && !Input.GetButton("Jump")) {
-			m_Rigidbody2D.gravityScale = m_LowJumpMultiplyer;
+		if (rigidbody2D.velocity.y < 0) {
+			rigidbody2D.gravityScale = m_FallMultiplyer;
+		} else if (rigidbody2D.velocity.y > 0 && !Input.GetButton("Jump")) {
+			rigidbody2D.gravityScale = m_LowJumpMultiplyer;
 		} else {
-			m_Rigidbody2D.gravityScale = m_GravityScale;
+			rigidbody2D.gravityScale = m_GravityScale;
 		}
 		#endregion
 	}
@@ -139,9 +138,9 @@ internal class Protagonist : CharacterController<PlayerInput>
 			}
 
 			// Move the character by finding the target velocity
-			Vector2 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+			Vector2 targetVelocity = new Vector2(move * 10f, rigidbody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
-			m_Rigidbody2D.velocity = Vector2.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+			rigidbody2D.velocity = Vector2.SmoothDamp(rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 		}
 	}
 
@@ -153,9 +152,9 @@ internal class Protagonist : CharacterController<PlayerInput>
 		IAttacker attackScript = go.GetComponent<IAttacker>();
 		if (attackScript != null) {
 			attackScript.InitAttack(new object[] {attackNum, PlayerManager.Instance.facingRight});
-			m_anim.ResetTrigger("attacked");
-			m_anim.SetTrigger("attacked");
-			m_anim.SetInteger("attackNum", attackNum);
+			animator.ResetTrigger("attacked");
+			animator.SetTrigger("attacked");
+			animator.SetInteger("attackNum", attackNum);
 			attackScript.PerformAttack();
 		}
 	}
@@ -165,16 +164,16 @@ internal class Protagonist : CharacterController<PlayerInput>
 		//Jump according koyote time
 		if (hangCounter >= 0)
 		{
-			m_Rigidbody2D.velocity = Vector2.zero;
+			rigidbody2D.velocity = Vector2.zero;
 			// Add a vertical force to the player.
 			// m_Grounded = false;
-			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 			inputSource.jumpBufferCounter = 0;
 			GameEvents.Instance.PlayerJump();
 		} else if (m_AirJump && !m_AirJumped) {
-			m_Rigidbody2D.velocity = Vector2.zero;
+			rigidbody2D.velocity = Vector2.zero;
 			m_AirJumped = true;
-			m_Rigidbody2D.AddForce(new Vector2(0f, m_AirJumpForce));
+			rigidbody2D.AddForce(new Vector2(0f, m_AirJumpForce));
 			inputSource.jumpBufferCounter = 0;
 		}
 	}
