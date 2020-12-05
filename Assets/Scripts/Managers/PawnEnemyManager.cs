@@ -6,8 +6,10 @@ public class PawnEnemyManager: Singleton<PawnEnemyManager>
     [SerializeField][Range(0, 1f)] private float obstacleCheckSizeDelta = .2f;
     [SerializeField][Range(0, 1f)] private float obstacleCheckDistance = .5f;
     [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private float hitPoints = 100;
 
 
+    public float HitPoints { get => hitPoints; }
     public float GroundCheckerRadius { get => groundCheckerRadius; }
     public float EdgeCheckDistance { get => edgeCheckDistance; }
     public float ObstacleCheckSizeDelta { get => obstacleCheckSizeDelta; }

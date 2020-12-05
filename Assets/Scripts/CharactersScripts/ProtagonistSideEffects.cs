@@ -12,7 +12,7 @@ internal class ProtagonistSideEffects : Protagonist, IDamageable
     [SerializeField] private GameObject jumpDustPrefab;
     private ParticleSystem.ShapeModule shape;
     public float HP { get => m_HitPoints; set => m_HitPoints = value; }
-    public Transform attacker { get => m_attacker; set => m_attacker = value; }
+    public Transform Attacker { get => m_attacker; set => m_attacker = value; }
     private bool isLanded;
     private Vector3 SHAPE_ROTATION = new Vector3(0, 270, 0);
     
@@ -76,9 +76,15 @@ internal class ProtagonistSideEffects : Protagonist, IDamageable
         HP -= dmg;
 
         if(HP <= 0) {
-            Debug.Log("DEAD!"); //TODO: add actual death action
+            Die();
         }
 	}
+
+    //TODO: add actual death action
+    public void Die()
+    {
+        Debug.Log("DEAD!"); 
+    }
 
     private void CharacterFlipAction()
     {

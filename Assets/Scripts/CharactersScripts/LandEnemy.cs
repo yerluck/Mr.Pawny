@@ -2,20 +2,22 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public abstract class LandEnemy<T>: CharacterController<T> // T is input system - specific AI for each enemy type
+public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is input system - specific AI for each enemy type
 {
     protected bool facingRight = true;
     protected bool grounded = false;
 
     #region abstract properties
-    protected abstract Transform edgeCheckerTransform { get; }     
-    protected abstract Transform groundCheckerTransform { get; }
-    protected abstract float groundCheckerRadius { get; }
-    protected abstract float edgeCheckDistance { get; }
-    protected abstract float obstacleCheckSizeDelta { get; }
-    protected abstract float obstacleCheckDistance { get; }
-    protected abstract LayerMask whatIsGround { get; } 
-    protected abstract Collider2D physicsCollider { get; }
+    protected abstract Transform EdgeCheckerTransform { get; }
+    protected abstract Transform GroundCheckerTransform { get; }
+    protected abstract float GroundCheckerRadius { get; }
+    protected abstract float EdgeCheckDistance { get; }
+    protected abstract float ObstacleCheckSizeDelta { get; }
+    protected abstract float ObstacleCheckDistance { get; }
+    protected abstract LayerMask WhatIsGround { get; } 
+    protected abstract Collider2D PhysicsCollider { get; }
+    public abstract float HP { get; set; }
+    public abstract Transform Attacker { get; set; }
     #endregion
 
     protected override void Awake()
@@ -25,6 +27,20 @@ public abstract class LandEnemy<T>: CharacterController<T> // T is input system 
         facingRight = transform.localScale.x >= 0 ? true : false;
     }
 
+
+    public void TakeDamage(float damage)
+    {
+        HP -= damage;
+        OnTakeDamage();
+
+        if (HP <= 0) Die();
+    }
+
+    // Method that could be called before instance dies
+    protected abstract void OnTakeDamage();
+
+    public abstract void Die();
+
     // getter to check if character is grounded
     protected bool isGrounded
     {
@@ -32,7 +48,7 @@ public abstract class LandEnemy<T>: CharacterController<T> // T is input system 
         {
             grounded = false;
 
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheckerTransform.position, groundCheckerRadius, whatIsGround);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(GroundCheckerTransform.position, GroundCheckerRadius, WhatIsGround);
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject)
@@ -50,24 +66,25 @@ public abstract class LandEnemy<T>: CharacterController<T> // T is input system 
     {
         get
         {
-            RaycastHit2D groundInfo = Physics2D.Raycast(edgeCheckerTransform.position, Vector2.down, edgeCheckDistance, whatIsGround);
+            RaycastHit2D groundInfo = Physics2D.Raycast(EdgeCheckerTransform.position, Vector2.down, EdgeCheckDistance, WhatIsGround);
             if (!groundInfo.collider) return true;
 
             return false;
         }
     }
 
+    // getter to check if character in front of Obstacle
     protected bool isFacingObstacle
     {
         get
         {
             RaycastHit2D hit = Physics2D.BoxCast(
-                physicsCollider.bounds.center, 
-                new Vector2(physicsCollider.bounds.size.x, physicsCollider.bounds.size.y - obstacleCheckSizeDelta),
+                PhysicsCollider.bounds.center, 
+                new Vector2(PhysicsCollider.bounds.size.x, PhysicsCollider.bounds.size.y - ObstacleCheckSizeDelta),
                 0f,
                 facingRight ? Vector2.right : Vector2.left,
-                obstacleCheckDistance,
-                whatIsGround
+                ObstacleCheckDistance,
+                WhatIsGround
 		    );
 
             if(hit) return true;
@@ -76,6 +93,7 @@ public abstract class LandEnemy<T>: CharacterController<T> // T is input system 
         }
     }
 
+    // Method to turn character to face player
     protected void FaceTarget(Transform target)
     {
         bool facingTarget;
@@ -88,7 +106,7 @@ public abstract class LandEnemy<T>: CharacterController<T> // T is input system 
     }
 
     // Method to change facing direction
-    private void Flip()
+    protected void Flip()
 	{
 		// Switch the way the character is labelled as facing.
 		facingRight = !facingRight;

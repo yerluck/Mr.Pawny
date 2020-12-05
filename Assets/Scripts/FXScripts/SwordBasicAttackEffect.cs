@@ -18,7 +18,7 @@ public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
     private ParticleSystem.MainModule main;
 
 
-    public float dmgAmount {get; set;}
+    public float DamageAmount {get; set;}
 
     public void InitAttack(object[] props)
     {
@@ -32,10 +32,10 @@ public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
         attackNum = (effectEnum)props[0];
         main = particles.main;
         facingRight = (bool)props[1];
-        dmgAmount = 10f;
+        DamageAmount = 10f;
         colliderHolder = colliderHolders[(int)attackNum];
         AttackEffectCollision collisionScript = colliderHolder.GetComponent<AttackEffectCollision>();
-        collisionScript.dmg = dmgAmount;
+        collisionScript.dmg = DamageAmount;
 
         // attack effect depending on state from controller
         // TODO: add other cases
