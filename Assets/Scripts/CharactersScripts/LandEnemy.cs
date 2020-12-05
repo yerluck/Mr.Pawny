@@ -18,6 +18,7 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     protected abstract Collider2D PhysicsCollider { get; }
     public abstract float HP { get; set; }
     public abstract Transform Attacker { get; set; }
+    public bool AllowMove { get; set; } = true;
     #endregion
 
     protected override void Awake()
@@ -38,11 +39,12 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
 
     // Method that could be called before instance dies
     protected abstract void OnTakeDamage();
+    internal abstract void Jump(float force);
 
     public abstract void Die();
 
     // getter to check if character is grounded
-    protected bool isGrounded
+    internal bool isGrounded
     {
         get
         {
@@ -62,7 +64,7 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     }
     
     // getter to check if character on edge of platform
-    protected bool isOnEdge
+    internal bool isOnEdge
     {
         get
         {
@@ -74,7 +76,7 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     }
 
     // getter to check if character in front of Obstacle
-    protected bool isFacingObstacle
+    internal bool isFacingObstacle
     {
         get
         {
@@ -94,7 +96,7 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     }
 
     // Method to turn character to face player
-    protected void FaceTarget(Transform target)
+    internal void FaceTarget(Transform target)
     {
         bool facingTarget;
 		if(target.position.x - transform.position.x > 0) {

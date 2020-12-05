@@ -14,7 +14,7 @@ public class PlayerManager : Singleton<PlayerManager>
 	[SerializeField] private bool m_AirControl = false;
 	[SerializeField] private bool m_AllowMove = true;
     [SerializeField] private bool m_AirJump = false;
-	[SerializeField] private int m_HitPoints = 100;
+	[SerializeField] private float m_HitPoints = 100;
 	[SerializeField] private float k_GroundedRadius = .05f;
     [SerializeField] private float k_CeilingRadius = .2f;
     [SerializeField][Range(1f,20f)] private float m_FallMultiplyer = 2.5f;
@@ -32,7 +32,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public float gravityScale { get => m_GravityScale; }
     public float fallMultiplyer { get => m_FallMultiplyer; }
     public float lowJumpMultiplyer { get => m_LowJumpMultiplyer; }    
-    public int hitPoints { get => m_HitPoints; set => m_HitPoints = value; }
+    public float hitPoints { get => m_HitPoints; set => m_HitPoints = value; }
     public float hangTime { get => m_HangTime; }
     public float jumpBufferTime { get => m_JumpBufferTime; }
     public float groundedRadius { get => k_GroundedRadius; set => k_GroundedRadius = value; }

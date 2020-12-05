@@ -1,7 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 // TODO: Instead of player input - AI script
-public class PawnEnemy<PlayerInput>: LandEnemy<PlayerInput>
+public class PawnEnemy: LandEnemy<TestInputSystem>
 {
     #region Fields and Properties
     [SerializeField] private Transform edgeCheckerTransform;
@@ -13,16 +13,19 @@ public class PawnEnemy<PlayerInput>: LandEnemy<PlayerInput>
     private float obstacleCheckDistance;
     private LayerMask whatIsGround;
     private float hitPoints;
+    private float movementSmoothing;
+    private float jumpForce;
+    protected Vector2 velocity = Vector2.zero;
 
     
-    protected  override Transform EdgeCheckerTransform { get => edgeCheckerTransform; }
-    protected  override Transform GroundCheckerTransform { get => groundCheckerTransform; }
-    protected  override float GroundCheckerRadius { get => groundCheckerRadius; }
-    protected  override float EdgeCheckDistance { get => edgeCheckDistance; }
-    protected  override float ObstacleCheckSizeDelta { get => obstacleCheckSizeDelta; }
-    protected  override float ObstacleCheckDistance { get => obstacleCheckDistance; }
-    protected  override LayerMask WhatIsGround { get => whatIsGround; } 
-    protected  override Collider2D PhysicsCollider { get => physicsCollider; } 
+    protected override Transform EdgeCheckerTransform { get => edgeCheckerTransform; }
+    protected override Transform GroundCheckerTransform { get => groundCheckerTransform; }
+    protected override float GroundCheckerRadius { get => groundCheckerRadius; }
+    protected override float EdgeCheckDistance { get => edgeCheckDistance; }
+    protected override float ObstacleCheckSizeDelta { get => obstacleCheckSizeDelta; }
+    protected override float ObstacleCheckDistance { get => obstacleCheckDistance; }
+    protected override LayerMask WhatIsGround { get => whatIsGround; } 
+    protected override Collider2D PhysicsCollider { get => physicsCollider; } 
     public override float HP { get => hitPoints; set => hitPoints = value; }
     public override Transform Attacker { get; set; }
     #endregion
@@ -38,12 +41,23 @@ public class PawnEnemy<PlayerInput>: LandEnemy<PlayerInput>
         obstacleCheckDistance = PawnEnemyManager.Instance.ObstacleCheckDistance;
         whatIsGround = PawnEnemyManager.Instance.WhatIsGround;
         hitPoints = PawnEnemyManager.Instance.HitPoints;
+        movementSmoothing = PawnEnemyManager.Instance.MovementSmoothing;
+        jumpForce = PawnEnemyManager.Instance.JumpForce;
         #endregion
     }
 
     protected override void OnTakeDamage()
     {
 
+    }
+
+    internal override void Jump(float force)
+    {
+        if( isGrounded )
+        {
+            rigidbody2D.velocity = Vector2.zero;
+			rigidbody2D.AddForce(new Vector2(0f, force));
+        }
     }
 
     public override void Die()
@@ -53,11 +67,21 @@ public class PawnEnemy<PlayerInput>: LandEnemy<PlayerInput>
 
     public override void Move(float move, bool crouch)
     {
+        if (move > 0 && !facingRight) Flip();
+        if (move < 0 && facingRight) Flip();
 
+		//only control the player if grounded or airControl is turned on
+		if (isGrounded && AllowMove)
+		{
+			// Move the character by finding the target velocity
+			Vector2 targetVelocity = new Vector2(move * 10f, rigidbody2D.velocity.y);
+			// And then smoothing it out and applying it to the character
+			rigidbody2D.velocity = Vector2.SmoothDamp(rigidbody2D.velocity, targetVelocity, ref velocity, movementSmoothing);
+		}
     }
 
     public override void Attack(int attackNum)
     {
-        
+
     }
 }
