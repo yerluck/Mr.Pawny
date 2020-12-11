@@ -15,6 +15,8 @@ public class PlayerInput : MonoBehaviour
     private Animator anim;
     private float jumpCooldownTime;
     private float jumpCooldown;
+    private float attackCooldownTime;
+    private float attackCooldown;
 
     // TODO: add new attacks accordingly
     private enum Attacks
@@ -33,13 +35,14 @@ public class PlayerInput : MonoBehaviour
 
         #region Initialization
         PlayerManager.Instance.facingRight = transform.localScale.x >= 0 ? true : false;
-        jumpCooldownTime = PlayerManager.Instance.hangTime + 0.05f; // TODO: test this out, mb just chanhge at ManagerInstance
+        jumpCooldownTime = PlayerManager.Instance.hangTime; // TODO: test this out, mb just chanhge at ManagerInstance
+        attackCooldownTime = PlayerManager.Instance.attackTimeCooldown;
         jumpBufferTime = PlayerManager.Instance.jumpBufferTime;
         runSpeed = PlayerManager.Instance.runSpeed;
         airSpeed = PlayerManager.Instance.airSpeed;
         #endregion
-
         jumpCooldown = jumpCooldownTime;
+        attackCooldown = attackCooldownTime;
     }
 
     void Update()
@@ -65,7 +68,7 @@ public class PlayerInput : MonoBehaviour
         if(horizontalMove < 0 && PlayerManager.Instance.facingRight){
             Flip();
         }
-
+        
         //handle jump buffer
         if (Input.GetButtonDown("Jump") && jumpBufferCounter < 0 && jumpCooldown <= 0){
             jumpCooldown = jumpCooldownTime;
@@ -87,8 +90,9 @@ public class PlayerInput : MonoBehaviour
         }
 
         //TODO: Find Better Way for attacks
-        if (Input.GetMouseButtonDown(0)) 
+        if (Input.GetMouseButtonDown(0) && attackCooldown <= 0) 
         {
+            attackCooldown = attackCooldownTime;
             if (Input.GetAxisRaw("Vertical") < 0 && !movementController.m_Grounded)
             {
                 movementController.Attack((int)Attacks.SwordDown);
@@ -103,7 +107,9 @@ public class PlayerInput : MonoBehaviour
 
             movementController.Attack((int)Attacks.SwordForward);
         }
-
+        else {
+            attackCooldown -= Time.deltaTime; 
+        };
     }
 
     void FixedUpdate() 
