@@ -7,10 +7,13 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     protected bool facingRight = true;
     protected bool grounded = false;
 
+    // In case if need to update get or  set - update accessors
     #region abstract properties
     protected abstract Transform EdgeCheckerTransform { get; }
     protected abstract Transform GroundCheckerTransform { get; }
     protected abstract float GroundCheckerRadius { get; }
+    protected abstract float GravityScale { get; }
+    protected abstract float FallMultiplyer { get; }
     protected abstract float EdgeCheckDistance { get; }
     protected abstract float ObstacleCheckSizeDelta { get; }
     protected abstract float ObstacleCheckDistance { get; }
@@ -28,20 +31,35 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
         facingRight = transform.localScale.x >= 0 ? true : false;
     }
 
+    protected virtual void FixedUpdate()
+    {
+        if (rigidbody2D.velocity.y < 0) {
+			rigidbody2D.gravityScale = FallMultiplyer;
+		} else {
+			rigidbody2D.gravityScale = GravityScale;
+		}
+    }
+
 
     public void TakeDamage(float damage)
     {
         HP -= damage;
         OnTakeDamage();
 
-        if (HP <= 0) Die();
+        if (HP <= 0)
+        {
+            Die();
+        }
     }
 
     // Method that could be called before instance dies
     protected abstract void OnTakeDamage();
     internal abstract void Jump(float force);
 
-    public abstract void Die();
+    public virtual void Die()
+    {
+        Destroy(gameObject);
+    }
 
     // getter to check if character is grounded
     internal bool isGrounded

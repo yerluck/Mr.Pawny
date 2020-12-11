@@ -7,6 +7,8 @@ public class PawnEnemy: LandEnemy<TestInputSystem>
     [SerializeField] private Transform edgeCheckerTransform;
     [SerializeField] private Transform groundCheckerTransform;
     [SerializeField] private Collider2D physicsCollider;
+    private float gravityScale;
+    private float fallMultiplyer;
     private float groundCheckerRadius;
     private float edgeCheckDistance;
     private float obstacleCheckSizeDelta;
@@ -20,6 +22,8 @@ public class PawnEnemy: LandEnemy<TestInputSystem>
     
     protected override Transform EdgeCheckerTransform { get => edgeCheckerTransform; }
     protected override Transform GroundCheckerTransform { get => groundCheckerTransform; }
+    protected override float GravityScale { get => gravityScale; }
+    protected override float FallMultiplyer { get => fallMultiplyer; }
     protected override float GroundCheckerRadius { get => groundCheckerRadius; }
     protected override float EdgeCheckDistance { get => edgeCheckDistance; }
     protected override float ObstacleCheckSizeDelta { get => obstacleCheckSizeDelta; }
@@ -35,6 +39,8 @@ public class PawnEnemy: LandEnemy<TestInputSystem>
         base.Awake();
 
         #region Initialization from manager
+        gravityScale = PawnEnemyManager.Instance.GravityScale;
+        fallMultiplyer = PawnEnemyManager.Instance.FallMultiplyer;
         groundCheckerRadius = PawnEnemyManager.Instance.GroundCheckerRadius;
         edgeCheckDistance = PawnEnemyManager.Instance.EdgeCheckDistance;
         obstacleCheckSizeDelta = PawnEnemyManager.Instance.ObstacleCheckSizeDelta;
@@ -60,9 +66,10 @@ public class PawnEnemy: LandEnemy<TestInputSystem>
         }
     }
 
+    // TODO: add actual actions (animations...)
     public override void Die()
     {
-
+        base.Die();
     }
 
     public override void Move(float move, bool crouch)
