@@ -8,9 +8,7 @@ public class PlayerInput : MonoBehaviour
     private float runSpeed;
     private float airSpeed;
     private float jumpBufferTime;
-    private float atackBufferTime;
     public float jumpBufferCounter;
-    public float attackBufferCounter;
     private float horizontalMove = 0f;
     private bool crouch = false;
     // public bool PlayerManager.Instance.facingRight;
