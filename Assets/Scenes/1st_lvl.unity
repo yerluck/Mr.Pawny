@@ -5172,26 +5172,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d52adc2b426974fbd06b4d1dc2dee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RunSpeed: 40
-  m_AirSpeed: 40
-  m_JumpForce: 501
-  m_AirJumpForce: 502
-  m_CrouchSpeed: 0.407
-  m_MovementSmoothing: 0.0607
-  m_AirControl: 1
-  m_AllowMove: 1
-  m_AirJump: 0
-  m_HitPoints: 100
+  RunSpeed: 40
+  AirSpeed: 40
+  JumpForce: 550
+  AirJumpForce: 200
+  CrouchSpeed: 0.36
+  MovementSmoothing: 0.05
+  AirControl: 1
+  AllowMove: 1
+  AirJump: 0
+  HitPoints: 100
   k_GroundedRadius: 0.05
   k_CeilingRadius: 0.2
-  m_FallMultiplyer: 4.33
-  m_LowJumpMultiplyer: 7.23
-  m_GravityScale: 1.74
-  m_HangTime: 0.06
-  m_JumpBufferTime: 0.14
-  m_LandingDistance: 0.735
-  m_paralized: 0
-  m_JUMP_DUST_ROTATION: {x: 80, y: 0, z: 0}
+  FallMultiplyer: 3
+  LowJumpMultiplyer: 5
+  GravityScale: 2
+  HangTime: 0.2
+  AttackTimeCooldown: 0.4
+  JumpBufferTime: 0.1
+  LandingDistance: 0.5
+  Paralized: 0
+  _JUMP_DUST_ROTATION: {x: 75, y: 0, z: 0}
 --- !u!114 &1614408723
 MonoBehaviour:
   m_ObjectHideFlags: 0
