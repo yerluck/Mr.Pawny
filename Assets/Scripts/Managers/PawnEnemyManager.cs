@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-public class PawnEnemyManager: Singleton<PawnEnemyManager>
+public class PawnEnemyManager: Singleton<PawnEnemyManager>, IEnemyCharacterManager
 {
     [SerializeField][Range(0, 1f)] private float groundCheckerRadius = .1f;
     [SerializeField][Range(0, 1f)] private float edgeCheckDistance = .5f;
@@ -9,6 +9,9 @@ public class PawnEnemyManager: Singleton<PawnEnemyManager>
     [SerializeField][Range(0, .3f)] private float movementSmoothing = .05f;
     [SerializeField][Range(0, 20f)] private float gravityScale = 2.5f;
     [SerializeField][Range(0, 20f)] private float fallMultiplyer = 2.5f;
+    [SerializeField][Range(0, 2f)] private float detectionRate = 1.0f;
+    [SerializeField][Range(0, 360)] private int fieldOfView = 45;
+    [SerializeField][Range(0, 10f)] private float viewDistance = 3f;
     [SerializeField] private float jumpForce = 400f;
     [SerializeField] private float runSpeed = 40f;
     [SerializeField] private float airSpeed = 40f;
@@ -26,5 +29,8 @@ public class PawnEnemyManager: Singleton<PawnEnemyManager>
     public float ObstacleCheckSizeDelta { get => obstacleCheckSizeDelta; }
     public float ObstacleCheckDistance { get => obstacleCheckDistance; }
     public float MovementSmoothing { get => movementSmoothing; }
+    public float DetectionRate { get => detectionRate; }
+    public int FieldOfView { get => fieldOfView; }
+    public float ViewDistance { get => viewDistance; }
     public LayerMask WhatIsGround { get => whatIsGround; }
 }

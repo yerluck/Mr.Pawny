@@ -43,20 +43,20 @@ internal class Protagonist : CharacterController<PlayerInput>
 	{
 		base.Awake();
 
-		m_LandingDistance = PlayerManager.Instance.landingDistance;
-		m_HangTime = PlayerManager.Instance.hangTime;
-		m_GravityScale = PlayerManager.Instance.gravityScale;
-		m_FallMultiplyer = PlayerManager.Instance.fallMultiplyer;
+		m_LandingDistance 	= PlayerManager.Instance.landingDistance;
+		m_HangTime 			= PlayerManager.Instance.hangTime;
+		m_GravityScale 		= PlayerManager.Instance.gravityScale;
+		m_FallMultiplyer 	= PlayerManager.Instance.fallMultiplyer;
 		m_LowJumpMultiplyer = PlayerManager.Instance.lowJumpMultiplyer;
-		m_JumpForce = PlayerManager.Instance.jumpForce;
-		m_AirJumpForce = PlayerManager.Instance.airJumpForce;
-		m_CrouchSpeed = PlayerManager.Instance.crouchSpeed;
+		m_JumpForce 		= PlayerManager.Instance.jumpForce;
+		m_AirJumpForce 		= PlayerManager.Instance.airJumpForce;
+		m_CrouchSpeed 		= PlayerManager.Instance.crouchSpeed;
 		m_MovementSmoothing = PlayerManager.Instance.movementSmoothing;
-		m_AirControl = PlayerManager.Instance.airControl;
-		m_AllowMove = PlayerManager.Instance.allowMove;
-		m_AirJump = PlayerManager.Instance.airJump;
-		k_GroundedRadius = PlayerManager.Instance.groundedRadius;
-		k_CeilingRadius = PlayerManager.Instance.ceilingRadius;
+		m_AirControl 		= PlayerManager.Instance.airControl;
+		m_AllowMove 		= PlayerManager.Instance.allowMove;
+		m_AirJump 			= PlayerManager.Instance.airJump;
+		k_GroundedRadius 	= PlayerManager.Instance.groundedRadius;
+		k_CeilingRadius 	= PlayerManager.Instance.ceilingRadius;
 	}
 
 	protected virtual void FixedUpdate()

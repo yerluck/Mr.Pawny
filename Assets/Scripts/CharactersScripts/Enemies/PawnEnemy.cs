@@ -13,10 +13,10 @@ public class PawnEnemy: LandEnemy<TestInputSystem>
     private float edgeCheckDistance;
     private float obstacleCheckSizeDelta;
     private float obstacleCheckDistance;
-    private LayerMask whatIsGround;
     private float hitPoints;
     private float movementSmoothing;
     private float jumpForce;
+    private LayerMask whatIsGround;
     protected Vector2 velocity = Vector2.zero;
 
     
@@ -39,16 +39,16 @@ public class PawnEnemy: LandEnemy<TestInputSystem>
         base.Awake();
 
         #region Initialization from manager
-        gravityScale = PawnEnemyManager.Instance.GravityScale;
-        fallMultiplyer = PawnEnemyManager.Instance.FallMultiplyer;
-        groundCheckerRadius = PawnEnemyManager.Instance.GroundCheckerRadius;
-        edgeCheckDistance = PawnEnemyManager.Instance.EdgeCheckDistance;
-        obstacleCheckSizeDelta = PawnEnemyManager.Instance.ObstacleCheckSizeDelta;
-        obstacleCheckDistance = PawnEnemyManager.Instance.ObstacleCheckDistance;
-        whatIsGround = PawnEnemyManager.Instance.WhatIsGround;
-        hitPoints = PawnEnemyManager.Instance.HitPoints;
-        movementSmoothing = PawnEnemyManager.Instance.MovementSmoothing;
-        jumpForce = PawnEnemyManager.Instance.JumpForce;
+        gravityScale            = PawnEnemyManager.Instance.GravityScale;
+        fallMultiplyer          = PawnEnemyManager.Instance.FallMultiplyer;
+        groundCheckerRadius     = PawnEnemyManager.Instance.GroundCheckerRadius;
+        edgeCheckDistance       = PawnEnemyManager.Instance.EdgeCheckDistance;
+        obstacleCheckSizeDelta  = PawnEnemyManager.Instance.ObstacleCheckSizeDelta;
+        obstacleCheckDistance   = PawnEnemyManager.Instance.ObstacleCheckDistance;
+        whatIsGround            = PawnEnemyManager.Instance.WhatIsGround;
+        hitPoints               = PawnEnemyManager.Instance.HitPoints;
+        movementSmoothing       = PawnEnemyManager.Instance.MovementSmoothing;
+        jumpForce               = PawnEnemyManager.Instance.JumpForce;
         #endregion
     }
 
