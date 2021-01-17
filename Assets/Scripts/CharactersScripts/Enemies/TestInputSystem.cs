@@ -8,7 +8,7 @@ public class TestInputSystem : MonoBehaviour
     private float runSpeed;
     private float airSpeed;
     private float jumpBufferTime;
-    public float jumpBufferCounter;
+    [HideInInspector] public float jumpBufferCounter;
     private float horizontalMove = 0f;
     private bool crouch = false;
     // public bool PlayerManager.Instance.facingRight;

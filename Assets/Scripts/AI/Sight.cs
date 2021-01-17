@@ -3,41 +3,33 @@ using System;
 
 public class Sight: Sense
 {
-    protected override float DetectionRate { get; set; }
     protected int FieldOfView { get; private set; }
     protected float ViewDistance { get; private set; }
 
     [SerializeField] private LayerMask whatCanBeSeen;
     [SerializeField] private Transform sightSourcePoint;
-    [SerializeField] private Transform[] playerParts = new Transform[3];
+    private Transform[] playerParts = new Transform[3];
     private Vector2 rayDirection;
-    private IEnemyCharacterManager manager;
-
     private Color colorOfSight = Color.yellow;
-
-
-    protected override void Start()
-    {
-        manager = Enemies.EnemyNameToManager[enemyName];
-        sightSourcePoint = sightSourcePoint ?? transform;
-
-        FieldOfView     = manager.FieldOfView; 
-        DetectionRate   = manager.DetectionRate;
-        ViewDistance    = manager.ViewDistance;
-
-        base.Start();
-    }
+    [HideInInspector] public Vector3 lastSeenPlayerPosition = Vector3.zero;
 
     protected override void Initialize()
     {
-        playerParts[0] = GameObject.FindGameObjectWithTag("Player").transform;
-        playerParts[1] = playerParts[0].Find("GroundCheck");
-        playerParts[2] = playerParts[0].Find("CeilingCheck");
+        base.Initialize();
+
+        sightSourcePoint    = sightSourcePoint ?? transform;
+        FieldOfView         = manager.FieldOfView; 
+        DetectionRate       = manager.DetectionRate;
+        ViewDistance        = manager.ViewDistance;
+
+        playerParts[0]      = GameObject.FindGameObjectWithTag("Player").transform;
+        playerParts[1]      = playerParts[0].Find("GroundCheck");
+        playerParts[2]      = playerParts[0].Find("CeilingCheck");
     }
 
     protected override void UpdateSense()
     {
-        elapsedTime += Time.deltaTime;
+        base.UpdateSense();
 
         #if UNITY_EDITOR
         FieldOfView     = manager.FieldOfView;
@@ -70,7 +62,8 @@ public class Sight: Sense
                     {
                         // TODO: add actual actions
                         colorOfSight = Color.red;
-                        Debug.Log("Detected");
+                        lastSeenPlayerPosition = hit.collider.transform.position;
+                        Debug.Log($"Detected: {lastSeenPlayerPosition}");
                     }
                 }
             }

@@ -8,4 +8,6 @@ public interface IEnemyCharacterManager
     int FieldOfView { get; }
 
     float ViewDistance { get; }
+
+    bool IsListening { get; set; }
 }

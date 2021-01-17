@@ -1,18 +1,26 @@
 ﻿using UnityEngine;
 
-public abstract class Sense : MonoBehaviour
+public class Sense : MonoBehaviour
 {
-    protected abstract float DetectionRate { get; set; }
+    protected virtual float DetectionRate { get; set; }
 
     [SerializeField] protected Enemies.EnemyName enemyName;
-    public readonly Aspect.AspectTypes aspectName = Aspect.AspectTypes.ENEMY;
-    public bool enableDebug = true;
+    protected Aspect.AspectTypes aspectName;
+    protected IEnemyCharacterManager manager;
     protected float elapsedTime = 0f;
 
-    protected abstract void Initialize();
-    protected abstract void UpdateSense();
+    protected virtual void Initialize()
+    {
+        aspectName = GetComponent<Aspect>().aspectType;
+        manager = Enemies.EnemyNameToManager[enemyName];
+    }
+    
+    protected virtual void UpdateSense()
+    {
+        elapsedTime += Time.deltaTime;
+    }
 
-    protected virtual void Start()
+    protected void Start()
     {
         elapsedTime = 0f;
         Initialize();    
