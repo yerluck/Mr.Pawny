@@ -58,7 +58,7 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
 
     public virtual void Die()
     {
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 
     // getter to check if character is grounded

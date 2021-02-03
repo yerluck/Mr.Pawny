@@ -51,7 +51,7 @@ public class Sight: Sense
         {
             rayDirection = playerTransform.position - sightSourcePoint.position;
 
-            if(Vector2.Angle(rayDirection, sightSourcePoint.right * transform.localScale.x) < FieldOfView * 0.5f)
+            if(Vector2.Angle(rayDirection, sightSourcePoint.right * transform.root.localScale.x) < FieldOfView * 0.5f)
             {
                 RaycastHit2D hit = Physics2D.Raycast(sightSourcePoint.position, rayDirection, ViewDistance, whatCanBeSeen);
                 if(hit.collider != null)
@@ -124,11 +124,11 @@ public class Sight: Sense
             Debug.DrawLine(sightSourcePoint.position, playerTransform.position, Color.green);
         }
 
-        Vector2 frontRayPoint = sightSourcePoint.position + (sightSourcePoint.right * transform.localScale.x * ViewDistance);
+        Vector2 frontRayPoint = sightSourcePoint.position + (sightSourcePoint.right * transform.root.localScale.x * ViewDistance);
         
         //Approximate perspective visualization
-        Vector2 upRayPoint = frontRayPoint.RotatePointAroundPivotByZAxis(sightSourcePoint.position , FieldOfView * 0.5f * transform.localScale.x);
-        Vector2 downRayPoint = frontRayPoint.RotatePointAroundPivotByZAxis(sightSourcePoint.position , -FieldOfView * 0.5f * transform.localScale.x);
+        Vector2 upRayPoint = frontRayPoint.RotatePointAroundPivotByZAxis(sightSourcePoint.position , FieldOfView * 0.5f * transform.root.localScale.x);
+        Vector2 downRayPoint = frontRayPoint.RotatePointAroundPivotByZAxis(sightSourcePoint.position , -FieldOfView * 0.5f * transform.root.localScale.x);
 
         Debug.DrawLine(sightSourcePoint.position, frontRayPoint, colorOfSight);
         Debug.DrawLine(sightSourcePoint.position, upRayPoint, colorOfSight);
