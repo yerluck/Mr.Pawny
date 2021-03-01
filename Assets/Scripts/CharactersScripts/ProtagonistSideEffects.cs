@@ -48,7 +48,7 @@ internal class ProtagonistSideEffects : Protagonist, IDamageable
         }
 
         //Handle landing animations, TODO: still need tests
-        if (rigidbody2D.velocity.y < -0.01) {
+        if (GetComponent<Rigidbody2D>().velocity.y < -0.01) {
 			hit = Physics2D.Raycast(m_GroundCheck.position, Vector2.down, m_LandingDistance, m_WhatIsGround);
 			if (hit.collider != null && !isLanded) {
                 anim.SetBool("isLanding", true);
@@ -59,8 +59,8 @@ internal class ProtagonistSideEffects : Protagonist, IDamageable
             isLanded = false;
         }
 
-        anim.SetFloat("xVelocity", Mathf.Abs(rigidbody2D.velocity.x));
-		anim.SetFloat("yVelocity", rigidbody2D.velocity.y);
+        anim.SetFloat("xVelocity", Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x));
+		anim.SetFloat("yVelocity", GetComponent<Rigidbody2D>().velocity.y);
     }
 
     public void EmitStepDust() {

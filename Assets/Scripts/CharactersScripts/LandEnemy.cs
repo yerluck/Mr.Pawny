@@ -28,15 +28,15 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     {
         base.Awake();
 
-        facingRight = transform.localScale.x >= 0 ? true : false;
+        facingRight = transform.localScale.x >= 0;
     }
 
     protected virtual void FixedUpdate()
     {
-        if (rigidbody2D.velocity.y < 0) {
-			rigidbody2D.gravityScale = FallMultiplyer;
+        if (rigidBody2D.velocity.y < 0) {
+			rigidBody2D.gravityScale = FallMultiplyer;
 		} else {
-			rigidbody2D.gravityScale = GravityScale;
+			rigidBody2D.gravityScale = GravityScale;
 		}
     }
 
@@ -54,7 +54,7 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
 
     // Method that could be called before instance dies
     protected abstract void OnTakeDamage();
-    internal abstract void Jump(float force);
+    internal abstract void Jump();
 
     public virtual void Die()
     {
@@ -62,7 +62,7 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     }
 
     // getter to check if character is grounded
-    internal bool isGrounded
+    internal bool IsGrounded
     {
         get
         {
@@ -81,8 +81,8 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
         }
     }
     
-    // getter to check if character on edge of platform
-    internal bool isOnEdge
+    // getter to check if character is on the edge of platform
+    internal bool IsOnEdge
     {
         get
         {
@@ -93,8 +93,8 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
         }
     }
 
-    // getter to check if character in front of Obstacle
-    internal bool isFacingObstacle
+    // getter to check if character is in the front of Obstacle
+    internal bool IsFacingObstacle
     {
         get
         {

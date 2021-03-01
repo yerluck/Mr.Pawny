@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class CharacterController<T> : MonoBehaviour
 {
 	[SerializeField] protected T inputSource;
-	protected Rigidbody2D rigidbody2D;
+	protected Rigidbody2D rigidBody2D;
 	protected Animator animator;
 	// protected float m_LandingDistance;						// Distance when to play landing animation
 	// protected float m_GravityScale; 						// gravity multiplyer on Rb2D
@@ -18,12 +18,12 @@ public abstract class CharacterController<T> : MonoBehaviour
 
     protected virtual void Awake()
 	{
-		rigidbody2D = GetComponent<Rigidbody2D>();
+		rigidBody2D = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 		if(inputSource == null) inputSource = GetComponent<T>();
 	}
 
-    public abstract void Move(float move, bool crouch);
+    public abstract void Move(Vector2 move, bool crouch = false);
 
 
 	public abstract void Attack(int attackNum);

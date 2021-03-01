@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
+using Pawny.StateMachine;
 
 // TODO: Instead of player input - AI script
-public class PawnEnemy: LandEnemy<TestInputSystem>
+public class PawnEnemy: LandEnemy<StateMachine>
 {
     #region Fields and Properties
     [SerializeField] private Transform edgeCheckerTransform;
     [SerializeField] private Transform groundCheckerTransform;
     [SerializeField] private Collider2D physicsCollider;
+    [SerializeField] private LayerMask whatIsGround;
     private float gravityScale;
     private float fallMultiplyer;
     private float groundCheckerRadius;
@@ -16,7 +18,8 @@ public class PawnEnemy: LandEnemy<TestInputSystem>
     private float hitPoints;
     private float movementSmoothing;
     private float jumpForce;
-    private LayerMask whatIsGround;
+    private float runSpeed;
+    private float airSpeed;
     protected Vector2 velocity = Vector2.zero;
 
     
@@ -49,6 +52,8 @@ public class PawnEnemy: LandEnemy<TestInputSystem>
         hitPoints               = PawnEnemyManager.Instance.HitPoints;
         movementSmoothing       = PawnEnemyManager.Instance.MovementSmoothing;
         jumpForce               = PawnEnemyManager.Instance.JumpForce;
+        runSpeed                = PawnEnemyManager.Instance.RunSpeed;
+        airSpeed                = PawnEnemyManager.Instance.AirSpeed;
         #endregion
     }
 
@@ -57,12 +62,12 @@ public class PawnEnemy: LandEnemy<TestInputSystem>
 
     }
 
-    internal override void Jump(float force)
+    internal override void Jump()
     {
-        if( isGrounded )
+        if( IsGrounded )
         {
-            rigidbody2D.velocity = Vector2.zero;
-			rigidbody2D.AddForce(new Vector2(0f, force));
+            rigidBody2D.velocity = Vector2.zero;
+			rigidBody2D.AddForce(new Vector2(0f, jumpForce));
         }
     }
 
@@ -72,18 +77,19 @@ public class PawnEnemy: LandEnemy<TestInputSystem>
         base.Die();
     }
 
-    public override void Move(float move, bool crouch)
+    public override void Move(Vector2 move, bool crouch)
     {
-        if (move > 0 && !facingRight) Flip();
-        if (move < 0 && facingRight) Flip();
+        if (move.x > 0 && !facingRight) Flip();
+        if (move.x < 0 && facingRight) Flip();
 
-		//only control the player if grounded or airControl is turned on
-		if (isGrounded && AllowMove)
+		//only control the character if grounded or airControl is turned on
+		if (AllowMove)
 		{
+            float speed = IsGrounded? runSpeed : airSpeed;
 			// Move the character by finding the target velocity
-			Vector2 targetVelocity = new Vector2(move * 10f, rigidbody2D.velocity.y);
+			Vector2 targetVelocity = new Vector2(move.x * speed * Time.deltaTime, rigidBody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
-			rigidbody2D.velocity = Vector2.SmoothDamp(rigidbody2D.velocity, targetVelocity, ref velocity, movementSmoothing);
+			rigidBody2D.velocity = Vector2.SmoothDamp(rigidBody2D.velocity, targetVelocity, ref velocity, movementSmoothing);
 		}
     }
 

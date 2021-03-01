@@ -11,6 +11,7 @@ public class PawnEnemyManager: Singleton<PawnEnemyManager>, IEnemyCharacterManag
     [SerializeField][Range(0, 20f)] private float   fallMultiplyer          = 2.5f;
     [SerializeField][Range(0, 2f)]  private float   detectionRate           = 1.0f;
     [SerializeField][Range(0, 10f)] private float   viewDistance            = 3f;
+    [SerializeField][Range(0, 20f)] private float   listenDistance          = 6.2f;
     [SerializeField][Range(0, 360)] private int     fieldOfView             = 45;
     [SerializeField] private float      jumpForce       = 400f;
     [SerializeField] private float      runSpeed        = 40f;
@@ -32,7 +33,9 @@ public class PawnEnemyManager: Singleton<PawnEnemyManager>, IEnemyCharacterManag
     public float        MovementSmoothing       { get => movementSmoothing; }
     public float        DetectionRate           { get => detectionRate; }
     public float        ViewDistance            { get => viewDistance; }
+    public float        ListenDistance          { get => listenDistance; }
     public int          FieldOfView             { get => fieldOfView; }
     public bool         IsListening             { get => isListening;               set => isListening = value; }
     public LayerMask    WhatIsGround            { get => whatIsGround; }
+
 }

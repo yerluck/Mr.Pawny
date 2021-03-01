@@ -5,9 +5,6 @@ using UnityEngine;
 public class TestInputSystem : MonoBehaviour
 {
     [SerializeField] private LandEnemy<TestInputSystem> movementController;
-    private float runSpeed;
-    private float airSpeed;
-    private float jumpBufferTime;
     [HideInInspector] public float jumpBufferCounter;
     private float horizontalMove = 0f;
     private bool crouch = false;
@@ -34,9 +31,6 @@ public class TestInputSystem : MonoBehaviour
         #region Initialization
         PlayerManager.Instance.facingRight = transform.localScale.x >= 0 ? true : false;
         jumpCooldownTime = PlayerManager.Instance.hangTime + 0.05f; // TODO: test this out, mb just chanhge at ManagerInstance
-        jumpBufferTime = PlayerManager.Instance.jumpBufferTime;
-        runSpeed = PlayerManager.Instance.runSpeed;
-        airSpeed = PlayerManager.Instance.airSpeed;
         #endregion
 
         jumpCooldown = jumpCooldownTime;
@@ -50,8 +44,7 @@ public class TestInputSystem : MonoBehaviour
         //     return;
         // }
 
-        var speed = movementController.isGrounded ? runSpeed : airSpeed;
-        horizontalMove = Input.GetAxisRaw("Horizontal") * speed;
+        horizontalMove = Input.GetAxisRaw("Horizontal");
 
         // if(horizontalMove != 0) {
         //     anim.SetBool("isMoveInput", true);
@@ -77,7 +70,7 @@ public class TestInputSystem : MonoBehaviour
 
         // handle jump
         if (Input.GetButtonDown("Jump")) {
-            movementController.Jump(PawnEnemyManager.Instance.JumpForce);
+            movementController.Jump();
         }
 
         // if (Input.GetButtonDown("Crouch")){
@@ -108,7 +101,8 @@ public class TestInputSystem : MonoBehaviour
 
     void FixedUpdate() 
     {
-        movementController.Move(horizontalMove * Time.fixedDeltaTime, crouch);
+        Vector2 move = new Vector2(horizontalMove, 0f);
+        movementController.Move(move, crouch);
         jumpCooldown -= Time.fixedDeltaTime;
     }
 
