@@ -24,7 +24,7 @@ public class PatrolAction : StateAction
 
     public override void OnUpdate()
     {
-        if(controller.IsOnEdge)
+        if(controller.IsOnEdge || controller.IsFacingObstacle)
         {
             // TODO: add new idle state
             moveDirection *= -1;
