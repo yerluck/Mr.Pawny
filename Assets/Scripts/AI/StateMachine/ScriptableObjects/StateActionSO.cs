@@ -33,4 +33,13 @@ namespace Pawny.StateMachine.ScriptableObjects
         /// <returns>New state action <see cref="StateAction"/></returns>
         protected abstract StateAction CreateAction();
     }
+
+    /// <summary>
+    /// Use this for standard behavior, otherwise implement own <see cref="StateActionSO"/>
+    /// </summary>
+    /// <typeparam name="T"><see cref="StateAction"/> that would be used in this SO</typeparam>
+    public abstract class StateActionSO<T> : StateActionSO where T : StateAction, new()
+	{
+		protected override StateAction CreateAction() => new T();
+	}
 }

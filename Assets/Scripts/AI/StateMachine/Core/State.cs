@@ -4,6 +4,7 @@
     {
         internal StateMachine _stateMachine;
         internal StateAction[] _actions;
+        internal StateTransition[] _transitions;
 
         internal State() { }
 
@@ -16,6 +17,7 @@
                     comps[i].OnStateEnter();
                 }
             }
+            OnStateEnter(_transitions);
             OnStateEnter(_actions);
         }
 
@@ -36,7 +38,22 @@
                     comps[i].OnStateExit();
                 }
             }
+            OnStateExit(_transitions);
             OnStateExit(_actions);
+        }
+
+        public bool TryGetTransition(out State state)
+        {
+            for (int i = 0; i < _transitions.Length; i++)
+            {
+                if(_transitions[i].TryGetTransition(out state))
+                {
+                    return true;
+                }
+            }
+
+            state = null;
+            return false;
         }
     }
 }
