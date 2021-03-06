@@ -13,22 +13,19 @@ public class PatrolAction : StateAction
     private Vector2 moveDirection;
     private LandEnemy<StateMachine> controller;
     
-    public override void Awake(StateMachine stateMachine) {
+    public override void Awake(StateMachine stateMachine)
+    {
         controller = stateMachine.GetComponent<LandEnemy<StateMachine>>();
         moveDirection = new Vector2(Random.Range(-1f, 1f), 0f).normalized;
     }
 
-    // public override void OnStateEnter()
-    // {
-    // } 
+    public override void OnStateEnter()
+    {
+        moveDirection *= -1;
+    } 
 
     public override void OnUpdate()
     {
-        if(controller.IsOnEdge || controller.IsFacingObstacle)
-        {
-            // TODO: add new idle state
-            moveDirection *= -1;
-        }
         controller.Move(moveDirection);
     }
 }

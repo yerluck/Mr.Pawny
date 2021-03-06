@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is input system - specific AI for each enemy type
 {
-    protected bool facingRight = true;
+    protected bool isFacingRight = true;
     protected bool grounded = false;
 
     // In case if need to update get or  set - update accessors
@@ -28,7 +28,7 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     {
         base.Awake();
 
-        facingRight = transform.localScale.x >= 0;
+        isFacingRight = transform.localScale.x >= 0;
     }
 
     protected virtual void FixedUpdate()
@@ -102,7 +102,7 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
                 PhysicsCollider.bounds.center, 
                 new Vector2(PhysicsCollider.bounds.size.x, PhysicsCollider.bounds.size.y - ObstacleCheckSizeDelta),
                 0f,
-                facingRight ? Vector2.right : Vector2.left,
+                isFacingRight ? Vector2.right : Vector2.left,
                 ObstacleCheckDistance,
                 WhatIsGround
 		    );
@@ -118,9 +118,9 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     {
         bool facingTarget;
 		if(target.position.x - transform.position.x > 0) {
-			facingTarget = facingRight;
+			facingTarget = isFacingRight;
 		} else {
-			facingTarget = !facingRight;
+			facingTarget = !isFacingRight;
 		}
 		if(!facingTarget) Flip();
     }
@@ -129,7 +129,7 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     protected void Flip()
 	{
 		// Switch the way the character is labelled as facing.
-		facingRight = !facingRight;
+		isFacingRight = !isFacingRight;
 
 		// Multiply the character's x local scale by -1.
 		Vector2 theScale = transform.localScale;

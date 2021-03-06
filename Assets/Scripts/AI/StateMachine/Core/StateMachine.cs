@@ -10,11 +10,19 @@ namespace Pawny.StateMachine
     public class StateMachine : MonoBehaviour
     {
         [Tooltip("Set the initial state")]
-        [SerializeField] private ScriptableObjects.StateSO _initialStateSO = null; 
+        [SerializeField] private ScriptableObjects.StateSO _initialStateSO = null;
         private readonly Dictionary<Type, Component> _cashedComponents = new Dictionary<Type, Component>();
         private State _currentState;
+        //TODO: after complition stats SO - get data from there
+        [SerializeField] private MonoBehaviour manager;
+        [HideInInspector] public IEnemyCharacterManager _manager;
+        [HideInInspector] public Aspect.AspectTypes _aspectName;
+        [HideInInspector] public Transform _target;
+        [HideInInspector] public Vector3 _targetLastPosition;
 
         private void Awake() {
+            _manager = (IEnemyCharacterManager)manager;
+            _aspectName = GetComponent<Aspect>().aspectType;
             _currentState = _initialStateSO.GetState(this);
             _currentState.OnStateEnter();
         }

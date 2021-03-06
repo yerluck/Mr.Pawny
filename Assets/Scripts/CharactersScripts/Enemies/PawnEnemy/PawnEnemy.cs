@@ -79,8 +79,8 @@ public class PawnEnemy: LandEnemy<StateMachine>
 
     public override void Move(Vector2 move, bool crouch)
     {
-        if (move.x > 0 && !facingRight) Flip();
-        if (move.x < 0 && facingRight) Flip();
+        if (move.x > 0 && !isFacingRight) Flip();
+        if (move.x < 0 && isFacingRight) Flip();
 
 		//only control the character if grounded or airControl is turned on
 		if (AllowMove)
