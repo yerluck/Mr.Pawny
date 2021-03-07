@@ -26,6 +26,6 @@ public class PatrolAction : StateAction
 
     public override void OnUpdate()
     {
-        controller.Move(moveDirection);
+        controller.Move(moveDirection, true);
     }
 }

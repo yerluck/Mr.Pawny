@@ -20,6 +20,7 @@ public class PawnEnemy: LandEnemy<StateMachine>
     private float jumpForce;
     private float runSpeed;
     private float airSpeed;
+    private float speedSlowFactor;
     protected Vector2 velocity = Vector2.zero;
 
     
@@ -54,6 +55,7 @@ public class PawnEnemy: LandEnemy<StateMachine>
         jumpForce               = PawnEnemyManager.Instance.JumpForce;
         runSpeed                = PawnEnemyManager.Instance.RunSpeed;
         airSpeed                = PawnEnemyManager.Instance.AirSpeed;
+        speedSlowFactor         = PawnEnemyManager.Instance.SpeedSlowFactor;
         #endregion
     }
 
@@ -86,7 +88,9 @@ public class PawnEnemy: LandEnemy<StateMachine>
 		if (AllowMove)
 		{
             float speed = IsGrounded? runSpeed : airSpeed;
+            speed *= crouch ? speedSlowFactor : 1f;
 			// Move the character by finding the target velocity
+
 			Vector2 targetVelocity = new Vector2(move.x * speed * Time.deltaTime, rigidBody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
 			rigidBody2D.velocity = Vector2.SmoothDamp(rigidBody2D.velocity, targetVelocity, ref velocity, movementSmoothing);

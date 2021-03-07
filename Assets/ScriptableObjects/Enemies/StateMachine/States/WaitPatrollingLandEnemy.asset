@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 880aa1bcbb22aeffea33c24456b1fdaf, type: 3}
-  m_Name: IdleLandEnemy
+  m_Name: WaitPatrollingLandEnemy
   m_EditorClassIdentifier: 
   _actions:
   - {fileID: 11400000, guid: 4bca8a5ecf69cb8f4bb21c330be90967, type: 2}
   _transitions:
-  - {fileID: 11400000, guid: 340ae4e989f52b11e9fb1f5505123d90, type: 2}
+  - {fileID: 11400000, guid: 0fe06b6736ca8c40584d0e6f6f0e5567, type: 2}
   - {fileID: 11400000, guid: f8ae4df7176712ec7a4cdaa3ae9fbfbb, type: 2}

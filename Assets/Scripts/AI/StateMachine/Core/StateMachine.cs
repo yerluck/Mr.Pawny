@@ -12,7 +12,7 @@ namespace Pawny.StateMachine
         [Tooltip("Set the initial state")]
         [SerializeField] private ScriptableObjects.StateSO _initialStateSO = null;
         private readonly Dictionary<Type, Component> _cashedComponents = new Dictionary<Type, Component>();
-        private State _currentState;
+        [SerializeField] private State _currentState;
         //TODO: after complition stats SO - get data from there
         [SerializeField] private MonoBehaviour manager;
         [HideInInspector] public IEnemyCharacterManager _manager;

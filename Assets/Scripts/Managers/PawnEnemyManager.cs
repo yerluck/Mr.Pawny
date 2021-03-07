@@ -13,6 +13,7 @@ public class PawnEnemyManager: Singleton<PawnEnemyManager>, IEnemyCharacterManag
     [SerializeField][Range(0, 10f)] private float   viewDistance            = 3f;
     [SerializeField][Range(0, 20f)] private float   listenDistance          = 6.2f;
     [SerializeField][Range(0, 360)] private int     fieldOfView             = 45;
+    [SerializeField][Range(0, 1)]   private float   speedSlowFactor         = .36f;
     [SerializeField] private float      jumpForce       = 400f;
     [SerializeField] private float      runSpeed        = 40f;
     [SerializeField] private float      airSpeed        = 40f;
@@ -34,6 +35,7 @@ public class PawnEnemyManager: Singleton<PawnEnemyManager>, IEnemyCharacterManag
     public float        DetectionRate           { get => detectionRate; }
     public float        ViewDistance            { get => viewDistance; }
     public float        ListenDistance          { get => listenDistance; }
+    public float        SpeedSlowFactor         { get => speedSlowFactor;           set => speedSlowFactor = value; }
     public int          FieldOfView             { get => fieldOfView; }
     public bool         IsListening             { get => isListening;               set => isListening = value; }
     public LayerMask    WhatIsGround            { get => whatIsGround; }
