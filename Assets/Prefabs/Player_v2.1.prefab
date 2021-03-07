@@ -5522,6 +5522,7 @@ GameObject:
   - component: {fileID: 6759778307423161724}
   - component: {fileID: 5150781196974158589}
   - component: {fileID: 6817933626861969003}
+  - component: {fileID: 1938882318868014474}
   m_Layer: 8
   m_Name: Player_v2.1
   m_TagString: Player
@@ -5655,6 +5656,19 @@ MonoBehaviour:
   stepParticles: {fileID: 8594164740760369006}
   jumpDustPrefab: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845,
     type: 3}
+--- !u!114 &1938882318868014474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5150781196974158591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99dc8cd2cef7c1f2db128b00bcc34647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aspectType: 0
 --- !u!1 &5812757846755893447
 GameObject:
   m_ObjectHideFlags: 0

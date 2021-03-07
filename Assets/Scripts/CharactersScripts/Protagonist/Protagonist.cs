@@ -13,6 +13,8 @@ internal class Protagonist : CharacterController<PlayerInput>
 	protected bool m_AirControl;												// Whether or not a player can steer while jumping;
 	internal bool m_AllowMove;
 	protected bool m_AirJump;
+	private float m_RunSpeed;
+	private float m_AirSpeed;
 	protected float m_LandingDistance;											// Distance when to play landing animation
 	protected float m_GravityScale; 											// gravity multiplyer on Rb2D
 	protected float k_GroundedRadius = .07f; 									// Radius of the overlap circle to determine if grounded
@@ -43,25 +45,26 @@ internal class Protagonist : CharacterController<PlayerInput>
 	{
 		base.Awake();
 
-		m_LandingDistance = PlayerManager.Instance.landingDistance;
-		m_HangTime = PlayerManager.Instance.hangTime;
-		m_GravityScale = PlayerManager.Instance.gravityScale;
-		m_FallMultiplyer = PlayerManager.Instance.fallMultiplyer;
+		m_LandingDistance 	= PlayerManager.Instance.landingDistance;
+		m_HangTime 			= PlayerManager.Instance.hangTime;
+		m_GravityScale 		= PlayerManager.Instance.gravityScale;
+		m_FallMultiplyer 	= PlayerManager.Instance.fallMultiplyer;
 		m_LowJumpMultiplyer = PlayerManager.Instance.lowJumpMultiplyer;
-		m_JumpForce = PlayerManager.Instance.jumpForce;
-		m_AirJumpForce = PlayerManager.Instance.airJumpForce;
-		m_CrouchSpeed = PlayerManager.Instance.crouchSpeed;
+		m_JumpForce 		= PlayerManager.Instance.jumpForce;
+		m_AirJumpForce 		= PlayerManager.Instance.airJumpForce;
+		m_CrouchSpeed 		= PlayerManager.Instance.crouchSpeed;
 		m_MovementSmoothing = PlayerManager.Instance.movementSmoothing;
-		m_AirControl = PlayerManager.Instance.airControl;
-		m_AllowMove = PlayerManager.Instance.allowMove;
-		m_AirJump = PlayerManager.Instance.airJump;
-		k_GroundedRadius = PlayerManager.Instance.groundedRadius;
-		k_CeilingRadius = PlayerManager.Instance.ceilingRadius;
+		m_AirControl 		= PlayerManager.Instance.airControl;
+		m_AllowMove 		= PlayerManager.Instance.allowMove;
+		m_AirJump 			= PlayerManager.Instance.airJump;
+		m_RunSpeed			= PlayerManager.Instance.runSpeed;
+		m_AirSpeed			= PlayerManager.Instance.airSpeed;
+		k_GroundedRadius 	= PlayerManager.Instance.groundedRadius;
+		k_CeilingRadius 	= PlayerManager.Instance.ceilingRadius;
 	}
 
 	protected virtual void FixedUpdate()
 	{
-		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
@@ -86,17 +89,17 @@ internal class Protagonist : CharacterController<PlayerInput>
 		}
 
 		#region Controversial // Better Jump Effect
-		if (m_Rigidbody2D.velocity.y < 0) {
-			m_Rigidbody2D.gravityScale = m_FallMultiplyer;
-		} else if (m_Rigidbody2D.velocity.y > 0 && !Input.GetButton("Jump")) {
-			m_Rigidbody2D.gravityScale = m_LowJumpMultiplyer;
+		if (rigidBody2D.velocity.y < 0) {
+			rigidBody2D.gravityScale = m_FallMultiplyer;
+		} else if (rigidBody2D.velocity.y > 0 && !Input.GetButton("Jump")) {
+			rigidBody2D.gravityScale = m_LowJumpMultiplyer;
 		} else {
-			m_Rigidbody2D.gravityScale = m_GravityScale;
+			rigidBody2D.gravityScale = m_GravityScale;
 		}
 		#endregion
 	}
 
-	public override void Move(float move, bool crouch)
+	public override void Move(Vector2 move, bool crouch)
 	{
 		// If crouching, check to see if the character can stand up
 		if (!crouch && m_Grounded)
@@ -111,9 +114,12 @@ internal class Protagonist : CharacterController<PlayerInput>
 			}
 		}
 
+		float speed = m_Grounded ? m_RunSpeed : m_AirSpeed;
+
 		//only control the player if grounded or airControl is turned on
 		if ((m_Grounded || m_AirControl) && PlayerManager.Instance.allowMove)
 		{
+			move *= speed * Time.fixedDeltaTime;
 
 			// If crouching
 			if (crouch && m_Grounded)
@@ -139,9 +145,9 @@ internal class Protagonist : CharacterController<PlayerInput>
 			}
 
 			// Move the character by finding the target velocity
-			Vector2 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+			Vector2 targetVelocity = new Vector2(move.x, rigidBody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
-			m_Rigidbody2D.velocity = Vector2.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+			rigidBody2D.velocity = Vector2.SmoothDamp(rigidBody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 		}
 	}
 
@@ -153,9 +159,9 @@ internal class Protagonist : CharacterController<PlayerInput>
 		IAttacker attackScript = go.GetComponent<IAttacker>();
 		if (attackScript != null) {
 			attackScript.InitAttack(new object[] {attackNum, PlayerManager.Instance.facingRight});
-			m_anim.ResetTrigger("attacked");
-			m_anim.SetTrigger("attacked");
-			m_anim.SetInteger("attackNum", attackNum);
+			animator.ResetTrigger("attacked");
+			animator.SetTrigger("attacked");
+			animator.SetInteger("attackNum", attackNum);
 			attackScript.PerformAttack();
 		}
 	}
@@ -165,16 +171,16 @@ internal class Protagonist : CharacterController<PlayerInput>
 		//Jump according koyote time
 		if (hangCounter >= 0)
 		{
-			m_Rigidbody2D.velocity = Vector2.zero;
+			rigidBody2D.velocity = Vector2.zero;
 			// Add a vertical force to the player.
 			// m_Grounded = false;
-			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			rigidBody2D.AddForce(new Vector2(0f, m_JumpForce));
 			inputSource.jumpBufferCounter = 0;
 			GameEvents.Instance.PlayerJump();
 		} else if (m_AirJump && !m_AirJumped) {
-			m_Rigidbody2D.velocity = Vector2.zero;
+			rigidBody2D.velocity = Vector2.zero;
 			m_AirJumped = true;
-			m_Rigidbody2D.AddForce(new Vector2(0f, m_AirJumpForce));
+			rigidBody2D.AddForce(new Vector2(0f, m_AirJumpForce));
 			inputSource.jumpBufferCounter = 0;
 		}
 	}

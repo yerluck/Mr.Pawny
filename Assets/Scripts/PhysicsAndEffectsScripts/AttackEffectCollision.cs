@@ -9,7 +9,7 @@ public class AttackEffectCollision : MonoBehaviour
         IDamageable damagedObject = other.GetComponent<IDamageable>();
         if (damagedObject != null)
         {
-            damagedObject.attacker = transform;
+            damagedObject.Attacker = transform;
             damagedObject.TakeDamage(dmg);
 
             if (hitEffect != null)

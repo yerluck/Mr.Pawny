@@ -8,9 +8,9 @@ public class ChessChildrenHandler : MonoBehaviour, IDamageable
     [SerializeField] private string sortingLayer;
     [SerializeField] private ParticleSystem particle;
     private ChessChildren children;
-    private Transform m_attacker;
+    private Transform m_Attacker;
     public float HP { get; set; }
-    public Transform attacker { get { return m_attacker; } set { m_attacker = value; } }
+    public Transform Attacker { get { return m_Attacker; } set { m_Attacker = value; } }
     private Animation anim;
     private SpriteRenderer[] figuresRenderers;
     private new BoxCollider2D collider;
@@ -55,10 +55,15 @@ public class ChessChildrenHandler : MonoBehaviour, IDamageable
     {
         collider.enabled = false;
         Vector3 theScale = particle.transform.localScale;
-		theScale.z *= Vector3.Normalize(gameObject.transform.position - attacker.position).x;
+		theScale.z *= Vector3.Normalize(gameObject.transform.position - Attacker.position).x;
 		particle.transform.localScale = theScale;
         particle.Play();
 
+        Die();
+    }
+
+    public void Die()
+    {
         for (int i = 0; i < figuresRenderers.Length; i++)
         {
             figuresRenderers[i].sprite = children.destroyedFigures[i];

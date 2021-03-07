@@ -1,7 +1,9 @@
 public interface IAttacker
 {
-    float dmgAmount {get; set;}
+    // damage that deals instance
+    float DamageAmount {get; set;}
 
+    //Method to prepare the attack
     void InitAttack(object[] props);
 
     void PerformAttack();

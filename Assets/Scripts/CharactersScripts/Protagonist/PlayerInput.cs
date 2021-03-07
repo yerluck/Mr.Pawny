@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private Protagonist movementController;
-    private float runSpeed;
-    private float airSpeed;
     private float jumpBufferTime;
-    public float jumpBufferCounter;
+    [HideInInspector] public float jumpBufferCounter;
     private float horizontalMove = 0f;
     private bool crouch = false;
     // public bool PlayerManager.Instance.facingRight;
@@ -38,8 +34,6 @@ public class PlayerInput : MonoBehaviour
         jumpCooldownTime = PlayerManager.Instance.hangTime; // TODO: test this out, mb just chanhge at ManagerInstance
         attackCooldownTime = PlayerManager.Instance.attackTimeCooldown;
         jumpBufferTime = PlayerManager.Instance.jumpBufferTime;
-        runSpeed = PlayerManager.Instance.runSpeed;
-        airSpeed = PlayerManager.Instance.airSpeed;
         #endregion
         jumpCooldown = jumpCooldownTime;
         attackCooldown = attackCooldownTime;
@@ -53,8 +47,8 @@ public class PlayerInput : MonoBehaviour
         //     return;
         // }
 
-        var speed = movementController.m_Grounded ? runSpeed : airSpeed;
-        horizontalMove = Input.GetAxisRaw("Horizontal") * speed;
+        // var speed = movementController.m_Grounded ? runSpeed : airSpeed;
+        horizontalMove = Input.GetAxisRaw("Horizontal");
 
         if(horizontalMove != 0) {
             anim.SetBool("isMoveInput", true);
@@ -114,7 +108,8 @@ public class PlayerInput : MonoBehaviour
 
     void FixedUpdate() 
     {
-        movementController.Move(horizontalMove * Time.fixedDeltaTime, crouch);
+        Vector2 move = new Vector2(horizontalMove, 0f).normalized;
+        movementController.Move(move, crouch);
         jumpCooldown -= Time.fixedDeltaTime;
     }
 

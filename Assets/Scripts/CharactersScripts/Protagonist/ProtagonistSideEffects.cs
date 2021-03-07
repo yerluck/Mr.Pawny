@@ -12,7 +12,7 @@ internal class ProtagonistSideEffects : Protagonist, IDamageable
     [SerializeField] private GameObject jumpDustPrefab;
     private ParticleSystem.ShapeModule shape;
     public float HP { get => m_HitPoints; set => m_HitPoints = value; }
-    public Transform attacker { get => m_attacker; set => m_attacker = value; }
+    public Transform Attacker { get => m_attacker; set => m_attacker = value; }
     private bool isLanded;
     private Vector3 SHAPE_ROTATION = new Vector3(0, 270, 0);
     
@@ -48,7 +48,7 @@ internal class ProtagonistSideEffects : Protagonist, IDamageable
         }
 
         //Handle landing animations, TODO: still need tests
-        if (m_Rigidbody2D.velocity.y < -0.01) {
+        if (GetComponent<Rigidbody2D>().velocity.y < -0.01) {
 			hit = Physics2D.Raycast(m_GroundCheck.position, Vector2.down, m_LandingDistance, m_WhatIsGround);
 			if (hit.collider != null && !isLanded) {
                 anim.SetBool("isLanding", true);
@@ -59,8 +59,8 @@ internal class ProtagonistSideEffects : Protagonist, IDamageable
             isLanded = false;
         }
 
-        anim.SetFloat("xVelocity", Mathf.Abs(m_Rigidbody2D.velocity.x));
-		anim.SetFloat("yVelocity", m_Rigidbody2D.velocity.y);
+        anim.SetFloat("xVelocity", Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x));
+		anim.SetFloat("yVelocity", GetComponent<Rigidbody2D>().velocity.y);
     }
 
     public void EmitStepDust() {
@@ -76,9 +76,15 @@ internal class ProtagonistSideEffects : Protagonist, IDamageable
         HP -= dmg;
 
         if(HP <= 0) {
-            Debug.Log("DEAD!"); //TODO: add actual death action
+            Die();
         }
 	}
+
+    //TODO: add actual death action
+    public void Die()
+    {
+        Debug.Log("DEAD!"); 
+    }
 
     private void CharacterFlipAction()
     {
