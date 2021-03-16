@@ -57,6 +57,7 @@ public class ListenSenseCondition : Condition
 
             if (aspect && aspect.aspectType != _stateMachine._aspectName)
             {
+                _stateMachine._targetLastPosition = hitCollider.transform.position;
                 return true;
             }
 

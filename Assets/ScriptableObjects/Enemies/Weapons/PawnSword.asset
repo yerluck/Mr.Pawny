@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85028923bdc01829084a92a50bcdfaf5, type: 3}
+  m_Name: PawnSword
+  m_EditorClassIdentifier: 
+  type: 0
+  weaponPrefab: {fileID: 565235656845193221, guid: 76f7c1fb17b44e992a293811e06a68ea,
+    type: 3}
+  orderInLayer: 5
+  animationOverriders:
+    m_keys: 000000000100000002000000030000000400000005000000
+    m_values:
+    - {fileID: 22100000, guid: b3a613a1bf668babebac33c8a0552712, type: 2}
+    - {fileID: 22100000, guid: e4a89cb2e957dc00c973c2ac63a560a9, type: 2}
+    - {fileID: 22100000, guid: 58065e5fa5e48851b8a841fb5b67a7fa, type: 2}
+    - {fileID: 22100000, guid: d66f90b81427298a5801b2baaf57e0bd, type: 2}
+    - {fileID: 22100000, guid: d548ee054af706015a5007b23ac78e39, type: 2}
+    - {fileID: 22100000, guid: 0148e9ea064fe1f699646c4112c27120, type: 2}
