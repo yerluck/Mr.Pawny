@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9000d359c0da69c42940098d8050a4ea, type: 3}
-  m_Name: StartPatrolling
+  m_Name: GetAwared
   m_EditorClassIdentifier: 
-  _targetState: {fileID: 11400000, guid: c1da81aa8edbcddd09efbd000ec81f4e, type: 2}
+  _targetState: {fileID: 11400000, guid: d0d42084ca0cb36d0b60c8900094a90b, type: 2}
   _conditions:
   - ExpectedResult: 0
-    Condition: {fileID: 11400000, guid: d58b083c511315a1884efc689654ee78, type: 2}
+    Condition: {fileID: 11400000, guid: bddcefed130bcf330bf7f736be782710, type: 2}
     Operator: 0

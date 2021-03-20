@@ -19,7 +19,7 @@ public class AnimatorParameterActionSO : StateActionSO
 
 	public Moment whenToRun = default; // Allows this StateActionSO type to be reused for all 3 state moments
 
-	protected override StateAction CreateAction() => new AnimatorParameterAction(Animator.StringToHash(parameterName));
+	protected override StateAction CreateAction() => new AnimatorParameterAction(Animator.StringToHash(parameterName), this);
 
 	public enum ParameterType
 	{
@@ -31,12 +31,14 @@ public class AnimatorParameterAction : StateAction
 {
 	//Component references
 	private Animator _animator;
-	private new AnimatorParameterActionSO _originSO => (AnimatorParameterActionSO)base.OriginSO; // The SO this StateAction spawned from
+	// private AnimatorParameterActionSO originSO => (AnimatorParameterActionSO)base.OriginSO; // The SO this StateAction spawned from
+	private new AnimatorParameterActionSO _originSO;
 	private int _parameterHash;
 
-	public AnimatorParameterAction(int parameterHash)
+	public AnimatorParameterAction(int parameterHash, AnimatorParameterActionSO originSO)
 	{
 		_parameterHash = parameterHash;
+		_originSO = originSO;
 	}
 
 	public override void Awake(StateMachine stateMachine)

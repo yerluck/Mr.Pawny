@@ -1,12 +1,27 @@
-﻿namespace Pawny.StateMachine
+﻿using Pawny.StateMachine.ScriptableObjects;
+
+namespace Pawny.StateMachine
 {
     public class State
     {
+        internal StateSO _originSO;
         internal StateMachine _stateMachine;
         internal StateAction[] _actions;
         internal StateTransition[] _transitions;
 
         internal State() { }
+
+        public State(
+			StateSO originSO,
+			StateMachine stateMachine,
+			StateTransition[] transitions,
+			StateAction[] actions)
+		{
+			_originSO = originSO;
+			_stateMachine = stateMachine;
+			_transitions = transitions;
+			_actions = actions;
+		}
 
         public void OnStateEnter()
         {

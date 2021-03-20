@@ -11,8 +11,15 @@ namespace Pawny.StateMachine
     {
         [Tooltip("Set the initial state")]
         [SerializeField] private ScriptableObjects.StateSO _initialStateSO = null;
+
+#if UNITY_EDITOR
+		[Space]
+		[SerializeField]
+		internal Debugging.StateMachineDebugger _debugger = default;
+#endif
+
         private readonly Dictionary<Type, Component> _cashedComponents = new Dictionary<Type, Component>();
-        [SerializeField] private State _currentState;
+        [SerializeField] internal State _currentState;
         //TODO: after complition stats SO - get data from there
         [SerializeField] private MonoBehaviour manager;
         [HideInInspector] public IEnemyCharacterManager _manager;
@@ -25,6 +32,9 @@ namespace Pawny.StateMachine
             _aspectName = GetComponent<Aspect>().aspectType;
             _currentState = _initialStateSO.GetState(this);
             _currentState.OnStateEnter();
+#if UNITY_EDITOR
+			_debugger.Awake(this);
+#endif
         }
 
         private void Update() {
