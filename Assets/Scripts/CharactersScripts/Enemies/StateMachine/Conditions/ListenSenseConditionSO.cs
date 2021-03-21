@@ -32,7 +32,7 @@ public class ListenSenseCondition : Condition
         _detectionRate  = stateMachine._manager.DetectionRate;
     }
 
-    public override bool Statement() => DetectAspect();
+    protected override bool Statement() => DetectAspect();
 
     private bool DetectAspect()
     {

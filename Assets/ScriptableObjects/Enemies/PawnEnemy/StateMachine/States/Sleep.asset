@@ -10,9 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 880aa1bcbb22aeffea33c24456b1fdaf, type: 3}
-  m_Name: SleepState
+  m_Name: Sleep
   m_EditorClassIdentifier: 
   _actions:
   - {fileID: 11400000, guid: f7645fcd23cddeab98779188b02a3144, type: 2}
-  _transitions:
-  - {fileID: 11400000, guid: 38a60fd9bdfde57b1a4d7fd76825e17f, type: 2}

@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 880aa1bcbb22aeffea33c24456b1fdaf, type: 3}
-  m_Name: AwaredState
+  m_Name: Awared
   m_EditorClassIdentifier: 
   _actions:
   - {fileID: 11400000, guid: f7645fcd23cddeab98779188b02a3144, type: 2}
   - {fileID: 11400000, guid: 988d230b4cc8197c98823e3ee90a38dc, type: 2}
-  _transitions: []

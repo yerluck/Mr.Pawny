@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da7de7d665862b2bd8261f802f9ab4f1, type: 3}
+  m_Name: PawnEnemyTransitionTable
+  m_EditorClassIdentifier: 
+  _transitions:
+  - FromState: {fileID: 11400000, guid: 52f77628b05e4bff29e9be6bdba7807f, type: 2}
+    ToState: {fileID: 11400000, guid: d0d42084ca0cb36d0b60c8900094a90b, type: 2}
+    Conditions:
+    - ExpectedResult: 0
+      Condition: {fileID: 11400000, guid: bddcefed130bcf330bf7f736be782710, type: 2}
+      Operator: 0

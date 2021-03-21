@@ -14,5 +14,5 @@ public class IsOnEdgeOrFacingObstacleCondition : Condition
         controller = stateMachine.GetComponent<LandEnemy<StateMachine>>();
     }
 
-    public override bool Statement() => controller.IsOnEdge || controller.IsFacingObstacle;
+    protected override bool Statement() => controller.IsOnEdge || controller.IsFacingObstacle;
 }

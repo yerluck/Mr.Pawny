@@ -10,7 +10,10 @@ namespace Pawny.StateMachine
         private bool[] _results;
 
         internal StateTransition() { }
-
+        public StateTransition(State targetState, StateCondition[] conditions, int[] resultGroups = null)
+		{
+			Init(targetState, conditions, resultGroups);
+		}
         internal void Init(State targetState, StateCondition[] conditions, int[] resultGroups = null)
         {
             _targetState = targetState;
@@ -55,6 +58,12 @@ namespace Pawny.StateMachine
 
 			return ret;
         }
+
+        internal void ClearConditionsCache()
+		{
+			for (int i = 0; i < _conditions.Length; i++)
+				_conditions[i]._condition.ClearStatementCache();
+		}
 
         public void OnStateEnter()
         {

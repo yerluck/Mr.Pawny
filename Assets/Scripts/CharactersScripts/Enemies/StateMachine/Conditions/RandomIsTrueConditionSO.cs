@@ -20,5 +20,5 @@ public class RandomIsTrueCondition : Condition
         this.probability = probability;
     }
 
-	public override bool Statement() => probability >= Random.Range(0f, 100f);
+	protected override bool Statement() => probability >= Random.Range(0f, 100f);
 }

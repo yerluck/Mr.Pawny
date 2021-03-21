@@ -534,7 +534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b49ced1b00d2a8ff99f51af65be1774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialStateSO: {fileID: 11400000, guid: 52f77628b05e4bff29e9be6bdba7807f, type: 2}
+  _transitionTableSO: {fileID: 11400000, guid: 2d0fd95a176aae1e88d62176400f49e0, type: 2}
   _debugger:
     debugTransitions: 1
     appendConditionsInfo: 1

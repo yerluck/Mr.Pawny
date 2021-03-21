@@ -43,7 +43,7 @@ public class SightSenseCondition : Condition
         playerParts[2]  = playerParts[0].Find("CeilingCheck");
     }
 
-    public override bool Statement() => DetectAspect();
+    protected override bool Statement() => DetectAspect();
 
     private bool DetectAspect()
     {
