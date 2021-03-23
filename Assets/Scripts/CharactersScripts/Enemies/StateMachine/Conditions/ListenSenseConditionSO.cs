@@ -3,7 +3,7 @@ using Pawny.StateMachine;
 using Pawny.StateMachine.ScriptableObjects;
 using System;
 
-[CreateAssetMenu(fileName = "ListenSenseConditionSO", menuName = "State Machine/Conditions/Is Player Heard")]
+[CreateAssetMenu(fileName = "ListenSenseConditionSO", menuName = "State Machine/Conditions/Heard The Target")]
 public class ListenSenseConditionSO : StateConditionSO
 {
     [SerializeField] private LayerMask _whatCanBeHeard;

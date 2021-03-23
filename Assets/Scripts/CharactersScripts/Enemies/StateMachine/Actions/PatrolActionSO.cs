@@ -10,22 +10,35 @@ public class PatrolActionSO : StateActionSO
 
 public class PatrolAction : StateAction
 {
-    private Vector2 moveDirection;
-    private LandEnemy<StateMachine> controller;
+    private Vector2 _moveDirection;
+    private LandEnemy<StateMachine> _controller;
+    private StateMachine _stateMachine;
+    private bool _isStateFirstEnter;
     
     public override void Awake(StateMachine stateMachine)
     {
-        controller = stateMachine.GetComponent<LandEnemy<StateMachine>>();
-        moveDirection = new Vector2(Random.Range(-1f, 1f), 0f).normalized;
+        _controller = stateMachine.GetComponent<LandEnemy<StateMachine>>();
+        _stateMachine = stateMachine;
+        _isStateFirstEnter = true;
     }
 
     public override void OnStateEnter()
     {
-        moveDirection *= -1;
+        if (_isStateFirstEnter)
+        {
+            _controller.FaceTargetPoint(_stateMachine._targetLastPosition);
+            _moveDirection = _stateMachine.transform.localScale.normalized;
+            _isStateFirstEnter = false;
+        }
     } 
 
     public override void OnUpdate()
     {
-        controller.Move(moveDirection, true);
+        _controller.Move(_moveDirection, true);
+    }
+
+    public override void OnStateExit()
+    {
+        _moveDirection *= -1;
     }
 }

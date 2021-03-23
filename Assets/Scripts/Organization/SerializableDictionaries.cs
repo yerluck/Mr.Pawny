@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Collections.Generic;
+using RotaryHeart.Lib.SerializableDictionary;
 
 [Serializable]
-public class DictionaryAnimOverrideClip: UDictionary<EnemyAnimationOverrideKeys, AnimatorOverrideController> { }
+public class DictionaryAnimOverrideClip: SerializableDictionaryBase<EnemyAnimationOverrideKeys, AnimatorOverrideController> { }

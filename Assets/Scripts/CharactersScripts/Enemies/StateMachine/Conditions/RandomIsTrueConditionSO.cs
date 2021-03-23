@@ -6,19 +6,35 @@ using Pawny.StateMachine.ScriptableObjects;
 public class RandomIsTrueConditionSO : StateConditionSO
 {
     [Tooltip("Probability of a positive outcome (0% - 100%)")]
-    [SerializeField][Range(0f, 1f)] private float probability;
+    [SerializeField][Range(0f, 100f)] private float probability;
+    [SerializeField][Range(0f, 2f)] private float detectionRate;
 
-    protected override Condition CreateCondition() => new RandomIsTrueCondition(probability);
+    protected override Condition CreateCondition() => new RandomIsTrueCondition(probability, detectionRate);
 }
 
 public class RandomIsTrueCondition : Condition
 {
-    private readonly float probability;
+    private readonly float probability = 0f;
+    private readonly float detectionRate;
+    private float elapsedTime = 0f;
 
-    public RandomIsTrueCondition(float probability)
+    public RandomIsTrueCondition(float probability, float detectionRate)
     {
         this.probability = probability;
+        this.detectionRate = detectionRate;
     }
 
-	protected override bool Statement() => probability >= Random.Range(0f, 100f);
+	protected override bool Statement() => GetRandomOutput();
+
+    private bool GetRandomOutput()
+    {
+        elapsedTime += Time.deltaTime;
+        if ( elapsedTime < detectionRate)
+        {
+            return false;
+        }
+
+        elapsedTime = 0f;
+        return probability >= Random.Range(0f, 100f);
+    }
 }
