@@ -3,7 +3,7 @@ using Pawny.StateMachine;
 using Pawny.StateMachine.ScriptableObjects;
 using System;
 
-[CreateAssetMenu(fileName = "ListenSenseConditionSO", menuName = "State Machine/Conditions/Is Player Heard")]
+[CreateAssetMenu(fileName = "ListenSenseConditionSO", menuName = "State Machine/Conditions/Heard The Target")]
 public class ListenSenseConditionSO : StateConditionSO
 {
     [SerializeField] private LayerMask _whatCanBeHeard;
@@ -32,7 +32,7 @@ public class ListenSenseCondition : Condition
         _detectionRate  = stateMachine._manager.DetectionRate;
     }
 
-    public override bool Statement() => DetectAspect();
+    protected override bool Statement() => DetectAspect();
 
     private bool DetectAspect()
     {
@@ -57,6 +57,7 @@ public class ListenSenseCondition : Condition
 
             if (aspect && aspect.aspectType != _stateMachine._aspectName)
             {
+                _stateMachine._targetLastPosition = hitCollider.transform.position;
                 return true;
             }
 

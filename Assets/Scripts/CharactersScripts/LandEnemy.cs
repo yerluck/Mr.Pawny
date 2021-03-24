@@ -113,11 +113,11 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
         }
     }
 
-    // Method to turn character to face player
-    internal void FaceTarget(Transform target)
+    // Method to turn character to face specific point in space
+    internal void FaceTargetPoint(Vector2 targetPoint)
     {
         bool facingTarget;
-		if(target.position.x - transform.position.x > 0) {
+		if(targetPoint.x - transform.position.x > 0) {
 			facingTarget = isFacingRight;
 		} else {
 			facingTarget = !isFacingRight;

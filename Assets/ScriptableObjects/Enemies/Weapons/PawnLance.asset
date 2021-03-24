@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85028923bdc01829084a92a50bcdfaf5, type: 3}
+  m_Name: PawnLance
+  m_EditorClassIdentifier: 
+  type: 0
+  weaponPrefab: {fileID: 5354635004195312485, guid: c9bdbd4d854df6d599a817e127285b19,
+    type: 3}
+  orderInLayer: 8
+  animationOverriders:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 000000000100000002000000030000000400000005000000
+    _keys: 000000000100000002000000030000000400000005000000
+    _values:
+    - {fileID: 22100000, guid: eccca2f55dec4b992af8b0553d66f264, type: 2}
+    - {fileID: 22100000, guid: b97a9c65deea689a68ca0e0b6763316c, type: 2}
+    - {fileID: 22100000, guid: b1ab7872ef28255bca18acd485405662, type: 2}
+    - {fileID: 22100000, guid: 1a7db222f8e5541abba35ef45625f02a, type: 2}
+    - {fileID: 22100000, guid: 91941936e04e0b592a21de4807f593ca, type: 2}
+    - {fileID: 22100000, guid: 24fb5f975f2763563883fc9a3ddba1bc, type: 2}

@@ -2,7 +2,7 @@
 using Pawny.StateMachine;
 using Pawny.StateMachine.ScriptableObjects;
 
-[CreateAssetMenu(fileName = "SightSenseConditionSO", menuName = "State Machine/Conditions/Was Player Seen")]
+[CreateAssetMenu(fileName = "SightSenseConditionSO", menuName = "State Machine/Conditions/Saw The Target")]
 public class SightSenseConditionSO : StateConditionSO
 {
     [SerializeField] private LayerMask _whatCanBeSeen;
@@ -43,7 +43,7 @@ public class SightSenseCondition : Condition
         playerParts[2]  = playerParts[0].Find("CeilingCheck");
     }
 
-    public override bool Statement() => DetectAspect();
+    protected override bool Statement() => DetectAspect();
 
     private bool DetectAspect()
     {

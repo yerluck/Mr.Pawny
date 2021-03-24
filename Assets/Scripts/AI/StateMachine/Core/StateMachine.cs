@@ -9,10 +9,17 @@ namespace Pawny.StateMachine
     /// </summary>
     public class StateMachine : MonoBehaviour
     {
-        [Tooltip("Set the initial state")]
-        [SerializeField] private ScriptableObjects.StateSO _initialStateSO = null;
+        [Tooltip("Set the initial state of this StateMachine")]
+        [SerializeField] private ScriptableObjects.TransitionTableSO _transitionTableSO = default;
+
+#if UNITY_EDITOR
+		[Space]
+		[SerializeField]
+		internal Debugging.StateMachineDebugger _debugger = default;
+#endif
+
         private readonly Dictionary<Type, Component> _cashedComponents = new Dictionary<Type, Component>();
-        [SerializeField] private State _currentState;
+        [SerializeField] internal State _currentState;
         //TODO: after complition stats SO - get data from there
         [SerializeField] private MonoBehaviour manager;
         [HideInInspector] public IEnemyCharacterManager _manager;
@@ -23,8 +30,15 @@ namespace Pawny.StateMachine
         private void Awake() {
             _manager = (IEnemyCharacterManager)manager;
             _aspectName = GetComponent<Aspect>().aspectType;
-            _currentState = _initialStateSO.GetState(this);
-            _currentState.OnStateEnter();
+            _currentState = _transitionTableSO.GetInitialState(this);
+#if UNITY_EDITOR
+			_debugger.Awake(this);
+#endif
+        }
+
+        private void Start()
+        {
+            _currentState.OnStateEnter();    
         }
 
         private void Update() {
@@ -52,7 +66,7 @@ namespace Pawny.StateMachine
         public new bool TryGetComponent<T>(out T component) where T: Component
         {
             var type = typeof(T);
-            if(!_cashedComponents.TryGetValue(type, out var value))
+            if (!_cashedComponents.TryGetValue(type, out var value))
             {
                 if(base.TryGetComponent<T>(out component))
                 {
@@ -64,6 +78,17 @@ namespace Pawny.StateMachine
 
             component = (T)value;
             return true;
+        }
+
+        public T GetOrAddComponent<T>() where T: Component
+        {
+            if (!TryGetComponent<T>(out var component))
+            {
+                component = gameObject.AddComponent<T>();
+                _cashedComponents.Add(typeof(T), component);
+            }
+
+            return component;
         }
     }
 }

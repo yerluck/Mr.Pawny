@@ -10,7 +10,10 @@ namespace Pawny.StateMachine
         private bool[] _results;
 
         internal StateTransition() { }
-
+        public StateTransition(State targetState, StateCondition[] conditions, int[] resultGroups = null)
+		{
+			Init(targetState, conditions, resultGroups);
+		}
         internal void Init(State targetState, StateCondition[] conditions, int[] resultGroups = null)
         {
             _targetState = targetState;
@@ -32,6 +35,10 @@ namespace Pawny.StateMachine
 
         private bool ShouldTransit()
         {
+#if UNITY_EDITOR
+			_targetState._stateMachine._debugger.TransitionEvaluationBegin(_targetState._originSO.name);
+#endif
+
             int count = _resultGroups.Length;
 			for (int i = 0, idx = 0; i < count && idx < _conditions.Length; i++)
 				for (int j = 0; j < _resultGroups[i]; j++, idx++)
@@ -45,8 +52,18 @@ namespace Pawny.StateMachine
 				ret = ret || _results[i];
             }
 
+#if UNITY_EDITOR
+			_targetState._stateMachine._debugger.TransitionEvaluationEnd(ret, _targetState._actions);
+#endif
+
 			return ret;
         }
+
+        internal void ClearConditionsCache()
+		{
+			for (int i = 0; i < _conditions.Length; i++)
+				_conditions[i]._condition.ClearStatementCache();
+		}
 
         public void OnStateEnter()
         {

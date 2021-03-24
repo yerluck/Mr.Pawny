@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 880aa1bcbb22aeffea33c24456b1fdaf, type: 3}
+  m_Name: RageStay
+  m_EditorClassIdentifier: 
+  _actions:
+  - {fileID: 11400000, guid: f7645fcd23cddeab98779188b02a3144, type: 2}
+  - {fileID: 11400000, guid: 7485f0949c6ec4aabb2266e369996a36, type: 2}
+  - {fileID: 11400000, guid: 3bae9bbabda1154e69f1d6b9962ba036, type: 2}

@@ -2,7 +2,7 @@
 using Pawny.StateMachine;
 using Pawny.StateMachine.ScriptableObjects;
 
-[CreateAssetMenu(fileName = "StayIdleActionSO", menuName = "State Machine/Actions/StayIdle")]
+[CreateAssetMenu(fileName = "StayIdleActionSO", menuName = "State Machine/Actions/Stay Idle")]
 public class StayIdleActionSO : StateActionSO
 {
     protected override StateAction CreateAction() => new StayIdleAction();

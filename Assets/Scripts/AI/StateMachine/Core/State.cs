@@ -1,12 +1,27 @@
-﻿namespace Pawny.StateMachine
+﻿using Pawny.StateMachine.ScriptableObjects;
+
+namespace Pawny.StateMachine
 {
     public class State
     {
+        internal StateSO _originSO;
         internal StateMachine _stateMachine;
         internal StateAction[] _actions;
         internal StateTransition[] _transitions;
 
         internal State() { }
+
+        public State(
+			StateSO originSO,
+			StateMachine stateMachine,
+			StateTransition[] transitions,
+			StateAction[] actions)
+		{
+			_originSO = originSO;
+			_stateMachine = stateMachine;
+			_transitions = transitions;
+			_actions = actions;
+		}
 
         public void OnStateEnter()
         {
@@ -44,16 +59,22 @@
 
         public bool TryGetTransition(out State state)
         {
+            state = null;
+
             for (int i = 0; i < _transitions.Length; i++)
             {
                 if(_transitions[i].TryGetTransition(out state))
                 {
-                    return true;
+                    break;
                 }
             }
 
-            state = null;
-            return false;
+            for (int i = 0; i < _transitions.Length; i++)
+            {
+                _transitions[i].ClearConditionsCache();
+            }
+
+            return state != null;
         }
     }
 }
