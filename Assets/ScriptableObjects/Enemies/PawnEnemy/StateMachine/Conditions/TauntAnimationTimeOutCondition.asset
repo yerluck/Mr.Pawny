@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a93f949f1f65948d909a8591ba86082, type: 3}
   m_Name: TauntAnimationTimeOutCondition
   m_EditorClassIdentifier: 
-  _timerLength: 0.6
+  _timerLength: 0.7

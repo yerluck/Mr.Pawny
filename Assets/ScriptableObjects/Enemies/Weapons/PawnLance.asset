@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85028923bdc01829084a92a50bcdfaf5, type: 3}
-  m_Name: PawnSword
+  m_Name: PawnLance
   m_EditorClassIdentifier: 
   type: 0
-  weaponPrefab: {fileID: 565235656845193221, guid: 76f7c1fb17b44e992a293811e06a68ea,
+  weaponPrefab: {fileID: 5354635004195312485, guid: c9bdbd4d854df6d599a817e127285b19,
     type: 3}
   orderInLayer: 8
   animationOverriders:
@@ -42,9 +42,9 @@ MonoBehaviour:
     _keyValues: 000000000100000002000000030000000400000005000000
     _keys: 000000000100000002000000030000000400000005000000
     _values:
-    - {fileID: 22100000, guid: b3a613a1bf668babebac33c8a0552712, type: 2}
-    - {fileID: 22100000, guid: e4a89cb2e957dc00c973c2ac63a560a9, type: 2}
-    - {fileID: 22100000, guid: 58065e5fa5e48851b8a841fb5b67a7fa, type: 2}
-    - {fileID: 22100000, guid: d66f90b81427298a5801b2baaf57e0bd, type: 2}
-    - {fileID: 22100000, guid: d548ee054af706015a5007b23ac78e39, type: 2}
-    - {fileID: 22100000, guid: 0148e9ea064fe1f699646c4112c27120, type: 2}
+    - {fileID: 22100000, guid: eccca2f55dec4b992af8b0553d66f264, type: 2}
+    - {fileID: 22100000, guid: b97a9c65deea689a68ca0e0b6763316c, type: 2}
+    - {fileID: 22100000, guid: b1ab7872ef28255bca18acd485405662, type: 2}
+    - {fileID: 22100000, guid: 1a7db222f8e5541abba35ef45625f02a, type: 2}
+    - {fileID: 22100000, guid: 91941936e04e0b592a21de4807f593ca, type: 2}
+    - {fileID: 22100000, guid: 24fb5f975f2763563883fc9a3ddba1bc, type: 2}
