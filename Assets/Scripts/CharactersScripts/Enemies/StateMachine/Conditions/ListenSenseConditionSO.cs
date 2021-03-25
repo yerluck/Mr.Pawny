@@ -6,8 +6,8 @@ using System;
 [CreateAssetMenu(fileName = "ListenSenseConditionSO", menuName = "State Machine/Conditions/Heard The Target")]
 public class ListenSenseConditionSO : StateConditionSO
 {
-    [SerializeField] private LayerMask _whatCanBeHeard;
-    protected override Condition CreateCondition() => new ListenSenseCondition(_whatCanBeHeard);
+    [SerializeField] private LayerMask whatCanBeHeard;
+    protected override Condition CreateCondition() => new ListenSenseCondition(whatCanBeHeard);
 }
 
 public class ListenSenseCondition : Condition
@@ -48,7 +48,7 @@ public class ListenSenseCondition : Condition
             _elapsedTime = 0;
 
             var hitCollider = Physics2D.OverlapCircle(_transform.position, _listenDistance, _whatCanBeHeard);
-            if(!hitCollider || !hitCollider.GetComponent<Protagonist>().m_Grounded || hitCollider.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+            if(!hitCollider || !hitCollider.GetComponent<Protagonist>().isGrounded || hitCollider.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
             {
                 return false;
             }
