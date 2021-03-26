@@ -5,8 +5,8 @@ using Pawny.StateMachine.ScriptableObjects;
 [CreateAssetMenu(fileName = "TimeElapsed", menuName = "State Machine/Conditions/Time elapsed")]
 public class TimeElapsedConditionSO : StateConditionSO
 {
-	[SerializeField] float _timerLength = .5f;
-	protected override Condition CreateCondition() => new TimeElapsedCondition(_timerLength);
+	[SerializeField] float timerLength = .5f;
+	protected override Condition CreateCondition() => new TimeElapsedCondition(timerLength);
 }
 
 public class TimeElapsedCondition : Condition

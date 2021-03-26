@@ -87,7 +87,7 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && attackCooldown <= 0) 
         {
             attackCooldown = attackCooldownTime;
-            if (Input.GetAxisRaw("Vertical") < 0 && !movementController.m_Grounded)
+            if (Input.GetAxisRaw("Vertical") < 0 && !movementController.isGrounded)
             {
                 movementController.Attack((int)Attacks.SwordDown);
                 return;

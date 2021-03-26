@@ -32,7 +32,7 @@ public class AnimatorParameterAction : StateAction
 	//Component references
 	private Animator _animator;
 	// private AnimatorParameterActionSO originSO => (AnimatorParameterActionSO)base.OriginSO; // The SO this StateAction spawned from
-	private new AnimatorParameterActionSO _originSO;
+	private AnimatorParameterActionSO _originSO;
 	private int _parameterHash;
 
 	public AnimatorParameterAction(int parameterHash, AnimatorParameterActionSO originSO)

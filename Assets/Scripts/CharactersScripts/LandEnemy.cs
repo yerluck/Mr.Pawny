@@ -4,16 +4,17 @@ using System.Collections.Generic;
 
 public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is input system - specific AI for each enemy type
 {
+    public bool allowMove = true;
     protected bool isFacingRight = true;
-    protected bool grounded = false;
+    private bool _grounded = false;
 
     // In case if need to update get or  set - update accessors
     #region abstract properties
-    protected abstract Transform EdgeCheckerTransform { get; }
-    protected abstract Transform GroundCheckerTransform { get; }
-    protected abstract float GroundCheckerRadius { get; }
-    protected abstract float GravityScale { get; }
-    protected abstract float FallMultiplyer { get; }
+    protected abstract Transform EdgeCheckTransform { get; }
+    protected abstract Transform GroundCheckTransform { get; }
+    protected abstract float GroundCheckRadius { get; }
+    protected abstract float JumpGravityScale { get; }
+    protected abstract float FallGravityScale { get; }
     protected abstract float EdgeCheckDistance { get; }
     protected abstract float ObstacleCheckSizeDelta { get; }
     protected abstract float ObstacleCheckDistance { get; }
@@ -21,7 +22,6 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     protected abstract Collider2D PhysicsCollider { get; }
     public abstract float HP { get; set; }
     public abstract Transform Attacker { get; set; }
-    public bool AllowMove { get; set; } = true;
     #endregion
 
     protected override void Awake()
@@ -34,9 +34,9 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     protected virtual void FixedUpdate()
     {
         if (rigidBody2D.velocity.y < 0) {
-			rigidBody2D.gravityScale = FallMultiplyer;
+			rigidBody2D.gravityScale = FallGravityScale;
 		} else {
-			rigidBody2D.gravityScale = GravityScale;
+			rigidBody2D.gravityScale = JumpGravityScale;
 		}
     }
 
@@ -66,18 +66,18 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     {
         get
         {
-            grounded = false;
+            _grounded = false;
 
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(GroundCheckerTransform.position, GroundCheckerRadius, WhatIsGround);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(GroundCheckTransform.position, GroundCheckRadius, WhatIsGround);
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject)
                 {
-                    grounded = true;
+                    _grounded = true;
                 }
             }
 
-            return grounded;
+            return _grounded;
         }
     }
     
@@ -86,7 +86,7 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     {
         get
         {
-            RaycastHit2D groundInfo = Physics2D.Raycast(EdgeCheckerTransform.position, Vector2.down, EdgeCheckDistance, WhatIsGround);
+            RaycastHit2D groundInfo = Physics2D.Raycast(EdgeCheckTransform.position, Vector2.down, EdgeCheckDistance, WhatIsGround);
             if (!groundInfo.collider) return true;
 
             return false;

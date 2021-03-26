@@ -16,7 +16,7 @@ public class RandomIsTrueCondition : Condition
 {
     private readonly float probability = 0f;
     private readonly float detectionRate;
-    private float elapsedTime = 0f;
+    private float _elapsedTime = 0f;
 
     public RandomIsTrueCondition(float probability, float detectionRate)
     {
@@ -28,13 +28,13 @@ public class RandomIsTrueCondition : Condition
 
     private bool GetRandomOutput()
     {
-        elapsedTime += Time.deltaTime;
-        if ( elapsedTime < detectionRate)
+        _elapsedTime += Time.deltaTime;
+        if ( _elapsedTime < detectionRate)
         {
             return false;
         }
 
-        elapsedTime = 0f;
+        _elapsedTime = 0f;
         return probability >= Random.Range(0f, 100f);
     }
 }

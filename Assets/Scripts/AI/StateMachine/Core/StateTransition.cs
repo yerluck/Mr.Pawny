@@ -36,7 +36,7 @@ namespace Pawny.StateMachine
         private bool ShouldTransit()
         {
 #if UNITY_EDITOR
-			_targetState._stateMachine._debugger.TransitionEvaluationBegin(_targetState._originSO.name);
+			_targetState.stateMachine.debugger.TransitionEvaluationBegin(_targetState.originSO.name);
 #endif
 
             int count = _resultGroups.Length;
@@ -53,7 +53,7 @@ namespace Pawny.StateMachine
             }
 
 #if UNITY_EDITOR
-			_targetState._stateMachine._debugger.TransitionEvaluationEnd(ret, _targetState._actions);
+			_targetState.stateMachine.debugger.TransitionEvaluationEnd(ret, _targetState.actions);
 #endif
 
 			return ret;

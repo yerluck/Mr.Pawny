@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d694249687e2e43bd08dcc995601c9, type: 3}
   m_Name: HeardTargetCondition
   m_EditorClassIdentifier: 
-  _whatCanBeHeard:
+  whatCanBeHeard:
     serializedVersion: 2
     m_Bits: 256

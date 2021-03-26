@@ -22,7 +22,7 @@ public class RageRunAction : StateAction
 
     public override void OnStateEnter()
     {
-        _controller.FaceTargetPoint(_stateMachine._targetLastPosition);
+        _controller.FaceTargetPoint(_stateMachine.targetLastPosition);
         _moveDirection = _stateMachine.transform.localScale.normalized;
     } 
 

@@ -40,7 +40,7 @@ namespace Pawny.StateMachine.ScriptableObjects
 					transitions.Add(new StateTransition(toState, conditions, resultGroups));
 				}
 
-				state._transitions = transitions.ToArray();
+				state.transitions = transitions.ToArray();
 			}
 
 			return states.Count > 0 ? states[0]

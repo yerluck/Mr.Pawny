@@ -38,7 +38,7 @@ public class Listening : Sense
     private void DetectAspect()
     {
         var hitCollider = Physics2D.OverlapCircle(transform.position, listenDistance, whatCanBeHeard);
-        if(!hitCollider || !hitCollider.GetComponent<Protagonist>().m_Grounded || hitCollider.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+        if(!hitCollider || !hitCollider.GetComponent<Protagonist>().isGrounded || hitCollider.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
         {
             return;
         }

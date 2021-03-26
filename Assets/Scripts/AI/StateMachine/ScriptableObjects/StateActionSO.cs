@@ -23,7 +23,7 @@ namespace Pawny.StateMachine.ScriptableObjects
 
             var action = CreateAction();
             createdInstances.Add(this, action);
-            action._originSO = this;
+            action.originSO = this;
             action.Awake(stateMachine);
             return action;
         }

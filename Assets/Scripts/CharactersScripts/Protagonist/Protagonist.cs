@@ -4,34 +4,40 @@ using System.Collections.Generic;
 
 internal class Protagonist : CharacterController<PlayerInput>
 {
-	protected float m_FallMultiplyer;
-	protected float m_LowJumpMultiplyer;
-	protected float m_JumpForce;												// Amount of force added when the player jumps.
-	protected float m_AirJumpForce;
-	protected float m_CrouchSpeed;												// Amount of maxSpeed applied to crouching movement. 1 = 100%
-	protected float m_MovementSmoothing;										// How much to smooth out the movement
-	protected bool m_AirControl;												// Whether or not a player can steer while jumping;
-	internal bool m_AllowMove;
-	protected bool m_AirJump;
-	private float m_RunSpeed;
-	private float m_AirSpeed;
-	protected float m_LandingDistance;											// Distance when to play landing animation
-	protected float m_GravityScale; 											// gravity multiplyer on Rb2D
-	protected float k_GroundedRadius = .07f; 									// Radius of the overlap circle to determine if grounded
-	protected float k_CeilingRadius = .2f; 										// Radius of the overlap circle to determine if the player can stand up
-	[SerializeField] protected LayerMask m_WhatIsGround;						// A mask determining what is ground to the character
-	[SerializeField] protected ContactFilter2D m_WhatIsPlatform;
-	[SerializeField] internal Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
-	[SerializeField] internal Transform m_CeilingCheck;							// A position marking where to check for ceilings
-	[SerializeField] GameObject[] attackEffectPrefabs = {};
-	protected bool m_wasCrouching = false;
-	public bool m_Grounded;            											// Whether or not the player is grounded.
-	protected Vector2 m_Velocity = Vector2.zero;
-	protected bool m_AirJumped;
-	protected Collider2D[] colliders = new Collider2D[1];
-	protected float m_HangTime; 													// Koyote time
-	protected float hangCounter;
+	public 		PlayerStatsSO 	playerStats;
+	public 		bool 			isGrounded;            											// Whether or not the player is grounded.
+	protected 	float 			landingCheckDistance;											// Distance when to play landing animation
+	[SerializeField]
+	protected 	LayerMask 		whatIsGround;													// A mask determining what is ground to the character
+	[SerializeField]
+	protected 	Transform 		groundCheckTransform;											// A position marking where to check if the player is grounded.
+	private 	float 			fallGravityScale;
+	private 	float 			lowJumpGravityScale;
+	private 	float 			jumpForce;														// Amount of force added when the player jumps.
+	private 	float 			airJumpForce;
+	private 	float 			crouchSpeed;													// Amount of maxSpeed applied to crouching movement. 1 = 100%
+	private 	float 			movementSmoothing;												// How much to smooth out the movement
+	private 	float 			runSpeed;
+	private 	float 			airMovementSpeed;
+	private 	float 			jumpGravityScale; 												// gravity multiplyer on Rb2D
+	private 	float 			groundedCheckRadius; 											// Radius of the overlap circle to determine if grounded
+	private 	float 			ceilingCheckRadius; 											// Radius of the overlap circle to determine if the player can stand up
+	private 	float 			koyoteJumpTime; 												// Koyote time
+	private 	bool 			isAirMovementAllowed;											// Whether or not a player can steer while jumping;
+	private 	bool 			isAirJumpAllowed;
+	private 	bool 			airJumped;
+	[SerializeField]
+	private 	ContactFilter2D whatIsPlatform;
+	[SerializeField]
+	private 	Transform 		ceilingCheckTransform;											// A position marking where to check for ceilings
+	[SerializeField]
+	private 	GameObject[] 	attackEffectPrefabs = {};
+	private 	Vector2 		velocity = Vector2.zero;
+	private 	Collider2D[] 	_colliders = new Collider2D[1];
+	private 	bool 			_wasCrouching = false;
+	private 	float 			_koyoteJumpBuffer;
 
+	// TODO: mb that should be separated onto fight system
 	protected Dictionary<int, Vector3> attackPoints = new Dictionary<int, Vector3>()
 	{
 		{0, new Vector3(0.6f, 0, 0)},				// SwordForward
@@ -45,56 +51,55 @@ internal class Protagonist : CharacterController<PlayerInput>
 	{
 		base.Awake();
 
-		m_LandingDistance 	= PlayerManager.Instance.landingDistance;
-		m_HangTime 			= PlayerManager.Instance.hangTime;
-		m_GravityScale 		= PlayerManager.Instance.gravityScale;
-		m_FallMultiplyer 	= PlayerManager.Instance.fallMultiplyer;
-		m_LowJumpMultiplyer = PlayerManager.Instance.lowJumpMultiplyer;
-		m_JumpForce 		= PlayerManager.Instance.jumpForce;
-		m_AirJumpForce 		= PlayerManager.Instance.airJumpForce;
-		m_CrouchSpeed 		= PlayerManager.Instance.crouchSpeed;
-		m_MovementSmoothing = PlayerManager.Instance.movementSmoothing;
-		m_AirControl 		= PlayerManager.Instance.airControl;
-		m_AllowMove 		= PlayerManager.Instance.allowMove;
-		m_AirJump 			= PlayerManager.Instance.airJump;
-		m_RunSpeed			= PlayerManager.Instance.runSpeed;
-		m_AirSpeed			= PlayerManager.Instance.airSpeed;
-		k_GroundedRadius 	= PlayerManager.Instance.groundedRadius;
-		k_CeilingRadius 	= PlayerManager.Instance.ceilingRadius;
+		landingCheckDistance	= playerStats.LandingCheckDistance;
+		koyoteJumpTime 			= playerStats.KoyoteJumpTime;
+		jumpGravityScale 		= playerStats.JumpGravityScale;
+		fallGravityScale 		= playerStats.FallGravityScale;
+		lowJumpGravityScale 	= playerStats.LowJumpGravityScale;
+		jumpForce 				= playerStats.JumpForce;
+		airJumpForce 			= playerStats.AirJumpForce;
+		crouchSpeed 			= playerStats.CrouchSpeed;
+		movementSmoothing 		= playerStats.MovementSmoothing;
+		isAirMovementAllowed 	= playerStats.IsAirMovementAllowed;
+		isAirJumpAllowed 		= playerStats.IsAirJumpAllowed;
+		runSpeed				= playerStats.RunSpeed;
+		airMovementSpeed		= playerStats.AirMovementSpeed;
+		groundedCheckRadius 	= playerStats.GroundedCheckRadius;
+		ceilingCheckRadius 		= playerStats.CeilingCheckRadius;
 	}
 
 	protected virtual void FixedUpdate()
 	{
-		m_Grounded = false;
+		isGrounded = false;
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheckTransform.position, groundedCheckRadius, whatIsGround);
 		for (int i = 0; i < colliders.Length; i++)
 		{
 			if (colliders[i].gameObject != gameObject)
 			{
-				m_Grounded = true;
-				m_AirJumped = false;
+				isGrounded = true;
+				airJumped = false;
 			}
 		}
 
 		//Koyote time setting
-		if (m_Grounded) 
+		if (isGrounded) 
 		{
-			hangCounter = m_HangTime;
+			_koyoteJumpBuffer = koyoteJumpTime;
 		} else
 		{
-			hangCounter -= Time.deltaTime;
+			_koyoteJumpBuffer -= Time.deltaTime;
 		}
 
 		#region Controversial // Better Jump Effect
 		if (rigidBody2D.velocity.y < 0) {
-			rigidBody2D.gravityScale = m_FallMultiplyer;
+			rigidBody2D.gravityScale = fallGravityScale;
 		} else if (rigidBody2D.velocity.y > 0 && !Input.GetButton("Jump")) {
-			rigidBody2D.gravityScale = m_LowJumpMultiplyer;
+			rigidBody2D.gravityScale = lowJumpGravityScale;
 		} else {
-			rigidBody2D.gravityScale = m_GravityScale;
+			rigidBody2D.gravityScale = jumpGravityScale;
 		}
 		#endregion
 	}
@@ -102,35 +107,35 @@ internal class Protagonist : CharacterController<PlayerInput>
 	public override void Move(Vector2 move, bool crouch)
 	{
 		// If crouching, check to see if the character can stand up
-		if (!crouch && m_Grounded)
+		if (!crouch && isGrounded)
 		{
 
 			// If the character has a ceiling preventing them from standing up, keep them crouching
-			if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsPlatform, colliders) > 0)
+			if (Physics2D.OverlapCircle(ceilingCheckTransform.position, ceilingCheckRadius, whatIsPlatform, _colliders) > 0)
 			{
-				if(!colliders[0].CompareTag("Passform")){
+				if(!_colliders[0].CompareTag("Passform")){
 					crouch = true;
 				}
 			}
 		}
 
-		float speed = m_Grounded ? m_RunSpeed : m_AirSpeed;
+		float speed = isGrounded ? runSpeed : airMovementSpeed;
 
 		//only control the player if grounded or airControl is turned on
-		if ((m_Grounded || m_AirControl) && PlayerManager.Instance.allowMove)
+		if ((isGrounded || isAirMovementAllowed) && PlayerManager.Instance.allowMove)
 		{
 			move *= speed * Time.fixedDeltaTime;
 
 			// If crouching
-			if (crouch && m_Grounded)
+			if (crouch && isGrounded)
 			{
-				if (!m_wasCrouching)
+				if (!_wasCrouching)
 				{
-					m_wasCrouching = true;
+					_wasCrouching = true;
 				}
 
 				// Reduce the speed by the crouchSpeed multiplier
-				move *= m_CrouchSpeed;
+				move *= crouchSpeed;
 
 				// Disable one of the colliders when crouching
 				//TODO: add crouching effect = reduce collider height
@@ -138,16 +143,16 @@ internal class Protagonist : CharacterController<PlayerInput>
 			{
 				// Enable the collider when not crouching
 				//TODO: add crouching effect = reduce collider height
-				if (m_wasCrouching)
+				if (_wasCrouching)
 				{
-					m_wasCrouching = false;
+					_wasCrouching = false;
 				}
 			}
 
 			// Move the character by finding the target velocity
 			Vector2 targetVelocity = new Vector2(move.x, rigidBody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
-			rigidBody2D.velocity = Vector2.SmoothDamp(rigidBody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+			rigidBody2D.velocity = Vector2.SmoothDamp(rigidBody2D.velocity, targetVelocity, ref velocity, movementSmoothing);
 		}
 	}
 
@@ -169,18 +174,18 @@ internal class Protagonist : CharacterController<PlayerInput>
 	public void Jump()
 	{
 		//Jump according koyote time
-		if (hangCounter >= 0)
+		if (_koyoteJumpBuffer >= 0)
 		{
 			rigidBody2D.velocity = Vector2.zero;
 			// Add a vertical force to the player.
 			// m_Grounded = false;
-			rigidBody2D.AddForce(new Vector2(0f, m_JumpForce));
+			rigidBody2D.AddForce(new Vector2(0f, jumpForce));
 			inputSource.jumpBufferCounter = 0;
 			GameEvents.Instance.PlayerJump();
-		} else if (m_AirJump && !m_AirJumped) {
+		} else if (isAirJumpAllowed && !airJumped) {
 			rigidBody2D.velocity = Vector2.zero;
-			m_AirJumped = true;
-			rigidBody2D.AddForce(new Vector2(0f, m_AirJumpForce));
+			airJumped = true;
+			rigidBody2D.AddForce(new Vector2(0f, airJumpForce));
 			inputSource.jumpBufferCounter = 0;
 		}
 	}
@@ -188,7 +193,7 @@ internal class Protagonist : CharacterController<PlayerInput>
 	protected void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(m_GroundCheck.position, k_GroundedRadius);
-		Gizmos.DrawWireSphere(m_CeilingCheck.position, k_CeilingRadius);
+		Gizmos.DrawWireSphere(groundCheckTransform.position, groundedCheckRadius);
+		Gizmos.DrawWireSphere(ceilingCheckTransform.position, ceilingCheckRadius);
 	}
 }

@@ -16,7 +16,7 @@ namespace Pawny.StateMachine.ScriptableObjects
             if (!createdInstances.TryGetValue(this, out var obj))
 			{
 				var condition = CreateCondition();
-				condition._originSO = this;
+				condition.originSO = this;
 				createdInstances.Add(this, condition);
 				condition.Awake(stateMachine);
 

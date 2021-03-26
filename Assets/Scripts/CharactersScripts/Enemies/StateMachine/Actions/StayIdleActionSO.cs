@@ -10,15 +10,15 @@ public class StayIdleActionSO : StateActionSO
 
 public class StayIdleAction : StateAction
 {
-    private LandEnemy<StateMachine> controller;
+    private LandEnemy<StateMachine> _controller;
     
     public override void Awake(StateMachine stateMachine)
     {
-        controller = stateMachine.GetComponent<LandEnemy<StateMachine>>();
+        _controller = stateMachine.GetComponent<LandEnemy<StateMachine>>();
     }
 
     public override void OnUpdate()
     {
-        controller.Move(Vector2.zero);
+        _controller.Move(Vector2.zero);
     }
 }
