@@ -7,12 +7,12 @@ public class IsOnEdgeOrFacingObstacleConditionSO : StateConditionSO<IsOnEdgeOrFa
 
 public class IsOnEdgeOrFacingObstacleCondition : Condition
 {
-    private LandEnemy<StateMachine> controller;
+    private LandEnemy<StateMachine> _controller;
 
     public override void Awake(StateMachine stateMachine)
     {
-        controller = stateMachine.GetComponent<LandEnemy<StateMachine>>();
+        _controller = stateMachine.GetComponent<LandEnemy<StateMachine>>();
     }
 
-    protected override bool Statement() => controller.IsOnEdge || controller.IsFacingObstacle;
+    protected override bool Statement() => _controller.IsOnEdge || _controller.IsFacingObstacle;
 }

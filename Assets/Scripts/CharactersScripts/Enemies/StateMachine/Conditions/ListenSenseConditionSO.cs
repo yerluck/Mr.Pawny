@@ -28,8 +28,8 @@ public class ListenSenseCondition : Condition
     {
         _stateMachine   = stateMachine;
         _transform      = stateMachine.transform;
-        _listenDistance = stateMachine._manager.ListenDistance;
-        _detectionRate  = stateMachine._manager.DetectionRate;
+        _listenDistance = stateMachine.statsSO.ListenDistance;
+        _detectionRate  = stateMachine.statsSO.DetectionRate;
     }
 
     protected override bool Statement() => DetectAspect();
@@ -38,7 +38,7 @@ public class ListenSenseCondition : Condition
     {
         _elapsedTime += Time.deltaTime;
 #if UNITY_EDITOR
-        _listenDistance = _stateMachine._manager.ListenDistance;
+        _listenDistance = _stateMachine.statsSO.ListenDistance;
 #endif
         if (_elapsedTime < _detectionRate)
         {
@@ -55,9 +55,9 @@ public class ListenSenseCondition : Condition
 
             Aspect aspect = hitCollider.GetComponent<Aspect>();
 
-            if (aspect && aspect.aspectType != _stateMachine._aspectName)
+            if (aspect && aspect.aspectType != _stateMachine.aspectName)
             {
-                _stateMachine._targetLastPosition = hitCollider.transform.position;
+                _stateMachine.targetLastPosition = hitCollider.transform.position;
                 return true;
             }
 

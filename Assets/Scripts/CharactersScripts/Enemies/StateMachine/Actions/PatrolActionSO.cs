@@ -26,7 +26,7 @@ public class PatrolAction : StateAction
     {
         if (_isStateFirstEnter)
         {
-            _controller.FaceTargetPoint(_stateMachine._targetLastPosition);
+            _controller.FaceTargetPoint(_stateMachine.targetLastPosition);
             _moveDirection = _stateMachine.transform.localScale.normalized;
             _isStateFirstEnter = false;
         }

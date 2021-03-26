@@ -1340,6 +1340,18 @@ Transform:
   m_Father: {fileID: 951367160}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &358918209 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1043361963020361759, guid: ad7f8bb1842d4adbb8f7a7522aa30227,
+    type: 3}
+  m_PrefabInstance: {fileID: 1043361963083620065}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b49ced1b00d2a8ff99f51af65be1774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &359074430
 GameObject:
   m_ObjectHideFlags: 0
@@ -3116,6 +3128,12 @@ Transform:
   m_Father: {fileID: 1968037058}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1004405379 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1043361962801320689, guid: ad7f8bb1842d4adbb8f7a7522aa30227,
+    type: 3}
+  m_PrefabInstance: {fileID: 1043361963083620065}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1122022397
 GameObject:
   m_ObjectHideFlags: 0
@@ -6184,6 +6202,12 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!4 &1984559156 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1043361962950505381, guid: ad7f8bb1842d4adbb8f7a7522aa30227,
+    type: 3}
+  m_PrefabInstance: {fileID: 1043361963083620065}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2017935738
 GameObject:
   m_ObjectHideFlags: 0
@@ -6849,11 +6873,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1043361962801320686, guid: ad7f8bb1842d4adbb8f7a7522aa30227,
+        type: 3}
+      propertyPath: m_Name
+      value: EdgeCheck
+      objectReference: {fileID: 0}
     - target: {fileID: 1043361963020361753, guid: ad7f8bb1842d4adbb8f7a7522aa30227,
         type: 3}
       propertyPath: m_Name
       value: PawnEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1043361963020361755, guid: ad7f8bb1842d4adbb8f7a7522aa30227,
+        type: 3}
+      propertyPath: statsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d9132f8fa8dee67ba0f2b6f10543231,
+        type: 2}
+    - target: {fileID: 1043361963020361755, guid: ad7f8bb1842d4adbb8f7a7522aa30227,
+        type: 3}
+      propertyPath: inputSource
+      value: 
+      objectReference: {fileID: 358918209}
+    - target: {fileID: 1043361963020361755, guid: ad7f8bb1842d4adbb8f7a7522aa30227,
+        type: 3}
+      propertyPath: edgeCheckTransform
+      value: 
+      objectReference: {fileID: 1004405379}
+    - target: {fileID: 1043361963020361755, guid: ad7f8bb1842d4adbb8f7a7522aa30227,
+        type: 3}
+      propertyPath: groundCheckTransform
+      value: 
+      objectReference: {fileID: 1984559156}
     - target: {fileID: 1043361963020361756, guid: ad7f8bb1842d4adbb8f7a7522aa30227,
         type: 3}
       propertyPath: m_RootOrder
@@ -6914,6 +6964,17 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 1614408723}
+    - target: {fileID: 1043361963020361759, guid: ad7f8bb1842d4adbb8f7a7522aa30227,
+        type: 3}
+      propertyPath: _statsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d9132f8fa8dee67ba0f2b6f10543231,
+        type: 2}
+    - target: {fileID: 1043361963020361759, guid: ad7f8bb1842d4adbb8f7a7522aa30227,
+        type: 3}
+      propertyPath: debugger.debugTransitions
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad7f8bb1842d4adbb8f7a7522aa30227, type: 3}
 --- !u!1001 &6817933626276843591
@@ -7028,6 +7089,11 @@ PrefabInstance:
         type: 3}
       propertyPath: whatIsPlatform.layerMask.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 8665086114097949284, guid: a4b7c253b63554ea2a9a4bcfc805ef74,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4b7c253b63554ea2a9a4bcfc805ef74, type: 3}

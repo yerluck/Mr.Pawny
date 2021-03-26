@@ -45,7 +45,7 @@ namespace Pawny.StateMachine.Debugging
 			_stateMachine = stateMachine;
 			_logBuilder = new StringBuilder();
 
-			currentState = stateMachine._currentState._originSO.name;
+			currentState = stateMachine.currentState.originSO.name;
 		}
 
 		internal void TransitionEvaluationBegin(string targetState)
@@ -106,7 +106,7 @@ namespace Pawny.StateMachine.Debugging
 
 			foreach (StateAction action in actions)
 			{
-				_logBuilder.AppendLine($"    {THICK_ARROW} {action._originSO.name}");
+				_logBuilder.AppendLine($"    {THICK_ARROW} {action.originSO.name}");
 			}
 		}
 

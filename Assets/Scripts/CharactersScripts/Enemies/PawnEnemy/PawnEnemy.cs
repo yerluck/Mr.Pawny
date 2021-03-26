@@ -4,58 +4,64 @@ using Pawny.StateMachine;
 // TODO: Instead of player input - AI script
 public class PawnEnemy: LandEnemy<StateMachine>
 {
-    #region Fields and Properties
-    [SerializeField] private Transform edgeCheckerTransform;
-    [SerializeField] private Transform groundCheckerTransform;
-    [SerializeField] private Collider2D physicsCollider;
-    [SerializeField] private LayerMask whatIsGround;
-    private float gravityScale;
-    private float fallMultiplyer;
-    private float groundCheckerRadius;
-    private float edgeCheckDistance;
-    private float obstacleCheckSizeDelta;
-    private float obstacleCheckDistance;
-    private float hitPoints;
-    private float movementSmoothing;
-    private float jumpForce;
-    private float runSpeed;
-    private float airSpeed;
-    private float speedSlowFactor;
-    protected Vector2 velocity = Vector2.zero;
+#region Fields and Properties
+    [SerializeField]
+    public  PawnEnemyStatsSO statsSO;
+    [SerializeField]
+    private Transform   edgeCheckTransform;
+    [SerializeField]
+    private Transform   groundCheckTransform;
+    [SerializeField]
+    private Collider2D  physicsCollider;
+    [SerializeField]
+    private LayerMask   whatIsGround;
+    private float       jumpGravityScale;
+    private float       fallGravityScale;
+    private float       groundCheckRadius;
+    private float       edgeCheckDistance;
+    private float       obstacleCheckSizeDelta;
+    private float       obstacleCheckDistance;
+    private float       maxHitPoints;
+    private float       movementSmoothing;
+    private float       jumpForce;
+    private float       runSpeed;
+    private float       airMovementSpeed;
+    private float       speedSlowFactor;
+    private Vector2     velocity = Vector2.zero;
 
-    
-    protected override Transform EdgeCheckerTransform { get => edgeCheckerTransform; }
-    protected override Transform GroundCheckerTransform { get => groundCheckerTransform; }
-    protected override float GravityScale { get => gravityScale; }
-    protected override float FallMultiplyer { get => fallMultiplyer; }
-    protected override float GroundCheckerRadius { get => groundCheckerRadius; }
-    protected override float EdgeCheckDistance { get => edgeCheckDistance; }
-    protected override float ObstacleCheckSizeDelta { get => obstacleCheckSizeDelta; }
-    protected override float ObstacleCheckDistance { get => obstacleCheckDistance; }
-    protected override LayerMask WhatIsGround { get => whatIsGround; } 
-    protected override Collider2D PhysicsCollider { get => physicsCollider; } 
-    public override float HP { get => hitPoints; set => hitPoints = value; }
-    public override Transform Attacker { get; set; }
-    #endregion
+
+    public      override float      HP { get => maxHitPoints; set => maxHitPoints = value; }
+    public      override Transform  Attacker { get; set; }
+    protected   override float      JumpGravityScale { get => jumpGravityScale; }
+    protected   override float      FallGravityScale { get => fallGravityScale; }
+    protected   override float      GroundCheckRadius { get => groundCheckRadius; }
+    protected   override float      EdgeCheckDistance { get => edgeCheckDistance; }
+    protected   override float      ObstacleCheckSizeDelta { get => obstacleCheckSizeDelta; }
+    protected   override float      ObstacleCheckDistance { get => obstacleCheckDistance; }
+    protected   override Transform  EdgeCheckTransform { get => edgeCheckTransform; }
+    protected   override Transform  GroundCheckTransform { get => groundCheckTransform; }
+    protected   override Collider2D PhysicsCollider { get => physicsCollider; } 
+    protected   override LayerMask  WhatIsGround { get => whatIsGround; } 
+#endregion
 
     protected override void Awake()
     {
         base.Awake();
 
         #region Initialization from manager
-        gravityScale            = PawnEnemyManager.Instance.GravityScale;
-        fallMultiplyer          = PawnEnemyManager.Instance.FallMultiplyer;
-        groundCheckerRadius     = PawnEnemyManager.Instance.GroundCheckerRadius;
-        edgeCheckDistance       = PawnEnemyManager.Instance.EdgeCheckDistance;
-        obstacleCheckSizeDelta  = PawnEnemyManager.Instance.ObstacleCheckSizeDelta;
-        obstacleCheckDistance   = PawnEnemyManager.Instance.ObstacleCheckDistance;
-        whatIsGround            = PawnEnemyManager.Instance.WhatIsGround;
-        hitPoints               = PawnEnemyManager.Instance.HitPoints;
-        movementSmoothing       = PawnEnemyManager.Instance.MovementSmoothing;
-        jumpForce               = PawnEnemyManager.Instance.JumpForce;
-        runSpeed                = PawnEnemyManager.Instance.RunSpeed;
-        airSpeed                = PawnEnemyManager.Instance.AirSpeed;
-        speedSlowFactor         = PawnEnemyManager.Instance.SpeedSlowFactor;
+        jumpGravityScale        = statsSO.JumpGravityScale;
+        fallGravityScale        = statsSO.FallGravityScale;
+        groundCheckRadius       = statsSO.GroundCheckRadius;
+        edgeCheckDistance       = statsSO.EdgeCheckDistance;
+        obstacleCheckSizeDelta  = statsSO.ObstacleCheckSizeDelta;
+        obstacleCheckDistance   = statsSO.ObstacleCheckDistance;
+        whatIsGround            = statsSO.WhatIsGround;
+        maxHitPoints            = statsSO.MaxHitPoints;
+        movementSmoothing       = statsSO.MovementSmoothing;
+        jumpForce               = statsSO.JumpForce;
+        runSpeed                = statsSO.RunSpeed;
+        airMovementSpeed        = statsSO.AirMovementSpeed;
+        speedSlowFactor         = statsSO.SpeedSlowFactor;
         #endregion
     }
 
@@ -85,9 +91,9 @@ public class PawnEnemy: LandEnemy<StateMachine>
         if (move.x < 0 && isFacingRight) Flip();
 
 		//only control the character if grounded or airControl is turned on
-		if (AllowMove)
+		if (allowMove)
 		{
-            float speed = IsGrounded? runSpeed : airSpeed;
+            float speed = IsGrounded? runSpeed : airMovementSpeed;
             speed *= crouch ? speedSlowFactor : 1f;
 			// Move the character by finding the target velocity
 

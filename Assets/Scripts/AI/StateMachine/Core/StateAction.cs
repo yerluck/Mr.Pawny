@@ -7,12 +7,12 @@ namespace Pawny.StateMachine
     /// </summary>
     public abstract class StateAction : IStateComponent
     {
-        internal StateActionSO _originSO;
+        internal StateActionSO originSO;
 
 		/// <summary>
 		/// Use this property to access shared data from the <see cref="StateActionSO"/> that corresponds to this <see cref="StateAction"/>
 		/// </summary>
-		protected StateActionSO OriginSO => _originSO;
+		protected StateActionSO OriginSO => originSO;
 
         /// <summary>
         /// Called every frame the <see cref="StateMachine"/> is in a <see cref="State"/> with this <see cref="StateAction"/>.

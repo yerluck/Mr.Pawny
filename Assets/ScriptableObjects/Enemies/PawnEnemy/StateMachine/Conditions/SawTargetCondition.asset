@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d4eb52e1cb857c292200b541850f32, type: 3}
   m_Name: SawTargetCondition
   m_EditorClassIdentifier: 
-  _whatCanBeSeen:
+  whatCanBeSeen:
     serializedVersion: 2
     m_Bits: 256

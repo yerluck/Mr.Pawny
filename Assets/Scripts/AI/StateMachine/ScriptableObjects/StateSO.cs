@@ -19,10 +19,10 @@ namespace Pawny.StateMachine.ScriptableObjects
             var state = new State();
             createdInstances.Add(this, state);
 
-            state._originSO = this;
-            state._stateMachine = stateMachine;
-            state._transitions = new StateTransition[0];
-            state._actions = GetActions(_actions, stateMachine, createdInstances);
+            state.originSO = this;
+            state.stateMachine = stateMachine;
+            state.transitions = new StateTransition[0];
+            state.actions = GetActions(_actions, stateMachine, createdInstances);
 
             return state;
         }

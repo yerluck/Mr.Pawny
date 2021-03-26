@@ -5,9 +5,9 @@ using Pawny.StateMachine.ScriptableObjects;
 [CreateAssetMenu(fileName = "SightSenseConditionSO", menuName = "State Machine/Conditions/Saw The Target")]
 public class SightSenseConditionSO : StateConditionSO
 {
-    [SerializeField] private LayerMask _whatCanBeSeen;
+    [SerializeField] private LayerMask whatCanBeSeen;
 
-    protected override Condition CreateCondition() => new SightSenseCondition(_whatCanBeSeen);
+    protected override Condition CreateCondition() => new SightSenseCondition(whatCanBeSeen);
 }
 
 public class SightSenseCondition : Condition
@@ -15,14 +15,14 @@ public class SightSenseCondition : Condition
     private int fieldOfView;
     private float viewDistance;
     private float detectionRate;
-    private float elapsedTime = 0f;
     private LayerMask whatCanBeSeen;
-    private Transform _transform;
+    private Transform transform;
     private Transform sightSourcePoint;
     private Transform[] playerParts = new Transform[3];
-    private Vector2 rayDirection;
     private StateMachine stateMachine;
-
+    private Vector2 _rayDirection;
+    private float _elapsedTime = 0f;
+    
     public SightSenseCondition(LayerMask whatCanBeSeen)
     {
         this.whatCanBeSeen = whatCanBeSeen;
@@ -32,11 +32,11 @@ public class SightSenseCondition : Condition
     {
         this.stateMachine = stateMachine;
 
-        fieldOfView     = stateMachine._manager.FieldOfView;
-        detectionRate   = stateMachine._manager.DetectionRate;
-        viewDistance    = stateMachine._manager.ViewDistance;
+        fieldOfView     = stateMachine.statsSO.FieldOfView;
+        detectionRate   = stateMachine.statsSO.DetectionRate;
+        viewDistance    = stateMachine.statsSO.ViewDistance;
         sightSourcePoint= stateMachine.transform.Find("SightPoint");
-        _transform      = stateMachine.transform;
+        transform      = stateMachine.transform;
 
         playerParts[0]  = GameObject.FindGameObjectWithTag("Player").transform;
         playerParts[1]  = playerParts[0].Find("GroundCheck");
@@ -47,32 +47,32 @@ public class SightSenseCondition : Condition
 
     private bool DetectAspect()
     {
-        elapsedTime += Time.deltaTime;
+        _elapsedTime += Time.deltaTime;
 #if UNITY_EDITOR
-        fieldOfView = stateMachine._manager.FieldOfView;
-        viewDistance = stateMachine._manager.ViewDistance;
+        fieldOfView = stateMachine.statsSO.FieldOfView;
+        viewDistance = stateMachine.statsSO.ViewDistance;
 #endif
-        if (elapsedTime < detectionRate)
+        if (_elapsedTime < detectionRate)
         {
             return false;
         } else 
         {
-            elapsedTime = 0;
+            _elapsedTime = 0;
 
             foreach (Transform playerTransform in playerParts)
             {
-                rayDirection = playerTransform.position - sightSourcePoint.position;
+                _rayDirection = playerTransform.position - sightSourcePoint.position;
 
-                if(Vector2.Angle(rayDirection, sightSourcePoint.right * _transform.root.localScale.x) < fieldOfView * 0.5f)
+                if(Vector2.Angle(_rayDirection, sightSourcePoint.right * transform.root.localScale.x) < fieldOfView * 0.5f)
                 {
-                    RaycastHit2D hit = Physics2D.Raycast(sightSourcePoint.position, rayDirection, viewDistance, whatCanBeSeen);
+                    RaycastHit2D hit = Physics2D.Raycast(sightSourcePoint.position, _rayDirection, viewDistance, whatCanBeSeen);
                     if(hit.collider != null)
                     {
                         Aspect aspect = hit.collider.GetComponent<Aspect>();
 
-                        if(aspect != null && aspect.aspectType != stateMachine._aspectName)
+                        if(aspect != null && aspect.aspectType != stateMachine.aspectName)
                         {
-                            stateMachine._targetLastPosition = hit.collider.transform.position;
+                            stateMachine.targetLastPosition = hit.collider.transform.position;
                             return true;
                         }
                     }

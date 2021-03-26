@@ -15,46 +15,46 @@ namespace Pawny.StateMachine
 #if UNITY_EDITOR
 		[Space]
 		[SerializeField]
-		internal Debugging.StateMachineDebugger _debugger = default;
+		internal Debugging.StateMachineDebugger debugger = default;
 #endif
 
         private readonly Dictionary<Type, Component> _cashedComponents = new Dictionary<Type, Component>();
-        [SerializeField] internal State _currentState;
+        [SerializeField] internal State currentState;
         //TODO: after complition stats SO - get data from there
-        [SerializeField] private MonoBehaviour manager;
-        [HideInInspector] public IEnemyCharacterManager _manager;
-        [HideInInspector] public Aspect.AspectTypes _aspectName;
-        [HideInInspector] public Transform _target;
-        [HideInInspector] public Vector3 _targetLastPosition;
+        [SerializeField] private ScriptableObject _statsSO;
+        [HideInInspector] public IEnemyCommonStats statsSO;
+        [HideInInspector] public Aspect.AspectTypes aspectName;
+        [HideInInspector] public Transform target;
+        [HideInInspector] public Vector3 targetLastPosition;
 
         private void Awake() {
-            _manager = (IEnemyCharacterManager)manager;
-            _aspectName = GetComponent<Aspect>().aspectType;
-            _currentState = _transitionTableSO.GetInitialState(this);
+            statsSO = (IEnemyCommonStats)_statsSO;
+            aspectName = GetComponent<Aspect>().aspectType;
+            currentState = _transitionTableSO.GetInitialState(this);
 #if UNITY_EDITOR
-			_debugger.Awake(this);
+			debugger.Awake(this);
 #endif
         }
 
         private void Start()
         {
-            _currentState.OnStateEnter();    
+            currentState.OnStateEnter();    
         }
 
         private void Update() {
-            if(_currentState.TryGetTransition(out State targetState))
+            if(currentState.TryGetTransition(out State targetState))
             {
                 TransitToState(targetState);
             }
 
-            _currentState.OnUpdate();
+            currentState.OnUpdate();
         }
 
         private void TransitToState(State targetState)
         {
-            _currentState.OnStateExit();
-            _currentState = targetState;
-            _currentState.OnStateEnter();
+            currentState.OnStateExit();
+            currentState = targetState;
+            currentState.OnStateEnter();
         }
 
         public new T GetComponent<T>() where T: Component

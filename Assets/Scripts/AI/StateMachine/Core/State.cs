@@ -4,10 +4,10 @@ namespace Pawny.StateMachine
 {
     public class State
     {
-        internal StateSO _originSO;
-        internal StateMachine _stateMachine;
-        internal StateAction[] _actions;
-        internal StateTransition[] _transitions;
+        internal StateSO originSO;
+        internal StateMachine stateMachine;
+        internal StateAction[] actions;
+        internal StateTransition[] transitions;
 
         internal State() { }
 
@@ -17,10 +17,10 @@ namespace Pawny.StateMachine
 			StateTransition[] transitions,
 			StateAction[] actions)
 		{
-			_originSO = originSO;
-			_stateMachine = stateMachine;
-			_transitions = transitions;
-			_actions = actions;
+			this.originSO = originSO;
+			this.stateMachine = stateMachine;
+			this.transitions = transitions;
+			this.actions = actions;
 		}
 
         public void OnStateEnter()
@@ -32,15 +32,15 @@ namespace Pawny.StateMachine
                     comps[i].OnStateEnter();
                 }
             }
-            OnStateEnter(_transitions);
-            OnStateEnter(_actions);
+            OnStateEnter(transitions);
+            OnStateEnter(actions);
         }
 
         public void OnUpdate()
         {
-            for (int i = 0; i < _actions.Length; i++)
+            for (int i = 0; i < actions.Length; i++)
             {
-                _actions[i].OnUpdate();
+                actions[i].OnUpdate();
             }
         }
 
@@ -53,25 +53,25 @@ namespace Pawny.StateMachine
                     comps[i].OnStateExit();
                 }
             }
-            OnStateExit(_transitions);
-            OnStateExit(_actions);
+            OnStateExit(transitions);
+            OnStateExit(actions);
         }
 
         public bool TryGetTransition(out State state)
         {
             state = null;
 
-            for (int i = 0; i < _transitions.Length; i++)
+            for (int i = 0; i < transitions.Length; i++)
             {
-                if(_transitions[i].TryGetTransition(out state))
+                if(transitions[i].TryGetTransition(out state))
                 {
                     break;
                 }
             }
 
-            for (int i = 0; i < _transitions.Length; i++)
+            for (int i = 0; i < transitions.Length; i++)
             {
-                _transitions[i].ClearConditionsCache();
+                transitions[i].ClearConditionsCache();
             }
 
             return state != null;

@@ -6,12 +6,12 @@ namespace Pawny.StateMachine
     {
         private bool _isCached = false;
         private bool _cashedStatement = default;
-        internal StateConditionSO _originSO;
+        internal StateConditionSO originSO;
 
 		/// <summary>
 		/// Use this property to access shared data from the <see cref="StateConditionSO"/> that corresponds to this <see cref="Condition"/>
 		/// </summary>
-		protected StateConditionSO OriginSO => _originSO;
+		protected StateConditionSO OriginSO => originSO;
 
         /// <summary>
         /// Statement to evaluate, called from <see cref="StateCondition"/>
@@ -73,7 +73,7 @@ namespace Pawny.StateMachine
                 bool isMet = statement == _expectedResult;
 
 #if UNITY_EDITOR
-                _stateMachine._debugger.TransitionConditionResult(_condition._originSO.name, statement, isMet);
+                _stateMachine.debugger.TransitionConditionResult(_condition.originSO.name, statement, isMet);
 #endif
                 return isMet;
             }
