@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 public class Sight: Sense
 {

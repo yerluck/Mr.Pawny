@@ -21,7 +21,6 @@ public class PawnEnemy: LandEnemy<StateMachine>
     private float       edgeCheckDistance;
     private float       obstacleCheckSizeDelta;
     private float       obstacleCheckDistance;
-    private float       maxHitPoints;
     private float       movementSmoothing;
     private float       jumpForce;
     private float       runSpeed;
@@ -30,8 +29,6 @@ public class PawnEnemy: LandEnemy<StateMachine>
     private Vector2     velocity = Vector2.zero;
 
 
-    public      override float      HP { get => maxHitPoints; set => maxHitPoints = value; }
-    public      override Transform  Attacker { get; set; }
     protected   override float      JumpGravityScale { get => jumpGravityScale; }
     protected   override float      FallGravityScale { get => fallGravityScale; }
     protected   override float      GroundCheckRadius { get => groundCheckRadius; }
@@ -56,18 +53,12 @@ public class PawnEnemy: LandEnemy<StateMachine>
         obstacleCheckSizeDelta  = statsSO.ObstacleCheckSizeDelta;
         obstacleCheckDistance   = statsSO.ObstacleCheckDistance;
         whatIsGround            = statsSO.WhatIsGround;
-        maxHitPoints            = statsSO.MaxHitPoints;
         movementSmoothing       = statsSO.MovementSmoothing;
         jumpForce               = statsSO.JumpForce;
         runSpeed                = statsSO.RunSpeed;
         airMovementSpeed        = statsSO.AirMovementSpeed;
         speedSlowFactor         = statsSO.SpeedSlowFactor;
         #endregion
-    }
-
-    protected override void OnTakeDamage()
-    {
-
     }
 
     internal override void Jump()
@@ -77,12 +68,6 @@ public class PawnEnemy: LandEnemy<StateMachine>
             rigidBody2D.velocity = Vector2.zero;
 			rigidBody2D.AddForce(new Vector2(0f, jumpForce));
         }
-    }
-
-    // TODO: add actual actions (animations...)
-    public override void Die()
-    {
-        base.Die();
     }
 
     public override void Move(Vector2 move, bool crouch)
