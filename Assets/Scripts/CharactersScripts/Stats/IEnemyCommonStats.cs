@@ -7,5 +7,6 @@ public interface IEnemyCommonStats
     int     FieldOfView     { get; }
     float   ViewDistance    { get; }
     float   ListenDistance  { get; }
-    bool    IsListening     { get; set; }    
+    float   MaxHitPoints    { get; set; }
+    bool    IsListening     { get; set; }
 }

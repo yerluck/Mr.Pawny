@@ -1,8 +1,6 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
-public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is input system - specific AI for each enemy type
+public abstract class LandEnemy<T>: CharacterController<T> // T is input system - specific AI for each enemy type
 {
     public bool allowMove = true;
     protected bool isFacingRight = true;
@@ -20,8 +18,6 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
     protected abstract float ObstacleCheckDistance { get; }
     protected abstract LayerMask WhatIsGround { get; } 
     protected abstract Collider2D PhysicsCollider { get; }
-    public abstract float HP { get; set; }
-    public abstract Transform Attacker { get; set; }
     #endregion
 
     protected override void Awake()
@@ -40,26 +36,8 @@ public abstract class LandEnemy<T>: CharacterController<T>, IDamageable // T is 
 		}
     }
 
-
-    public void TakeDamage(float damage)
-    {
-        HP -= damage;
-        OnTakeDamage();
-
-        if (HP <= 0)
-        {
-            Die();
-        }
-    }
-
     // Method that could be called before instance dies
-    protected abstract void OnTakeDamage();
     internal abstract void Jump();
-
-    public virtual void Die()
-    {
-        Destroy(this.gameObject);
-    }
 
     // getter to check if character is grounded
     internal bool IsGrounded

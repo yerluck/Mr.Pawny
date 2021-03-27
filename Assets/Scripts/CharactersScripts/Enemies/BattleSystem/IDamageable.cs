@@ -1,7 +1,9 @@
-using System.Diagnostics;
 using UnityEngine;
+using System;
 
 public interface IDamageable {
+    // event Action OnTakeDamage;
+
     float HP { get; set; }
 
     // Property - need for example get the location of attacker
