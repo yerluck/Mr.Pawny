@@ -1,12 +1,21 @@
 ﻿using UnityEngine;
+using System.Linq;
 
-public abstract class FightSystem : MonoBehaviour, IFightable
+[RequireComponent(typeof(Animator))]
+public class FightSystem : MonoBehaviour, IAttacker
 {
-    [SerializeField] protected EnemyWeaponSO weapon;
-    [HideInInspector] public DictionaryAnimOverrideClip weaponClips;
+    [SerializeField]
+    protected EnemyWeaponSO weapon;
+    [HideInInspector]
+    public DictionaryAnimOverrideClip weaponClips;
+    protected GameObject _attackObject;
+    protected Animator _animator;
 
-    protected virtual void Start()
+    public float DamageAmount { get; set; }
+
+    protected virtual void Awake()
     {
+        _animator = GetComponent<Animator>();
         SetWeapon();
         weaponClips = weapon.animationOverriders;
     }
@@ -34,5 +43,27 @@ public abstract class FightSystem : MonoBehaviour, IFightable
         weaponObject.GetComponent<SpriteRenderer>().sortingOrder = weapon.orderInLayer;
     }
 
-    public abstract void Attack(int attackNum);
+    /// <summary>
+    /// Method in wich attack gets started (play animation...)
+    /// </summary>
+    /// <param name="props"> 1) attack number</param>
+    public virtual void InitAttack(params object[] props)
+    {
+        if (weapon.weaponAttackAttributesDictionary.Count == 0)
+        {
+            return;
+        }
+
+        int attackNumber = (int)props[0];
+        var attackAnimation = weapon.weaponAttackAttributesDictionary[attackNumber].animationOverrider;
+        _attackObject = weapon.weaponAttackAttributesDictionary[attackNumber].attackPrefab;
+        DamageAmount = weapon.weaponAttackAttributesDictionary[attackNumber].damageAmmount;
+
+        _animator.runtimeAnimatorController = attackAnimation;
+    }
+
+    public virtual void PerformAttack()
+    {
+        Debug.Log("Attack!!!");
+    }
 }

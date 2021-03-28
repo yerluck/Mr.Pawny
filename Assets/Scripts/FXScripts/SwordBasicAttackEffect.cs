@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
+[RequireComponent(typeof(ParticleSystem))]
+public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
 {
     private ParticleSystem particles;
     private bool facingRight;
-    private enum effectEnum
+    private enum EffectEnum
     {
         Forward,
         Up,
@@ -14,7 +15,7 @@ public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
     }
     private GameObject colliderHolder;
     [SerializeField] private GameObject[] colliderHolders = {};
-    private effectEnum attackNum;
+    private EffectEnum attackNum;
     private ParticleSystem.MainModule main;
 
 
@@ -29,8 +30,9 @@ public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
             return;
         }
 
-        attackNum = (effectEnum)props[0];
+        attackNum = (EffectEnum)props[0];
         main = particles.main;
+        // TODO: mb that have to be got from Manager
         facingRight = (bool)props[1];
         DamageAmount = 10f;
         colliderHolder = colliderHolders[(int)attackNum];
@@ -41,7 +43,7 @@ public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
         // TODO: add other cases
         switch (attackNum)
         {
-            case effectEnum.Forward:
+            case EffectEnum.Forward:
             {
                 colliderHolder.transform.rotation = Quaternion.Euler(facingRight ? 90 : -90, 0, 0);
                 colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
@@ -52,7 +54,7 @@ public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
                 break;
             };
 
-            case effectEnum.Up:
+            case EffectEnum.Up:
             {
                 colliderHolder.transform.rotation = Quaternion.Euler(facingRight? 90 : -90, 0, 0);
                 colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
@@ -63,7 +65,7 @@ public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
                 break;
             }
 
-            case effectEnum.Down:
+            case EffectEnum.Down:
             {
                 colliderHolder.transform.rotation = Quaternion.Euler(facingRight? 90 : -90, 0, 0);
                 colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
@@ -85,12 +87,12 @@ public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
         particles.Play();
     }
 
-    private new void OnParticleSystemStopped()
+    protected void OnParticleSystemStopped()
     {
         colliderHolder.SetActive(false);
         PlayerManager.Instance.paralized = false;
         GameEvents.Instance.onPlayerFlip -= FlipAttack;
-        base.OnParticleSystemStopped(); 
+        Destroy(gameObject);
     }
 
 
@@ -99,7 +101,7 @@ public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
     {
         switch (attackNum)
         {
-            case effectEnum.Forward:
+            case EffectEnum.Forward:
             {
                 colliderHolder.transform.rotation = Quaternion.Euler(facingRight ? 90 : -90, 0, 0);
                 colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
@@ -110,7 +112,7 @@ public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
                 break;
             };
 
-            case effectEnum.Up:
+            case EffectEnum.Up:
             {
                 colliderHolder.transform.rotation = Quaternion.Euler(facingRight? 90 : -90, 0, 0);
                 colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
@@ -121,7 +123,7 @@ public class SwordBasicAttackEffect : ParticlesAutoDestroy, IAttacker
                 break;
             }
 
-            case effectEnum.Down:
+            case EffectEnum.Down:
             {
                 colliderHolder.transform.rotation = Quaternion.Euler(facingRight? 90 : -90, 0, 0);
                 colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);

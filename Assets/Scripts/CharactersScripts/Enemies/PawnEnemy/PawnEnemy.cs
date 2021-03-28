@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using Pawny.StateMachine;
 
-// TODO: Instead of player input - AI script
 public class PawnEnemy: LandEnemy<StateMachine>
 {
 #region Fields and Properties

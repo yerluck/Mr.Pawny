@@ -36,7 +36,7 @@ public class SightSenseCondition : Condition
         detectionRate   = stateMachine.statsSO.DetectionRate;
         viewDistance    = stateMachine.statsSO.ViewDistance;
         sightSourcePoint= stateMachine.transform.Find("SightPoint");
-        transform      = stateMachine.transform;
+        transform       = stateMachine.transform;
 
         playerParts[0]  = GameObject.FindGameObjectWithTag("Player").transform;
         playerParts[1]  = playerParts[0].Find("GroundCheck");

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Pawny.StateMachine;
 using Pawny.StateMachine.ScriptableObjects;
 using Moment = Pawny.StateMachine.StateAction.SpecificMoment;

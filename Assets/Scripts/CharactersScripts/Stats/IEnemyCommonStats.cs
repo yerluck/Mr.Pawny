@@ -4,7 +4,7 @@
 public interface IEnemyCommonStats
 {
     float   DetectionRate   { get; }
-    int     FieldOfView     { get; }
+    int     FieldOfView     { get; set; }
     float   ViewDistance    { get; }
     float   ListenDistance  { get; }
     float   MaxHitPoints    { get; set; }

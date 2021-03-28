@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3d4eb52e1cb857c292200b541850f32, type: 3}
-  m_Name: SawTargetCondition
+  m_Script: {fileID: 11500000, guid: 440078779144aea8084559e06cd774b4, type: 3}
+  m_Name: StatsValue_ChangeFieldOfView
   m_EditorClassIdentifier: 
-  whatCanBeSeen:
-    serializedVersion: 2
-    m_Bits: 1280
+  propertyType: 2
+  propertyName: FieldOfView
+  boolValue: 0
+  intValue: 360
+  floatValue: 0
+  whenToRun: 0

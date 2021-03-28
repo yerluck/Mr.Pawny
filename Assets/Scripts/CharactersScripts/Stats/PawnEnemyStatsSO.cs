@@ -81,7 +81,7 @@ public class PawnEnemyStatsSO : ScriptableObject, IEnemyCommonStats
     public float        ViewDistance            { get => viewDistance; }
     public float        ListenDistance          { get => listenDistance; }
     public float        SpeedSlowFactor         { get => speedSlowFactor; }
-    public int          FieldOfView             { get => fieldOfView; }
+    public int          FieldOfView             { get => fieldOfView; set => fieldOfView = value; }
     public bool         IsListening             { get => isListening; set => isListening = value; }
     public LayerMask    WhatIsGround            { get => whatIsGround; }
 #endregion

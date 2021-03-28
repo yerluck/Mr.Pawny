@@ -48,3 +48,34 @@ MonoBehaviour:
     - {fileID: 22100000, guid: d66f90b81427298a5801b2baaf57e0bd, type: 2}
     - {fileID: 22100000, guid: d548ee054af706015a5007b23ac78e39, type: 2}
     - {fileID: 22100000, guid: 0148e9ea064fe1f699646c4112c27120, type: 2}
+  weaponAttackAttributesDictionary:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 00000000
+    _keys: 00000000
+    _values:
+    - animationOverrider: {fileID: 22100000, guid: 45c3b27f975583ddb84c27ddb4a72c93,
+        type: 2}
+      attackPrefab: {fileID: 6939764727914573956, guid: ebdbb78c931a196aeac2470d1e67a9a7,
+        type: 3}
+      damageAmmount: 10

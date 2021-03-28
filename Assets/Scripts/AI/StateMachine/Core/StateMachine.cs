@@ -20,7 +20,6 @@ namespace Pawny.StateMachine
 
         private readonly Dictionary<Type, Component> _cashedComponents = new Dictionary<Type, Component>();
         [SerializeField] internal State currentState;
-        //TODO: after complition stats SO - get data from there
         [SerializeField] private ScriptableObject _statsSO;
         [HideInInspector] public IEnemyCommonStats statsSO;
         [HideInInspector] public Aspect.AspectTypes aspectName;
@@ -28,7 +27,7 @@ namespace Pawny.StateMachine
         [HideInInspector] public Vector3 targetLastPosition;
 
         private void Awake() {
-            statsSO = (IEnemyCommonStats)_statsSO;
+            statsSO = (IEnemyCommonStats)Instantiate(_statsSO);
             aspectName = GetComponent<Aspect>().aspectType;
             currentState = _transitionTableSO.GetInitialState(this);
 #if UNITY_EDITOR
