@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
-using System.Linq;
+using Pawny.AdditionalAction;
+using Moment = Pawny.AdditionalAction.AdditionalActionSO.SpecificMoment;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Animator))]
 public class FightSystem : MonoBehaviour, IAttacker
 {
-    [SerializeField]
-    protected EnemyWeaponSO weapon;
+    public EnemyWeaponSO weapon;
     [HideInInspector]
-    public DictionaryAnimOverrideClip weaponClips;
+    public WeaponAttackAttributes currentAttackAttributes;
     protected GameObject _attackObject;
     protected Animator _animator;
+    protected Dictionary<AdditionalActionSO, AdditionalActionBase> _cashedAdditionalActions = new Dictionary<AdditionalActionSO, AdditionalActionBase>();
+
+    protected delegate void Message();
+    protected Message OnFixedUpdate;
+    protected Message OnDisableMoment;
 
     public float DamageAmount { get; set; }
 
@@ -17,8 +23,18 @@ public class FightSystem : MonoBehaviour, IAttacker
     {
         _animator = GetComponent<Animator>();
         SetWeapon();
-        weaponClips = weapon.animationOverriders;
     }
+
+    protected virtual void FixedUpdate()
+    {
+        OnFixedUpdate?.Invoke();    
+    }
+
+    protected virtual void OnDisable()
+    {
+        OnDisableMoment?.Invoke();    
+    }
+    
 
     protected virtual void SetWeapon()
     {
@@ -55,9 +71,40 @@ public class FightSystem : MonoBehaviour, IAttacker
         }
 
         int attackNumber = (int)props[0];
-        var attackAnimation = weapon.weaponAttackAttributesDictionary[attackNumber].animationOverrider;
-        _attackObject = weapon.weaponAttackAttributesDictionary[attackNumber].attackPrefab;
-        DamageAmount = weapon.weaponAttackAttributesDictionary[attackNumber].damageAmmount;
+        currentAttackAttributes = weapon.weaponAttackAttributesDictionary[attackNumber];
+    
+        var attackAnimation = currentAttackAttributes.attackAnimationOverrider;
+        _attackObject = currentAttackAttributes.attackPrefab;
+        DamageAmount = currentAttackAttributes.damageAmmount;
+
+        if(currentAttackAttributes.additionalActions.Length > 0)
+        {
+            foreach(AdditionalActionSO actionSO in currentAttackAttributes.additionalActions)
+            {
+                if(!_cashedAdditionalActions.TryGetValue(actionSO, out var additionalAction))
+                {
+                    additionalAction = actionSO.CreateAdditionalAction();
+                    _cashedAdditionalActions.Add(actionSO, additionalAction);
+
+                    // Mb should to initialize each time?
+                    additionalAction.Initialize(transform);
+                }
+
+
+                switch (actionSO.ActionPerformMoment)
+                {
+                    case Moment.OnUpdate:
+                        OnFixedUpdate += additionalAction.PerformAction;
+                        break;
+                    case Moment.OnDisable:
+                        OnDisableMoment += additionalAction.PerformAction;
+                        break;
+                    case Moment.OnEnable:
+                        additionalAction.PerformAction();
+                        break;
+                }
+            }
+        }
 
         _animator.runtimeAnimatorController = attackAnimation;
     }
@@ -65,5 +112,10 @@ public class FightSystem : MonoBehaviour, IAttacker
     public virtual void PerformAttack()
     {
         Debug.Log("Attack!!!");
+    }
+
+    public virtual void CompleteAttack()
+    {
+        OnDisableMoment = OnFixedUpdate = null;
     }
 }

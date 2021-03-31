@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Pawny.StateMachine;
 
-public class PawnEnemy: LandEnemy<StateMachine>
+public class PawnEnemy: LandEnemy
 {
 #region Fields and Properties
     [SerializeField]

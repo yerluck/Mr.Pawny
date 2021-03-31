@@ -7,4 +7,6 @@ public interface IAttacker
     void InitAttack(params object[] props);
 
     void PerformAttack();
+
+    void CompleteAttack();
 }

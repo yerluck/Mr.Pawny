@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ParticleSystem))]
-public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
+public sealed class SwordBasicAttackEffect : MonoBehaviour, IAttacker
 {
     private ParticleSystem particles;
     private bool facingRight;
@@ -87,7 +87,7 @@ public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
         particles.Play();
     }
 
-    protected void OnParticleSystemStopped()
+    private void OnParticleSystemStopped()
     {
         colliderHolder.SetActive(false);
         PlayerManager.Instance.paralized = false;
@@ -96,7 +96,6 @@ public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
     }
 
 
-    // Method called when playerFlip event triggered
     private void FlipAttack()
     {
         switch (attackNum)
@@ -107,8 +106,6 @@ public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
                 colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
                 transform.localScale = new Vector3(facingRight ? 1.7f : -1.7f, 1, 0.5f);
                 transform.rotation = Quaternion.Euler(facingRight ? 90 : -90, 0, 0);
-                // main.startRotationY = facingRight ? 10 * Mathf.Deg2Rad : -50 * Mathf.Deg2Rad;
-                // main.flipRotation = facingRight ? 1 : 0;
                 break;
             };
 
@@ -118,8 +115,6 @@ public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
                 colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
                 transform.localScale = new Vector3(1.7f, 1, 1.1f);
                 transform.rotation = Quaternion.Euler(0, 90, 90);
-                // main.startRotationY = facingRight ? -60 * Mathf.Deg2Rad : -10 * Mathf.Deg2Rad;
-                // main.flipRotation = facingRight? 0 : 1;
                 break;
             }
 
@@ -129,10 +124,12 @@ public class SwordBasicAttackEffect : MonoBehaviour, IAttacker
                 colliderHolder.transform.localScale = new Vector3(facingRight ? 1 : -1, 1, 1);
                 transform.localScale = new Vector3(1.5f, 1, 1.2f);
                 transform.rotation = Quaternion.Euler(180, 90, 90);
-                // main.startRotationY = facingRight ? -1 * Mathf.Deg2Rad : -45 * Mathf.Deg2Rad;
-                // main.flipRotation = facingRight ? 1 : 0;
                 break;
             };
         }
+    }
+
+    public void CompleteAttack()
+    {
     }
 }

@@ -16,7 +16,9 @@ MonoBehaviour:
   weaponPrefab: {fileID: 5354635004195312485, guid: c9bdbd4d854df6d599a817e127285b19,
     type: 3}
   orderInLayer: 8
-  animationOverriders:
+  attackCheckDistance: 0
+  attackCheckHeight: 0
+  handsAnimationOverriders:
     reorderableList:
       canAdd: 1
       canRemove: 1
@@ -48,3 +50,29 @@ MonoBehaviour:
     - {fileID: 22100000, guid: 1a7db222f8e5541abba35ef45625f02a, type: 2}
     - {fileID: 22100000, guid: 91941936e04e0b592a21de4807f593ca, type: 2}
     - {fileID: 22100000, guid: 24fb5f975f2763563883fc9a3ddba1bc, type: 2}
+  weaponAttackAttributesDictionary:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 
+    _keys: 
+    _values: []

@@ -16,7 +16,9 @@ MonoBehaviour:
   weaponPrefab: {fileID: 565235656845193221, guid: 76f7c1fb17b44e992a293811e06a68ea,
     type: 3}
   orderInLayer: 8
-  animationOverriders:
+  attackCheckDistance: 2
+  attackCheckHeight: 1.5
+  handsAnimationOverriders:
     reorderableList:
       canAdd: 1
       canRemove: 1
@@ -74,8 +76,10 @@ MonoBehaviour:
     _keyValues: 00000000
     _keys: 00000000
     _values:
-    - animationOverrider: {fileID: 22100000, guid: 45c3b27f975583ddb84c27ddb4a72c93,
+    - attackAnimationOverrider: {fileID: 22100000, guid: 45c3b27f975583ddb84c27ddb4a72c93,
         type: 2}
       attackPrefab: {fileID: 6939764727914573956, guid: ebdbb78c931a196aeac2470d1e67a9a7,
         type: 3}
       damageAmmount: 10
+      additionalActions:
+      - {fileID: 11400000, guid: 54dbd0859ef2c42868ee7f80d81075e3, type: 2}

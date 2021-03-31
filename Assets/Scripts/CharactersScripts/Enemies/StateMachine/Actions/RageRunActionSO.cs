@@ -3,20 +3,17 @@ using Pawny.StateMachine;
 using Pawny.StateMachine.ScriptableObjects;
 
 [CreateAssetMenu(fileName = "RageRunActionSO", menuName = "State Machine/Actions/Rage Run")]
-public class RageRunActionSO : StateActionSO
-{
-    protected override StateAction CreateAction() => new RageRunAction();
-}
+public class RageRunActionSO : StateActionSO<RageRunAction> { }
 
 public class RageRunAction : StateAction
 {
     private Vector2 _moveDirection;
-    private LandEnemy<StateMachine> _controller;
+    private LandEnemy _controller;
     private StateMachine _stateMachine;
     
     public override void Awake(StateMachine stateMachine)
     {
-        _controller = stateMachine.GetComponent<LandEnemy<StateMachine>>();
+        _controller = stateMachine.GetComponent<LandEnemy>();
         _stateMachine = stateMachine;
     }
 
@@ -29,5 +26,10 @@ public class RageRunAction : StateAction
     public override void OnUpdate()
     {
         _controller.Move(_moveDirection, false);
+    }
+
+    public override void OnStateExit()
+    {
+        _controller.Move(Vector2.zero, true);
     }
 }

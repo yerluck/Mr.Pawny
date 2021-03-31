@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-internal class Protagonist : CharacterController<PlayerInput>
+internal class Protagonist : CharacterController
 {
 	public 		PlayerStatsSO 	playerStats;
 	public 		bool 			isGrounded;            											// Whether or not the player is grounded.
@@ -25,6 +25,7 @@ internal class Protagonist : CharacterController<PlayerInput>
 	private 	bool 			isAirMovementAllowed;											// Whether or not a player can steer while jumping;
 	private 	bool 			isAirJumpAllowed;
 	private 	bool 			airJumped;
+	private		PlayerInput		inputSource;
 	[SerializeField]
 	private 	ContactFilter2D whatIsPlatform;
 	[SerializeField]
@@ -49,6 +50,7 @@ internal class Protagonist : CharacterController<PlayerInput>
 	protected override void Awake()
 	{
 		base.Awake();
+		inputSource				= GetComponent<PlayerInput>();
 
 		landingCheckDistance	= playerStats.LandingCheckDistance;
 		koyoteJumpTime 			= playerStats.KoyoteJumpTime;

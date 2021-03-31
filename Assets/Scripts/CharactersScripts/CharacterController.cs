@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public abstract class CharacterController<T> : MonoBehaviour
+public abstract class CharacterController : MonoBehaviour
 {
-	[SerializeField] protected T inputSource;
 	protected Rigidbody2D rigidBody2D;
 	protected Animator animator;
 	// protected float m_LandingDistance;						// Distance when to play landing animation
@@ -15,12 +14,15 @@ public abstract class CharacterController<T> : MonoBehaviour
 	// protected float k_GroundedRadius;		 				// Radius of the overlap circle to determine if grounded
 	// protected float k_CeilingRadius; 						// Radius of the overlap circle to determine if the player can stand up
 	
+	public bool IsFacingRight
+	{
+		get => transform.localScale.x > 0;
+	}
 
     protected virtual void Awake()
 	{
 		rigidBody2D = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
-		if(inputSource == null) inputSource = GetComponent<T>();
 	}
 
     public abstract void Move(Vector2 move, bool crouch = false);

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Pawny.AdditionalAction;
 
 [CreateAssetMenu(fileName = "EnemyWeaponSO", menuName = "Weapons")]
 public class EnemyWeaponSO : ScriptableObject
@@ -9,9 +10,12 @@ public class EnemyWeaponSO : ScriptableObject
 
     public int orderInLayer;
 
-    public DictionaryAnimOverrideClip animationOverriders;
+    public float attackCheckDistance;
+    public float attackCheckHeight;
 
-    public WeaponAttackAttributesDictionary weaponAttackAttributesDictionary;
+    public OverrideKeyAnimationDictionary handsAnimationOverriders;
+
+    public IntWeaponAttackAttributesDictionary weaponAttackAttributesDictionary;
 }
 
 /// <summary>
@@ -20,12 +24,15 @@ public class EnemyWeaponSO : ScriptableObject
 [System.Serializable]
 public class WeaponAttackAttributes
 {
-    public AnimatorOverrideController animationOverrider;
-    
+    public AnimatorOverrideController attackAnimationOverrider;
+
     /// <summary>
     /// Object to instantiate that represents attack effect (collider, etc)
     /// </summary>
+    
     public GameObject attackPrefab;
 
     public float damageAmmount;
+
+    public AdditionalActionSO[] additionalActions;
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class LandEnemy<T>: CharacterController<T> // T is input system - specific AI for each enemy type
+public abstract class LandEnemy: CharacterController
 {
     public bool allowMove = true;
     protected bool isFacingRight = true;
