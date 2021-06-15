@@ -24,7 +24,7 @@ MonoBehaviour:
   fallGravityScale: 4.5
   detectionRate: 0.212
   fieldOfView: 60
-  viewDistance: 4
+  viewDistance: 6.01
   listenDistance: 6.2
   isListening: 1
   groundCheckRadius: 0.1

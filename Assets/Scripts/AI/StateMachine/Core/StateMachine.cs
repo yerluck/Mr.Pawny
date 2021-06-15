@@ -89,5 +89,10 @@ namespace Pawny.StateMachine
 
             return component;
         }
+
+        private void OnDrawGizmosSelected() {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(targetLastPosition, 0.1f);
+        }
     }
 }

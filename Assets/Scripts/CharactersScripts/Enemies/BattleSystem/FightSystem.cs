@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class FightSystem : MonoBehaviour, IAttacker
 {
     public EnemyWeaponSO weapon;
+    public bool isAttackComplete = true;
     [HideInInspector]
     public WeaponAttackAttributes currentAttackAttributes;
     protected GameObject _attackObject;
@@ -69,6 +70,7 @@ public class FightSystem : MonoBehaviour, IAttacker
         {
             return;
         }
+        isAttackComplete = false;
 
         int attackNumber = (int)props[0];
         currentAttackAttributes = weapon.weaponAttackAttributesDictionary[attackNumber];
@@ -111,11 +113,11 @@ public class FightSystem : MonoBehaviour, IAttacker
 
     public virtual void PerformAttack()
     {
-        Debug.Log("Attack!!!");
     }
 
     public virtual void CompleteAttack()
     {
         OnDisableMoment = OnFixedUpdate = null;
+        isAttackComplete = true;
     }
 }
