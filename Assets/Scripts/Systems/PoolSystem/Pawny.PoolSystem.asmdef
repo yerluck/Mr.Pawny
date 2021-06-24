@@ -1,0 +1,15 @@
+{
+    "name": "Pawny.PoolSystem",
+    "references": [
+        "GUID:0ab999e68575d4ae0bf169c5bd80b25b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
