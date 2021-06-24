@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63aa2d692ad71c50798b9426192df4f2, type: 3}
   m_Name: IsTargetInAttackRangeCondition
   m_EditorClassIdentifier: 
-  detectionRate: 0.119
+  detectionRate: 0.1
   whatCanAttack:
     serializedVersion: 2
     m_Bits: 256

@@ -22,7 +22,6 @@ public class IsTargetInAttackRangeCondition : Condition
     private float _elapsedTime = 0f;
     private StateMachine _stateMachine;
     private LayerMask _whatCanAttack;
-    private Collider2D _collider;
 
 
     public IsTargetInAttackRangeCondition(float detectionRate, LayerMask whatCanAttack)
@@ -34,10 +33,14 @@ public class IsTargetInAttackRangeCondition : Condition
     public override void Awake(StateMachine stateMachine)
     {
         _stateMachine = stateMachine;
-        _collider = stateMachine.GetComponent<Collider2D>();
         EnemyWeaponSO weapon = stateMachine.GetComponent<FightSystem>().weapon;
         _attackCheckDistance = weapon.attackCheckDistance;
         _attackCheckHeight = weapon.attackCheckHeight;
+    }
+
+    public override void OnStateEnter()
+    {
+        _elapsedTime = _detectionRate;
     }
 
     protected override bool Statement() => IsTargetInAttackRange();
@@ -64,7 +67,6 @@ public class IsTargetInAttackRangeCondition : Condition
 
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.name);
             Aspect aspect = hit.collider.GetComponent<Aspect>();
 
             if(aspect != null && aspect.aspectType != _stateMachine.aspectName)

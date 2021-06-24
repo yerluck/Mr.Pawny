@@ -19,7 +19,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
-  jumpForce: 400
+  jumpForce: 500
   jumpGravityScale: 1.74
   fallGravityScale: 4.5
   detectionRate: 0.212

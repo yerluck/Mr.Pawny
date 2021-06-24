@@ -7,12 +7,12 @@ using System.Collections.Generic;
 public class FightSystem : MonoBehaviour, IAttacker
 {
     public EnemyWeaponSO weapon;
-    public bool isAttackComplete = true;
-    [HideInInspector]
-    public WeaponAttackAttributes currentAttackAttributes;
-    protected GameObject _attackObject;
+    [HideInInspector] public bool isAttackComplete = true;
+    [HideInInspector] public WeaponAttackAttributes currentAttackAttributes;
+    protected int _attackNumber = 0;
     protected Animator _animator;
-    protected Dictionary<AdditionalActionSO, AdditionalActionBase> _cashedAdditionalActions = new Dictionary<AdditionalActionSO, AdditionalActionBase>();
+    protected Dictionary<AdditionalActionSO, AdditionalActionBase> _cachedAdditionalActions = new Dictionary<AdditionalActionSO, AdditionalActionBase>();
+    protected Dictionary<int, GameObject> _cachedAttackObjects = new Dictionary<int, GameObject>();
 
     protected delegate void Message();
     protected Message OnFixedUpdate;
@@ -49,15 +49,29 @@ public class FightSystem : MonoBehaviour, IAttacker
         switch (weapon.type)
         {
             case WeaponType.Melee:
-                whereToPut = transform.FirstOrDefault(obj => obj.name == "MeleeAttack");
+                whereToPut = transform.FirstOrDefault(obj => obj.name.Equals("MeleeAttack"));
                 break;
             case WeaponType.Ranged:
-                whereToPut = transform.FirstOrDefault(obj => obj.name == "RangedAttack");
+                whereToPut = transform.FirstOrDefault(obj => obj.name.Equals("RangedAttack"));
                 break; 
         }
 
         var weaponObject = Instantiate(weapon.weaponPrefab, whereToPut, false);
         weaponObject.GetComponent<SpriteRenderer>().sortingOrder = weapon.orderInLayer;
+
+        var attacksCount = weapon.weaponAttackAttributesDictionary.Count;
+        if(attacksCount > 0)
+        {
+            for (int i = 0; i < attacksCount; i++)
+            {
+                if(!_cachedAttackObjects.ContainsKey(i))
+                {
+                    _cachedAttackObjects.Add(
+                        i, Instantiate(weapon.weaponAttackAttributesDictionary[i].attackPrefab, transform, false)
+                    );
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -72,21 +86,20 @@ public class FightSystem : MonoBehaviour, IAttacker
         }
         isAttackComplete = false;
 
-        int attackNumber = (int)props[0];
-        currentAttackAttributes = weapon.weaponAttackAttributesDictionary[attackNumber];
+        _attackNumber = (int)props[0];
+        currentAttackAttributes = weapon.weaponAttackAttributesDictionary[_attackNumber];
     
         var attackAnimation = currentAttackAttributes.attackAnimationOverrider;
-        _attackObject = currentAttackAttributes.attackPrefab;
         DamageAmount = currentAttackAttributes.damageAmmount;
 
         if(currentAttackAttributes.additionalActions.Length > 0)
         {
             foreach(AdditionalActionSO actionSO in currentAttackAttributes.additionalActions)
             {
-                if(!_cashedAdditionalActions.TryGetValue(actionSO, out var additionalAction))
+                if(!_cachedAdditionalActions.TryGetValue(actionSO, out var additionalAction))
                 {
                     additionalAction = actionSO.CreateAdditionalAction();
-                    _cashedAdditionalActions.Add(actionSO, additionalAction);
+                    _cachedAdditionalActions.Add(actionSO, additionalAction);
 
                     // Mb should to initialize each time?
                     additionalAction.Initialize(transform);
@@ -111,13 +124,32 @@ public class FightSystem : MonoBehaviour, IAttacker
         _animator.runtimeAnimatorController = attackAnimation;
     }
 
+    // Called by attack animation (locates in weaponSO)
     public virtual void PerformAttack()
     {
+        if(_cachedAttackObjects[_attackNumber] == null)
+        {
+            return;
+        }
+        _cachedAttackObjects[_attackNumber].transform.localPosition = currentAttackAttributes.attackPosition;
+        var comp = _cachedAttackObjects[_attackNumber].GetComponent<DetectHitCollisionBase>();
+        if(comp != null)
+        {
+            comp.Damage = currentAttackAttributes.damageAmmount;
+        }
+
+        _cachedAttackObjects[_attackNumber].SetActive(true);
     }
 
+    // Called by attack animation (locates in weaponSO)
     public virtual void CompleteAttack()
     {
         OnDisableMoment = OnFixedUpdate = null;
         isAttackComplete = true;
+        if(_cachedAttackObjects[_attackNumber] == null)
+        {
+            return;
+        }
+        _cachedAttackObjects[_attackNumber].SetActive(false);
     }
 }

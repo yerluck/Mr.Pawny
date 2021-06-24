@@ -20,7 +20,7 @@ public class IsTargetBehindCondition : Condition
 
     private bool IsTargetBehind()
     {
-        bool isTargetOnTheRight = (_stateMachine.targetLastPosition - _stateMachine.transform.position).x > 0;
+        bool isTargetOnTheRight = (_stateMachine.target.position - _stateMachine.transform.position).x > 0;
         bool isFacingRight = _controller.IsFacingRight;
 
         return (isTargetOnTheRight && !isFacingRight) || (!isTargetOnTheRight && isFacingRight);

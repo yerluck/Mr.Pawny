@@ -10,7 +10,7 @@ Material:
   m_Name: HitGlow
   m_Shader: {fileID: -6465566751694194690, guid: 4d4531d73d9d81076a1e073dc05ec849,
     type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0

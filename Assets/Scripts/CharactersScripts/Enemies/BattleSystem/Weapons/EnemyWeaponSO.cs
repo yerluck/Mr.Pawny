@@ -29,10 +29,14 @@ public class WeaponAttackAttributes
     /// <summary>
     /// Object to instantiate that represents attack effect (collider, etc)
     /// </summary>
-    
     public GameObject attackPrefab;
 
     public float damageAmmount;
+
+    /// <summary>
+    /// Where to instantitate attackPrefab
+    /// </summary>
+    public Vector3 attackPosition;
 
     public AdditionalActionSO[] additionalActions;
 }

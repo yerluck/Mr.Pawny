@@ -45,6 +45,11 @@ public class SightSenseCondition : Condition
 
     protected override bool Statement() => DetectAspect();
 
+    public override void OnStateEnter()
+    {
+        _elapsedTime = detectionRate;
+    }
+
     private bool DetectAspect()
     {
         _elapsedTime += Time.deltaTime;
@@ -55,7 +60,8 @@ public class SightSenseCondition : Condition
         if (_elapsedTime < detectionRate)
         {
             return false;
-        } else 
+        }
+        else 
         {
             _elapsedTime = 0;
 
@@ -73,6 +79,7 @@ public class SightSenseCondition : Condition
                         if(aspect != null && aspect.aspectType != stateMachine.aspectName)
                         {
                             stateMachine.targetLastPosition = hit.collider.transform.position;
+                            stateMachine.target = hit.collider.transform;
                             return true;
                         }
                     }

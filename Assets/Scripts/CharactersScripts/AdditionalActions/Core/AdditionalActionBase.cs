@@ -2,6 +2,7 @@
 
 namespace Pawny.AdditionalAction
 {
+    // What have character to perform with other action (ex. Pawn enemy jumps (addiotional action) when attacks).
     public abstract class AdditionalActionBase
     {
         /// <summary>

@@ -627,8 +627,8 @@ AnimatorStateMachine:
     m_State: {fileID: 3518918197138959823}
     m_Position: {x: 300, y: 390, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -8769970764787778742}
-    m_Position: {x: 618.9084, y: 453.69385, z: 0}
+    m_State: {fileID: 7309713894030200502}
+    m_Position: {x: 785.1092, y: 501.53955, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -7661005777789214819}
@@ -842,6 +842,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 62255ba7fd6f17f529339fc3f8347023, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &7309713894030200502
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Attack_Sword_High
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 0b861efbb0c75d0c482b9509fd27dec3, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

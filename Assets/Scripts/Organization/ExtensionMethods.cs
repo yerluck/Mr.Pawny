@@ -7,10 +7,19 @@ public static class Vector2Extension
     {
         return (Vector2)(Quaternion.Euler(0, 0, angles) * (point - pivot) + (Vector3)pivot);
     }
+
 }
 
 public static class TransformExtension
 {
+    public static bool IsTargetBehind(this Transform self, Transform target)
+    {
+        Vector3 forward = new Vector3(self.localScale.x, 0, 0);
+        Vector3 toTarget = (target.position - self.position);
+
+        return Vector3.Dot(forward, toTarget) < 0;
+    }
+
     /// <summary>
     /// Finds first child with given function.
     /// </summary>

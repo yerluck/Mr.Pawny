@@ -17,14 +17,10 @@ public class RageRunAction : StateAction
         _stateMachine = stateMachine;
     }
 
-    public override void OnStateEnter()
-    {
-        _controller.FaceTargetPoint(_stateMachine.targetLastPosition);
-        _moveDirection = _stateMachine.transform.localScale.normalized;
-    } 
-
     public override void OnUpdate()
     {
+        _controller.FaceTargetPoint(_stateMachine.target.position);
+        _moveDirection = _stateMachine.transform.localScale.normalized;
         _controller.Move(_moveDirection, false);
     }
 
