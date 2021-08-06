@@ -46,9 +46,9 @@ internal class Protagonist : CharacterController<PlayerInput>
 
 
 
-	protected override void Awake()
+	protected override void Start()
 	{
-		base.Awake();
+		base.Start();
 
 		landingCheckDistance	= playerStats.LandingCheckDistance;
 		koyoteJumpTime 			= playerStats.KoyoteJumpTime;

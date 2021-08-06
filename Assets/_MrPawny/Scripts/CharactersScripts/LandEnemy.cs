@@ -20,9 +20,9 @@ public abstract class LandEnemy<T>: CharacterController<T> // T is input system 
     protected abstract Collider2D PhysicsCollider { get; }
     #endregion
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
 
         isFacingRight = transform.localScale.x >= 0;
     }

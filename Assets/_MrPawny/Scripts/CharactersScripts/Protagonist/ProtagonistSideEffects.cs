@@ -17,8 +17,8 @@ internal class ProtagonistSideEffects : Protagonist, IDamageable
     public Transform Attacker { get => _attackerTransform; set => _attackerTransform = value; }
     
 
-    protected override void Awake() {
-        base.Awake();
+    protected override void Start() {
+        base.Start();
         _hitPoints = PlayerManager.Instance.hitPoints;
 		_animator = GetComponent<Animator>();
         _isLanded = !isGrounded;

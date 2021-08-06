@@ -1,7 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerInput : MonoBehaviour
 {
+#if UNITY_EDITOR
+    [SerializeField] private KeyCode _restartKey = KeyCode.R;
+#endif
+    
     [SerializeField] private Protagonist movementController;
     private float jumpBufferTime;
     [HideInInspector] public float jumpBufferCounter;
@@ -41,6 +46,12 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(_restartKey))
+        {
+            RestartCurrentScene();
+        }
+#endif
         // if (PlayerManager.Instance.paralized == true)
         // {
         //     horizontalMove = 0f;
@@ -125,4 +136,6 @@ public class PlayerInput : MonoBehaviour
 
         GameEvents.Instance.PlayerFlip();
 	}
+
+    private void RestartCurrentScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 }

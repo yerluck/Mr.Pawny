@@ -16,7 +16,7 @@ public abstract class CharacterController<T> : MonoBehaviour
 	// protected float k_CeilingRadius; 						// Radius of the overlap circle to determine if the player can stand up
 	
 
-    protected virtual void Awake()
+    protected virtual void Start()
 	{
 		rigidBody2D = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();

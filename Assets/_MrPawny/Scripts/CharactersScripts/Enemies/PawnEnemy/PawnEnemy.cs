@@ -41,9 +41,9 @@ public class PawnEnemy: LandEnemy<StateMachine>
     protected   override LayerMask  WhatIsGround { get => whatIsGround; } 
 #endregion
 
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
 
         #region Initialization from manager
         jumpGravityScale        = statsSO.JumpGravityScale;

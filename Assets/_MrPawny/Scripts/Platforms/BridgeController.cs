@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class BridgeController : MonoBehaviour
@@ -16,7 +17,7 @@ public class BridgeController : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if(RoughlyEqual(joint.jointAngle, targetAngle))
+       if(RoughlyEqual(joint.jointAngle, targetAngle))
         {
             // targetAngle = targetAngle == joint.limits.min ? joint.limits.max : joint.limits.min; // uncomment if need multiple controls <- need additions
             joint.connectedBody.bodyType = RigidbodyType2D.Static; // uncomment to make bridge unmovable
@@ -50,7 +51,4 @@ public class BridgeController : MonoBehaviour
         joint.motor= m;
         GameEvents.Instance.onBridgeTriggerEnter -= OnBridgeOpen;               // Unsubscribe from event
     }
-
-    // private void OnDestroy() {
-    // }
 }
